@@ -1,0 +1,15 @@
+{
+    "@@locale": "en",
+    "appTitle": "Overscript",
+    "@appTitle": {
+        "description": "Name of the app"
+    },
+    "deleteBranchTooltip":"Delete Branch",
+    "deleteBranchConfirmTitle":"Delete Branch?",
+    "deleteBranchesConfirmTitle":"Delete Branches?",
+    "branchScreenTitle":"Branches",
+    "addBranchTooltip":"Add Branch",
+    "genericSelect":"Select",
+    "gitDirectoryError":"You must select a directory that has a git repository."
+    
+}
