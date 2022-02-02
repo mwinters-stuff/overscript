@@ -8,10 +8,13 @@ class ThemeCubit extends HydratedCubit<ThemeState> {
   ThemeCubit() : super(const ThemeState());
 
   @override
-  ThemeState? fromJson(Map<String, dynamic> json) => ThemeState(status: (json['isDark'] as bool) ? ThemeStatus.dark : ThemeStatus.light);
+  ThemeState? fromJson(Map<String, dynamic> json) => ThemeState(
+        status: (json['isDark'] as bool) ? ThemeStatus.dark : ThemeStatus.light,
+      );
 
   @override
-  Map<String, dynamic>? toJson(ThemeState state) => {'isDark': state.status.isDark};
+  Map<String, dynamic>? toJson(ThemeState state) =>
+      {'isDark': state.status.isDark};
 
   void setDark() {
     emit(state.setDark());

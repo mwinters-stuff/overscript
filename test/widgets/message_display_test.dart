@@ -115,19 +115,35 @@ class ShowMessageWidget extends StatelessWidget {
   Widget build(BuildContext context) => Column(
         children: [
           MaterialButton(
-            onPressed: () => showErrorMessage(context: context, title: 'Error Title', message: 'Error Message'),
+            onPressed: () => showErrorMessage(
+              context: context,
+              title: 'Error Title',
+              message: 'Error Message',
+            ),
             child: const Text('ShowErrorMessage'),
           ),
           MaterialButton(
-            onPressed: () => showWarningMessage(context: context, title: 'Warning Title', message: 'Warning Message'),
+            onPressed: () => showWarningMessage(
+              context: context,
+              title: 'Warning Title',
+              message: 'Warning Message',
+            ),
             child: const Text('ShowWarningMessage'),
           ),
           MaterialButton(
-            onPressed: () => showInfoMessage(context: context, title: 'Info Title', message: 'Info Message'),
+            onPressed: () => showInfoMessage(
+              context: context,
+              title: 'Info Title',
+              message: 'Info Message',
+            ),
             child: const Text('ShowInfoMessage'),
           ),
           MaterialButton(
-            onPressed: () => showSuccessMessage(context: context, title: 'Success Title', message: 'Success Message'),
+            onPressed: () => showSuccessMessage(
+              context: context,
+              title: 'Success Title',
+              message: 'Success Message',
+            ),
             child: const Text('ShowSuccessMessage'),
           ),
           MaterialButton(
@@ -135,8 +151,16 @@ class ShowMessageWidget extends StatelessWidget {
               context: context,
               title: 'Confirm Title',
               message: 'Confirm Message',
-              onCancelButton: () => showErrorMessage(context: context, title: 'Confirm Result', message: 'Cancel Pressed'),
-              onConfirmButton: () => showErrorMessage(context: context, title: 'Confirm Result', message: 'Ok Pressed'),
+              onCancelButton: () => showErrorMessage(
+                context: context,
+                title: 'Confirm Result',
+                message: 'Cancel Pressed',
+              ),
+              onConfirmButton: () => showErrorMessage(
+                context: context,
+                title: 'Confirm Result',
+                message: 'Ok Pressed',
+              ),
             ),
             child: const Text('ShowConfirmMessage'),
           ),

@@ -3,7 +3,11 @@ import 'package:fialogs/fialogs.dart';
 import 'package:flutter/material.dart';
 
 // class MessageDisplay {
-void showErrorMessage({required BuildContext context, required String title, required String message}) {
+void showErrorMessage({
+  required BuildContext context,
+  required String title,
+  required String message,
+}) {
   errorDialog(
     context,
     title,
@@ -12,7 +16,11 @@ void showErrorMessage({required BuildContext context, required String title, req
   );
 }
 
-void showWarningMessage({required BuildContext context, required String title, required String message}) {
+void showWarningMessage({
+  required BuildContext context,
+  required String title,
+  required String message,
+}) {
   warningDialog(
     context,
     title,
@@ -21,7 +29,11 @@ void showWarningMessage({required BuildContext context, required String title, r
   );
 }
 
-void showInfoMessage({required BuildContext context, required String title, required String message}) {
+void showInfoMessage({
+  required BuildContext context,
+  required String title,
+  required String message,
+}) {
   infoDialog(
     context,
     title,
@@ -30,7 +42,11 @@ void showInfoMessage({required BuildContext context, required String title, requ
   );
 }
 
-void showSuccessMessage({required BuildContext context, required String title, required String message}) {
+void showSuccessMessage({
+  required BuildContext context,
+  required String title,
+  required String message,
+}) {
   successDialog(
     context,
     title,
@@ -39,7 +55,12 @@ void showSuccessMessage({required BuildContext context, required String title, r
   );
 }
 
-void showConfirmMessage({required BuildContext context, required String title, required String message, VoidCallback? onConfirmButton, VoidCallback? onCancelButton}) {
+void showConfirmMessage(
+    {required BuildContext context,
+    required String title,
+    required String message,
+    VoidCallback? onConfirmButton,
+    VoidCallback? onCancelButton}) {
   confirmationDialog(
     context,
     title,

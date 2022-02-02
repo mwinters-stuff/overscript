@@ -45,12 +45,16 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
         () async => runApp(
           MultiRepositoryProvider(
             providers: [
-              RepositoryProvider<DataStoreRepository>(create: (context) => DataStoreRepository()),
+              RepositoryProvider<DataStoreRepository>(
+                create: (context) => DataStoreRepository(),
+              ),
               RepositoryProvider<GitCalls>(create: (context) => GitCalls()),
             ],
             child: MultiBlocProvider(
               providers: [
-                BlocProvider<GitBranchesCubit>(create: (context) => GitBranchesCubit()),
+                BlocProvider<GitBranchesCubit>(
+                  create: (context) => GitBranchesCubit(),
+                ),
                 BlocProvider<ThemeCubit>(create: (context) => ThemeCubit()),
               ],
               child: await builder(),

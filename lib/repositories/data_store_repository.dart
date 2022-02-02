@@ -51,7 +51,9 @@ class DataStoreRepository {
     final file = File(filename);
     if (file.existsSync()) {
       final content = file.readAsStringSync();
-      final jsonStorage = JsonStorage.fromJson(const JsonDecoder().convert(content) as Map<String, dynamic>);
+      final jsonStorage = JsonStorage.fromJson(
+        const JsonDecoder().convert(content) as Map<String, dynamic>,
+      );
       scripts = List.from(jsonStorage.scripts, growable: true);
       variables = List.from(jsonStorage.variables, growable: true);
       branches = List.from(jsonStorage.branches, growable: true);
@@ -176,7 +178,8 @@ class DataStoreRepository {
   // }
 
   void save(String filename) {
-    final jsonStorage = JsonStorage(scripts: scripts, variables: variables, branches: branches);
+    final jsonStorage =
+        JsonStorage(scripts: scripts, variables: variables, branches: branches);
     final output = const JsonEncoder.withIndent('  ').convert(jsonStorage);
     File(filename).writeAsStringSync(output);
   }

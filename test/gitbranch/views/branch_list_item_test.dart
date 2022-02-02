@@ -8,7 +8,8 @@ import 'package:overscript/gitbranch/views/branch_list_item.dart';
 
 import '../../helpers/helpers.dart';
 
-class MockGitBranchesCubit extends MockCubit<GitBranchesState> implements GitBranchesCubit {}
+class MockGitBranchesCubit extends MockCubit<GitBranchesState>
+    implements GitBranchesCubit {}
 
 class MockGitBranch extends Mock implements GitBranch {}
 
@@ -37,10 +38,12 @@ void main() {
     testWidgets('tap changes checked', (tester) async {
       var itemSelected = false;
 
-      await tester.pumpApp(BranchListItem(
-        gitBranch: mockGitBranch,
-        selectedCallback: (script, selected) => itemSelected = selected,
-      ));
+      await tester.pumpApp(
+        BranchListItem(
+          gitBranch: mockGitBranch,
+          selectedCallback: (script, selected) => itemSelected = selected,
+        ),
+      );
 
       expect(find.byType(BranchListItem), findsOneWidget);
 

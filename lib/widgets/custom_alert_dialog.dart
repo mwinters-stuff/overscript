@@ -2,7 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-const EdgeInsets _defaultInsetPadding = EdgeInsets.symmetric(horizontal: 40.0, vertical: 24.0);
+const EdgeInsets _defaultInsetPadding =
+    EdgeInsets.symmetric(horizontal: 40, vertical: 24);
 
 class CustomAlertDialog extends StatelessWidget {
   /// Creates an alert dialog.
@@ -18,7 +19,7 @@ class CustomAlertDialog extends StatelessWidget {
     this.titlePadding,
     this.titleTextStyle,
     this.content,
-    this.contentPadding = const EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 24.0),
+    this.contentPadding = const EdgeInsets.fromLTRB(24, 20, 24, 24),
     this.contentTextStyle,
     this.actions,
     this.actionsPadding = EdgeInsets.zero,
@@ -127,7 +128,7 @@ class CustomAlertDialog extends StatelessWidget {
   final EdgeInsetsGeometry actionsPadding;
 
   /// Defines the horizontal layout of the [actions] according to the same
-  /// rules as for [Row.mainAxisAlignment].
+  /// rules as for Row.mainAxisAlignment.
   ///
   /// This parameter is passed along to the dialog's [OverflowBar].
   ///
@@ -195,7 +196,7 @@ class CustomAlertDialog extends StatelessWidget {
   ///
   /// See also:
   ///
-  ///  * [SemanticsConfiguration.namesRoute], for a description of how this
+  ///  * SemanticsConfiguration.namesRoute, for a description of how this
   ///    value is used.
   final String? semanticLabel;
 
@@ -222,11 +223,10 @@ class CustomAlertDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    assert(debugCheckHasMaterialLocalizations(context));
-    final ThemeData theme = Theme.of(context);
-    final DialogTheme dialogTheme = DialogTheme.of(context);
+    final theme = Theme.of(context);
+    final dialogTheme = DialogTheme.of(context);
 
-    String? label = semanticLabel;
+    var label = semanticLabel;
     switch (theme.platform) {
       case TargetPlatform.iOS:
       case TargetPlatform.macOS:
@@ -240,15 +240,18 @@ class CustomAlertDialog extends StatelessWidget {
 
     // The paddingScaleFactor is used to adjust the padding of Dialog's
     // children.
-    final double paddingScaleFactor = _paddingScaleFactor(MediaQuery.of(context).textScaleFactor);
-    final TextDirection? textDirection = Directionality.maybeOf(context);
+    final paddingScaleFactor =
+        _paddingScaleFactor(MediaQuery.of(context).textScaleFactor);
+    final textDirection = Directionality.maybeOf(context);
 
     Widget? titleWidget;
     Widget? contentWidget;
     Widget? actionsWidget;
     if (title != null) {
-      final EdgeInsets defaultTitlePadding = EdgeInsets.fromLTRB(24.0, 24.0, 24.0, content == null ? 20.0 : 0.0);
-      final EdgeInsets effectiveTitlePadding = titlePadding?.resolve(textDirection) ?? defaultTitlePadding;
+      final defaultTitlePadding =
+          EdgeInsets.fromLTRB(24, 24, 24, content == null ? 20.0 : 0.0);
+      final effectiveTitlePadding =
+          titlePadding?.resolve(textDirection) ?? defaultTitlePadding;
       titleWidget = Padding(
         padding: EdgeInsets.only(
           left: effectiveTitlePadding.left * paddingScaleFactor,
@@ -257,7 +260,9 @@ class CustomAlertDialog extends StatelessWidget {
           bottom: effectiveTitlePadding.bottom,
         ),
         child: DefaultTextStyle(
-          style: titleTextStyle ?? dialogTheme.titleTextStyle ?? theme.textTheme.headline6!,
+          style: titleTextStyle ??
+              dialogTheme.titleTextStyle ??
+              theme.textTheme.headline6!,
           child: Semantics(
             // For iOS platform, the focus always lands on the title.
             // Set nameRoute to false to avoid title being announce twice.
@@ -270,16 +275,20 @@ class CustomAlertDialog extends StatelessWidget {
     }
 
     if (content != null) {
-      final EdgeInsets effectiveContentPadding = contentPadding.resolve(textDirection);
+      final effectiveContentPadding = contentPadding.resolve(textDirection);
       contentWidget = Padding(
         padding: EdgeInsets.only(
           left: effectiveContentPadding.left * paddingScaleFactor,
           right: effectiveContentPadding.right * paddingScaleFactor,
-          top: title == null ? effectiveContentPadding.top * paddingScaleFactor : effectiveContentPadding.top,
+          top: title == null
+              ? effectiveContentPadding.top * paddingScaleFactor
+              : effectiveContentPadding.top,
           bottom: effectiveContentPadding.bottom,
         ),
         child: DefaultTextStyle(
-          style: contentTextStyle ?? dialogTheme.contentTextStyle ?? theme.textTheme.subtitle1!,
+          style: contentTextStyle ??
+              dialogTheme.contentTextStyle ??
+              theme.textTheme.subtitle1!,
           child: Semantics(
             container: true,
             child: content,
@@ -289,23 +298,24 @@ class CustomAlertDialog extends StatelessWidget {
     }
 
     if (actions != null) {
-      final double spacing = (buttonPadding?.horizontal ?? 16) / 2;
+      final spacing = (buttonPadding?.horizontal ?? 16) / 2;
       actionsWidget = Padding(
-          padding: actionsPadding.add(EdgeInsets.all(spacing)),
-          child: Row(
-            children: actions!,
-            mainAxisAlignment: MainAxisAlignment.end,
-          )
+        padding: actionsPadding.add(EdgeInsets.all(spacing)),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: actions!,
+        )
 
-          // child: OverflowBar(
-          //   alignment: actionsAlignment ?? MainAxisAlignment.end,
-          //   spacing: spacing,
-          //   overflowAlignment: OverflowBarAlignment.end,
-          //   overflowDirection: actionsOverflowDirection ?? VerticalDirection.down,
-          //   overflowSpacing: actionsOverflowButtonSpacing ?? 0,
-          //   children: actions!,
-          // ),
-          );
+        // child: OverflowBar(
+        //   alignment: actionsAlignment ?? MainAxisAlignment.end,
+        //   spacing: spacing,
+        //   overflowAlignment: OverflowBarAlignment.end,
+        //   overflowDirection: actionsOverflowDirection ?? VerticalDirection.down,
+        //   overflowSpacing: actionsOverflowButtonSpacing ?? 0,
+        //   children: actions!,
+        // ),
+        ,
+      );
     }
 
     List<Widget> columnChildren;
@@ -365,7 +375,7 @@ class CustomAlertDialog extends StatelessWidget {
 }
 
 double _paddingScaleFactor(double textScaleFactor) {
-  final double clampedTextScaleFactor = textScaleFactor.clamp(1.0, 2.0);
+  final clampedTextScaleFactor = textScaleFactor.clamp(1.0, 2.0);
   // The final padding scale factor is clamped between 1/3 and 1. For example,
   // a non-scaled padding of 24 will produce a padding between 24 and 8.
   return lerpDouble(1.0, 1.0 / 3.0, clampedTextScaleFactor - 1.0)!;

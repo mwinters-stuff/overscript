@@ -35,9 +35,28 @@ void main() {
     blocTest<GitBranchesCubit, GitBranchesState>(
       'add success no existing origin',
       build: () => GitBranchesCubit(),
-      act: (cubit) => cubit.add(const GitBranch(uuid: 'a-uuid', name: 'branch-one', directory: '/some/directory', origin: 'theorigin')),
+      act: (cubit) => cubit.add(
+        const GitBranch(
+          uuid: 'a-uuid',
+          name: 'branch-one',
+          directory: '/some/directory',
+          origin: 'theorigin',
+        ),
+      ),
       expect: () => [
-        equals(GitBranchesState(status: GitBranchesStatus.added, branches: const [GitBranch(uuid: 'a-uuid', name: 'branch-one', directory: '/some/directory', origin: 'theorigin')]))
+        equals(
+          GitBranchesState(
+            status: GitBranchesStatus.added,
+            branches: const [
+              GitBranch(
+                uuid: 'a-uuid',
+                name: 'branch-one',
+                directory: '/some/directory',
+                origin: 'theorigin',
+              )
+            ],
+          ),
+        )
       ],
     );
 
@@ -46,16 +65,40 @@ void main() {
       build: () => GitBranchesCubit(),
       act: (cubit) {
         cubit
-          ..add(const GitBranch(uuid: 'a-uuid', name: 'branch-one', directory: '/some/directory', origin: 'theorigin'))
-          ..add(const GitBranch(uuid: 'a-uuid-2', name: 'branch-two', directory: '/some/other/directory', origin: 'theorigin'));
+          ..add(
+            const GitBranch(
+              uuid: 'a-uuid',
+              name: 'branch-one',
+              directory: '/some/directory',
+              origin: 'theorigin',
+            ),
+          )
+          ..add(
+            const GitBranch(
+              uuid: 'a-uuid-2',
+              name: 'branch-two',
+              directory: '/some/other/directory',
+              origin: 'theorigin',
+            ),
+          );
       },
       expect: () => [
         equals(
           GitBranchesState(
             status: GitBranchesStatus.added,
             branches: const [
-              GitBranch(uuid: 'a-uuid', name: 'branch-one', directory: '/some/directory', origin: 'theorigin'),
-              GitBranch(uuid: 'a-uuid-2', name: 'branch-two', directory: '/some/other/directory', origin: 'theorigin')
+              GitBranch(
+                uuid: 'a-uuid',
+                name: 'branch-one',
+                directory: '/some/directory',
+                origin: 'theorigin',
+              ),
+              GitBranch(
+                uuid: 'a-uuid-2',
+                name: 'branch-two',
+                directory: '/some/other/directory',
+                origin: 'theorigin',
+              )
             ],
           ),
         ),
@@ -64,13 +107,35 @@ void main() {
 
     blocTest<GitBranchesCubit, GitBranchesState>(
       'add uuid already exists',
-      build: () => GitBranchesCubit()..add(const GitBranch(uuid: 'a-uuid', name: 'branch-one', directory: '/some/directory', origin: 'theorigin')),
-      act: (cubit) => cubit.add(const GitBranch(uuid: 'a-uuid', name: 'branch-two', directory: '/some/other/directory', origin: 'theorigin')),
+      build: () => GitBranchesCubit()
+        ..add(
+          const GitBranch(
+            uuid: 'a-uuid',
+            name: 'branch-one',
+            directory: '/some/directory',
+            origin: 'theorigin',
+          ),
+        ),
+      act: (cubit) => cubit.add(
+        const GitBranch(
+          uuid: 'a-uuid',
+          name: 'branch-two',
+          directory: '/some/other/directory',
+          origin: 'theorigin',
+        ),
+      ),
       expect: () => [
         equals(
           GitBranchesState(
             status: GitBranchesStatus.addFailedUUIDExists,
-            branches: const [GitBranch(uuid: 'a-uuid', name: 'branch-one', directory: '/some/directory', origin: 'theorigin')],
+            branches: const [
+              GitBranch(
+                uuid: 'a-uuid',
+                name: 'branch-one',
+                directory: '/some/directory',
+                origin: 'theorigin',
+              )
+            ],
           ),
         )
       ],
@@ -78,32 +143,106 @@ void main() {
 
     blocTest<GitBranchesCubit, GitBranchesState>(
       'add name already exists',
-      build: () => GitBranchesCubit()..add(const GitBranch(uuid: 'a-uuid', name: 'branch-one', directory: '/some/directory', origin: 'theorigin')),
-      act: (cubit) => cubit.add(const GitBranch(uuid: 'a-uuid-2', name: 'branch-one', directory: '/some/other/directory', origin: 'theorigin')),
+      build: () => GitBranchesCubit()
+        ..add(
+          const GitBranch(
+            uuid: 'a-uuid',
+            name: 'branch-one',
+            directory: '/some/directory',
+            origin: 'theorigin',
+          ),
+        ),
+      act: (cubit) => cubit.add(
+        const GitBranch(
+          uuid: 'a-uuid-2',
+          name: 'branch-one',
+          directory: '/some/other/directory',
+          origin: 'theorigin',
+        ),
+      ),
       expect: () => [
-        equals(GitBranchesState(status: GitBranchesStatus.addFailedNameExists, branches: const [GitBranch(uuid: 'a-uuid', name: 'branch-one', directory: '/some/directory', origin: 'theorigin')]))
+        equals(
+          GitBranchesState(
+            status: GitBranchesStatus.addFailedNameExists,
+            branches: const [
+              GitBranch(
+                uuid: 'a-uuid',
+                name: 'branch-one',
+                directory: '/some/directory',
+                origin: 'theorigin',
+              )
+            ],
+          ),
+        )
       ],
     );
 
     blocTest<GitBranchesCubit, GitBranchesState>(
       'add directory already exists',
-      build: () => GitBranchesCubit()..add(const GitBranch(uuid: 'a-uuid', name: 'branch-one', directory: '/some/directory', origin: 'theorigin')),
-      act: (cubit) => cubit.add(const GitBranch(uuid: 'a-uuid-2', name: 'branch-two', directory: '/some/directory', origin: 'theorigin')),
+      build: () => GitBranchesCubit()
+        ..add(
+          const GitBranch(
+            uuid: 'a-uuid',
+            name: 'branch-one',
+            directory: '/some/directory',
+            origin: 'theorigin',
+          ),
+        ),
+      act: (cubit) => cubit.add(
+        const GitBranch(
+          uuid: 'a-uuid-2',
+          name: 'branch-two',
+          directory: '/some/directory',
+          origin: 'theorigin',
+        ),
+      ),
       expect: () => [
-        equals(GitBranchesState(status: GitBranchesStatus.addFailedDirectoryExists, branches: const [GitBranch(uuid: 'a-uuid', name: 'branch-one', directory: '/some/directory', origin: 'theorigin')]))
+        equals(
+          GitBranchesState(
+            status: GitBranchesStatus.addFailedDirectoryExists,
+            branches: const [
+              GitBranch(
+                uuid: 'a-uuid',
+                name: 'branch-one',
+                directory: '/some/directory',
+                origin: 'theorigin',
+              )
+            ],
+          ),
+        )
       ],
     );
 
     blocTest<GitBranchesCubit, GitBranchesState>(
       'add origin mismatch',
-      build: () => GitBranchesCubit()..add(const GitBranch(uuid: 'a-uuid', name: 'branch-one', directory: '/some/directory', origin: 'theorigin')),
-      act: (cubit) => cubit.add(const GitBranch(uuid: 'a-uuid-2', name: 'branch-two', directory: '/some/other/directory', origin: 'thewrongorigin')),
+      build: () => GitBranchesCubit()
+        ..add(
+          const GitBranch(
+            uuid: 'a-uuid',
+            name: 'branch-one',
+            directory: '/some/directory',
+            origin: 'theorigin',
+          ),
+        ),
+      act: (cubit) => cubit.add(
+        const GitBranch(
+          uuid: 'a-uuid-2',
+          name: 'branch-two',
+          directory: '/some/other/directory',
+          origin: 'thewrongorigin',
+        ),
+      ),
       expect: () => [
         equals(
           GitBranchesState(
             status: GitBranchesStatus.addFailedOriginMismatch,
             branches: const [
-              GitBranch(uuid: 'a-uuid', name: 'branch-one', directory: '/some/directory', origin: 'theorigin'),
+              GitBranch(
+                uuid: 'a-uuid',
+                name: 'branch-one',
+                directory: '/some/directory',
+                origin: 'theorigin',
+              ),
             ],
           ),
         ),
@@ -112,21 +251,63 @@ void main() {
 
     blocTest<GitBranchesCubit, GitBranchesState>(
       'delete success',
-      build: () => GitBranchesCubit()..add(const GitBranch(uuid: 'a-uuid', name: 'branch-one', directory: '/some/directory', origin: 'theorigin')),
-      act: (cubit) => cubit.delete(const GitBranch(uuid: 'a-uuid', name: 'branch-one', directory: '/some/directory', origin: 'theorigin')),
-      expect: () => [equals(GitBranchesState(status: GitBranchesStatus.deleted, branches: const []))],
+      build: () => GitBranchesCubit()
+        ..add(
+          const GitBranch(
+            uuid: 'a-uuid',
+            name: 'branch-one',
+            directory: '/some/directory',
+            origin: 'theorigin',
+          ),
+        ),
+      act: (cubit) => cubit.delete(
+        const GitBranch(
+          uuid: 'a-uuid',
+          name: 'branch-one',
+          directory: '/some/directory',
+          origin: 'theorigin',
+        ),
+      ),
+      expect: () => [
+        equals(
+          GitBranchesState(
+            status: GitBranchesStatus.deleted,
+            branches: const [],
+          ),
+        )
+      ],
     );
 
     blocTest<GitBranchesCubit, GitBranchesState>(
       'delete failed not found',
-      build: () => GitBranchesCubit()..add(const GitBranch(uuid: 'a-uuid', name: 'branch-one', directory: '/some/directory', origin: 'theorigin')),
-      act: (cubit) => cubit.delete(const GitBranch(uuid: 'a-uuid-2', name: 'branch-one', directory: '/some/directory', origin: 'theorigin')),
+      build: () => GitBranchesCubit()
+        ..add(
+          const GitBranch(
+            uuid: 'a-uuid',
+            name: 'branch-one',
+            directory: '/some/directory',
+            origin: 'theorigin',
+          ),
+        ),
+      act: (cubit) => cubit.delete(
+        const GitBranch(
+          uuid: 'a-uuid-2',
+          name: 'branch-one',
+          directory: '/some/directory',
+          origin: 'theorigin',
+        ),
+      ),
       expect: () => [
         equals(
           GitBranchesState(
             status: GitBranchesStatus.deleteFailedNotFound,
             branches: const [
-              GitBranch(uuid: 'a-uuid', name: 'branch-one', directory: '/some/directory', origin: 'theorigin'),
+              GitBranch(
+                uuid: 'a-uuid',
+                name: 'branch-one',
+                directory: '/some/directory',
+                origin: 'theorigin',
+              ),
             ],
           ),
         )
@@ -137,8 +318,18 @@ void main() {
       'load from datastore',
       setUp: () {
         when(() => dataStoreRepository.branches).thenReturn(const [
-          GitBranch(uuid: 'a-uuid', name: 'branch-one', directory: '/some/directory', origin: 'theorigin'),
-          GitBranch(uuid: 'a-uuid-2', name: 'branch-two', directory: '/some/other/directory', origin: 'theorigin'),
+          GitBranch(
+            uuid: 'a-uuid',
+            name: 'branch-one',
+            directory: '/some/directory',
+            origin: 'theorigin',
+          ),
+          GitBranch(
+            uuid: 'a-uuid-2',
+            name: 'branch-two',
+            directory: '/some/other/directory',
+            origin: 'theorigin',
+          ),
         ]);
       },
       build: () => GitBranchesCubit(),
@@ -148,8 +339,18 @@ void main() {
           GitBranchesState(
             status: GitBranchesStatus.loaded,
             branches: const [
-              GitBranch(uuid: 'a-uuid', name: 'branch-one', directory: '/some/directory', origin: 'theorigin'),
-              GitBranch(uuid: 'a-uuid-2', name: 'branch-two', directory: '/some/other/directory', origin: 'theorigin'),
+              GitBranch(
+                uuid: 'a-uuid',
+                name: 'branch-one',
+                directory: '/some/directory',
+                origin: 'theorigin',
+              ),
+              GitBranch(
+                uuid: 'a-uuid-2',
+                name: 'branch-two',
+                directory: '/some/other/directory',
+                origin: 'theorigin',
+              ),
             ],
           ),
         ),
@@ -160,16 +361,40 @@ void main() {
       'save to datastore',
       setUp: () {},
       build: () => GitBranchesCubit()
-        ..add(const GitBranch(uuid: 'a-uuid', name: 'branch-one', directory: '/some/directory', origin: 'theorigin'))
-        ..add(const GitBranch(uuid: 'a-uuid-2', name: 'branch-two', directory: '/some/other/directory', origin: 'theorigin')),
+        ..add(
+          const GitBranch(
+            uuid: 'a-uuid',
+            name: 'branch-one',
+            directory: '/some/directory',
+            origin: 'theorigin',
+          ),
+        )
+        ..add(
+          const GitBranch(
+            uuid: 'a-uuid-2',
+            name: 'branch-two',
+            directory: '/some/other/directory',
+            origin: 'theorigin',
+          ),
+        ),
       act: (cubit) => cubit.save(dataStoreRepository),
       expect: () => [
         equals(
           GitBranchesState(
             status: GitBranchesStatus.saved,
             branches: const [
-              GitBranch(uuid: 'a-uuid', name: 'branch-one', directory: '/some/directory', origin: 'theorigin'),
-              GitBranch(uuid: 'a-uuid-2', name: 'branch-two', directory: '/some/other/directory', origin: 'theorigin'),
+              GitBranch(
+                uuid: 'a-uuid',
+                name: 'branch-one',
+                directory: '/some/directory',
+                origin: 'theorigin',
+              ),
+              GitBranch(
+                uuid: 'a-uuid-2',
+                name: 'branch-two',
+                directory: '/some/other/directory',
+                origin: 'theorigin',
+              ),
             ],
           ),
         ),
@@ -178,12 +403,46 @@ void main() {
 
     test('test get branch', () {
       final cubit = GitBranchesCubit()
-        ..add(const GitBranch(uuid: 'a-uuid', name: 'branch-one', directory: '/some/directory', origin: 'theorigin'))
-        ..add(const GitBranch(uuid: 'a-uuid-2', name: 'branch-two', directory: '/some/other/directory', origin: 'theorigin'));
+        ..add(
+          const GitBranch(
+            uuid: 'a-uuid',
+            name: 'branch-one',
+            directory: '/some/directory',
+            origin: 'theorigin',
+          ),
+        )
+        ..add(
+          const GitBranch(
+            uuid: 'a-uuid-2',
+            name: 'branch-two',
+            directory: '/some/other/directory',
+            origin: 'theorigin',
+          ),
+        );
 
       expect(cubit.getBranch('unknown'), isNull);
-      expect(cubit.getBranch('a-uuid-2'), equals(const GitBranch(uuid: 'a-uuid-2', name: 'branch-two', directory: '/some/other/directory', origin: 'theorigin')));
-      expect(cubit.getBranch('a-uuid'), equals(const GitBranch(uuid: 'a-uuid', name: 'branch-one', directory: '/some/directory', origin: 'theorigin')));
+      expect(
+        cubit.getBranch('a-uuid-2'),
+        equals(
+          const GitBranch(
+            uuid: 'a-uuid-2',
+            name: 'branch-two',
+            directory: '/some/other/directory',
+            origin: 'theorigin',
+          ),
+        ),
+      );
+      expect(
+        cubit.getBranch('a-uuid'),
+        equals(
+          const GitBranch(
+            uuid: 'a-uuid',
+            name: 'branch-one',
+            directory: '/some/directory',
+            origin: 'theorigin',
+          ),
+        ),
+      );
     });
 
     test('x test', () {

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:overscript/gitbranch/gitbranch.dart';
 import 'package:overscript/theme/cubit/theme_cubit.dart';
 import 'package:overscript/widgets/widgets.dart';
-import 'package:provider/src/provider.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key, required this.title}) : super(key: key);
@@ -47,40 +47,49 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
             },
           ),
           IconButton(
-              tooltip: 'Reload Scripts',
-              onPressed: () => {
-                    showErrorMessage(context: context, title: 'Error test', message: 'Error')
-                    //  BlocProvider.of<OldScriptsBloc>(context).add(OldScriptsReloadedEvent(context: context))
-                  },
-              icon: const Icon(Icons.refresh)),
+            tooltip: 'Reload Scripts',
+            onPressed: () => {
+              showErrorMessage(
+                  context: context, title: 'Error test', message: 'Error')
+              //  BlocProvider.of<OldScriptsBloc>(context).add(OldScriptsReloadedEvent(context: context))
+            },
+            icon: const Icon(Icons.refresh),
+          ),
           IconButton(
-              tooltip: 'Edit Scripts',
-              onPressed: () => {
-                    // Process.runSync(configurationRepository.editorExecutable.getValue(), [p.join(configurationRepository.scriptPath.getValue(), 'scripts.yaml')])
-                  },
-              icon: const Icon(Icons.edit)),
+            tooltip: 'Edit Scripts',
+            onPressed: () => {
+              // Process.runSync(configurationRepository.editorExecutable.getValue(), [p.join(configurationRepository.scriptPath.getValue(), 'scripts.yaml')])
+            },
+            icon: const Icon(Icons.edit),
+          ),
           IconButton(
             tooltip: 'Scripts',
-            onPressed: () => {}, //Navigator.of(context).pushNamed('ScriptsScreen.routeName'),
+            onPressed: () =>
+                {}, //Navigator.of(context).pushNamed('ScriptsScreen.routeName'),
             icon: const Icon(Icons.subscript_sharp),
           ),
           IconButton(
             tooltip: 'Branches',
-            onPressed: () => Navigator.of(context).pushNamed(BranchesScreen.routeName),
+            onPressed: () =>
+                Navigator.of(context).pushNamed(BranchesScreen.routeName),
             icon: const Icon(Icons.texture_rounded),
           ),
           IconButton(
             tooltip: 'Variables',
-            onPressed: () => {}, //Navigator.of(context).pushNamed('VariablesScreen.routeName'),
+            onPressed: () =>
+                {}, //Navigator.of(context).pushNamed('VariablesScreen.routeName'),
             icon: const Icon(Icons.vertical_distribute),
           ),
           IconButton(
-            icon: Icon(context.read<ThemeCubit>().state.status.isLight ? Icons.dark_mode : Icons.light_mode),
+            icon: Icon(context.read<ThemeCubit>().state.status.isLight
+                ? Icons.dark_mode
+                : Icons.light_mode),
             onPressed: () => context.read<ThemeCubit>().toggle(),
           ),
           IconButton(
             tooltip: 'Settings',
-            onPressed: () => {}, //Navigator.of(context).pushNamed('SettingsScreen.routeName'),
+            onPressed: () =>
+                {}, //Navigator.of(context).pushNamed('SettingsScreen.routeName'),
             icon: const Icon(Icons.settings),
           )
         ],
@@ -127,10 +136,11 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
             ),
           ),
           Expanded(
-              child: TabBarView(
-            controller: _tabController,
-            children: [], //state.getTabViews(),
-          ))
+            child: TabBarView(
+              controller: _tabController,
+              children: const [], //state.getTabViews(),
+            ),
+          )
         ],
       ),
     );

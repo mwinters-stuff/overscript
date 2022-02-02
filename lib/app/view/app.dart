@@ -19,18 +19,19 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ThemeCubit, ThemeState>(
-        builder: (context, state) => MaterialApp(
-              theme: context.read<ThemeCubit>().getTheme(),
-              localizationsDelegates: AppLocalizations.localizationsDelegates,
-              onGenerateRoute: (settings) {
-                switch (settings.name) {
-                  case BranchesScreen.routeName:
-                    return BranchesScreen.pageRoute(context);
-                }
-              },
-              supportedLocales: AppLocalizations.supportedLocales,
-              home: buildWidget(context),
-            ));
+      builder: (context, state) => MaterialApp(
+        theme: context.read<ThemeCubit>().getTheme(),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        onGenerateRoute: (settings) {
+          switch (settings.name) {
+            case BranchesScreen.routeName:
+              return BranchesScreen.pageRoute(context);
+          }
+        },
+        supportedLocales: AppLocalizations.supportedLocales,
+        home: buildWidget(context),
+      ),
+    );
   }
 
   Widget buildWidget(BuildContext context) {

@@ -11,7 +11,9 @@ class BranchesScreen extends StatefulWidget {
   const BranchesScreen({Key? key}) : super(key: key);
 
   static const routeName = '/branches';
-  static MaterialPageRoute pageRoute(BuildContext context) => MaterialPageRoute(builder: (BuildContext context) => const BranchesScreen());
+  static MaterialPageRoute pageRoute(BuildContext context) => MaterialPageRoute(
+        builder: (BuildContext context) => const BranchesScreen(),
+      );
 
   @override
   BranchesScreenState createState() => BranchesScreenState();
@@ -56,7 +58,9 @@ class BranchesScreenState extends State<BranchesScreen> {
             ),
             IconButton(
               key: const Key('DeleteIcon'),
-              color: _selected.isEmpty ? Theme.of(context).disabledColor : Theme.of(context).iconTheme.color,
+              color: _selected.isEmpty
+                  ? Theme.of(context).disabledColor
+                  : Theme.of(context).iconTheme.color,
               tooltip: l10n.deleteBranchTooltip,
               onPressed: () => _selected.isEmpty
                   ? null
@@ -84,11 +88,20 @@ class BranchesScreenState extends State<BranchesScreen> {
   void addBranch(BuildContext context) {
     final l10n = context.l10n;
     final gitCalls = context.read<GitCalls>();
-    gitCalls.getDirectoryPath(confirmButtonText: l10n.genericSelect).then((directory) {
+    gitCalls
+        .getDirectoryPath(confirmButtonText: l10n.genericSelect)
+        .then((directory) {
       if (directory != null) {
         gitCalls.getGitRepository(directory).then((branchname) {
           gitCalls.getGitOriginRemote(directory).then((origin) {
-            context.read<GitBranchesCubit>().add(GitBranch(uuid: const Uuid().v1(), name: branchname, directory: directory, origin: origin));
+            context.read<GitBranchesCubit>().add(
+                  GitBranch(
+                    uuid: const Uuid().v1(),
+                    name: branchname,
+                    directory: directory,
+                    origin: origin,
+                  ),
+                );
           }).catchError((error) {
             showErrorMessage(
               context: context,

@@ -11,7 +11,12 @@ part 'gitbranch.g.dart';
   disallowUnrecognizedKeys: true,
 )
 class GitBranch extends Equatable {
-  const GitBranch({required this.uuid, required this.name, required this.directory, required this.origin});
+  const GitBranch({
+    required this.uuid,
+    required this.name,
+    required this.directory,
+    required this.origin,
+  });
 
   const GitBranch.empty()
       : uuid = '',

@@ -4,7 +4,10 @@ import 'dart:io';
 
 class GitCalls {
   Future<String> getGitRepository(String directory) {
-    final gitbranch = Process.runSync('git', ['-C', directory, 'rev-parse', '--abbrev-ref', 'HEAD']);
+    final gitbranch = Process.runSync(
+      'git',
+      ['-C', directory, 'rev-parse', '--abbrev-ref', 'HEAD'],
+    );
     if (gitbranch.stderr != '') {
       return Future.error(gitbranch.stderr.toString().trim());
     }
@@ -27,13 +30,17 @@ class GitCalls {
         }
       }
     }
-    return Future.error('No remote origin\n\n${gitremote.stdout.toString().trim()}');
+    return Future.error(
+      'No remote origin\n\n${gitremote.stdout.toString().trim()}',
+    );
   }
 
   Future<String?> getDirectoryPath({
     String? initialDirectory,
     String? confirmButtonText,
   }) {
-    return getDirectoryPath(confirmButtonText: confirmButtonText, initialDirectory: initialDirectory);
+    return getDirectoryPath(
+        confirmButtonText: confirmButtonText,
+        initialDirectory: initialDirectory);
   }
 }

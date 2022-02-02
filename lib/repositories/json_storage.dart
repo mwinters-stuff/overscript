@@ -10,9 +10,11 @@ part 'json_storage.g.dart';
   disallowUnrecognizedKeys: true,
 )
 class JsonStorage extends Equatable {
-  const JsonStorage({required this.scripts, required this.variables, required this.branches});
+  const JsonStorage(
+      {required this.scripts, required this.variables, required this.branches});
 
-  factory JsonStorage.fromJson(Map<String, dynamic> json) => _$JsonStorageFromJson(json);
+  factory JsonStorage.fromJson(Map<String, dynamic> json) =>
+      _$JsonStorageFromJson(json);
 
   const JsonStorage.empty()
       : scripts = const [],

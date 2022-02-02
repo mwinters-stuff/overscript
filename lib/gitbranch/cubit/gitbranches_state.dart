@@ -1,29 +1,52 @@
 part of 'gitbranches_cubit.dart';
 
-enum GitBranchesStatus { initial, loaded, saved, added, addFailedUUIDExists, addFailedNameExists, addFailedDirectoryExists, addFailedOriginMismatch, deleted, deleteFailedNotFound, failure }
+enum GitBranchesStatus {
+  initial,
+  loaded,
+  saved,
+  added,
+  addFailedUUIDExists,
+  addFailedNameExists,
+  addFailedDirectoryExists,
+  addFailedOriginMismatch,
+  deleted,
+  deleteFailedNotFound,
+  failure
+}
 
 extension GitBranchesStatusX on GitBranchesStatus {
   bool get isInitial => this == GitBranchesStatus.initial;
   bool get isSaved => this == GitBranchesStatus.saved;
   bool get isLoaded => this == GitBranchesStatus.loaded;
   bool get isAdded => this == GitBranchesStatus.added;
-  bool get isAddFailedUUIDExists => this == GitBranchesStatus.addFailedUUIDExists;
-  bool get isAddFailedNameExists => this == GitBranchesStatus.addFailedNameExists;
-  bool get isAddFailedDirectoryExists => this == GitBranchesStatus.addFailedDirectoryExists;
-  bool get isAddOriginMismatch => this == GitBranchesStatus.addFailedOriginMismatch;
+  bool get isAddFailedUUIDExists =>
+      this == GitBranchesStatus.addFailedUUIDExists;
+  bool get isAddFailedNameExists =>
+      this == GitBranchesStatus.addFailedNameExists;
+  bool get isAddFailedDirectoryExists =>
+      this == GitBranchesStatus.addFailedDirectoryExists;
+  bool get isAddOriginMismatch =>
+      this == GitBranchesStatus.addFailedOriginMismatch;
   bool get isDeleted => this == GitBranchesStatus.deleted;
-  bool get isDeleteFailedNotFound => this == GitBranchesStatus.deleteFailedNotFound;
+  bool get isDeleteFailedNotFound =>
+      this == GitBranchesStatus.deleteFailedNotFound;
   bool get isFailure => this == GitBranchesStatus.failure;
 }
 
 class GitBranchesState extends Equatable {
-  GitBranchesState({this.status = GitBranchesStatus.initial, List<GitBranch>? branches}) : branches = List.from(branches ?? []);
+  GitBranchesState(
+      {this.status = GitBranchesStatus.initial, List<GitBranch>? branches})
+      : branches = List.from(branches ?? []);
 
   final List<GitBranch> branches;
   final GitBranchesStatus status;
 
-  GitBranchesState copyWith({GitBranchesStatus? status, List<GitBranch>? branches}) {
-    return GitBranchesState(status: status ?? this.status, branches: List.from(branches ?? this.branches));
+  GitBranchesState copyWith(
+      {GitBranchesStatus? status, List<GitBranch>? branches}) {
+    return GitBranchesState(
+      status: status ?? this.status,
+      branches: List.from(branches ?? this.branches),
+    );
   }
 
   GitBranch? _findBranchUUID(String uuid) {
@@ -61,7 +84,10 @@ class GitBranchesState extends Equatable {
   }
 
   GitBranchesState load(DataStoreRepository dataStoreRepository) {
-    return copyWith(status: GitBranchesStatus.loaded, branches: List.from(dataStoreRepository.branches, growable: true));
+    return copyWith(
+      status: GitBranchesStatus.loaded,
+      branches: List.from(dataStoreRepository.branches, growable: true),
+    );
   }
 
   GitBranchesState save(DataStoreRepository dataStoreRepository) {

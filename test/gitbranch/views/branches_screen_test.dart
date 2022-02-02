@@ -12,7 +12,8 @@ import '../../helpers/helpers.dart';
 
 class MockDataStoreRepository extends Mock implements DataStoreRepository {}
 
-class MockGitBranchesCubit extends MockCubit<GitBranchesState> implements GitBranchesCubit {}
+class MockGitBranchesCubit extends MockCubit<GitBranchesState>
+    implements GitBranchesCubit {}
 
 class MockGitBranchesState extends Mock implements GitBranchesState {}
 
@@ -24,7 +25,6 @@ void main() {
   group('BranchesScreen', () {
     late MockGitBranch mockGitBranch1;
     late MockGitBranch mockGitBranch2;
-    late MockGitBranch mockGitBranch3;
     late MockGitBranchesCubit mockGitBranchesCubit;
     late MockDataStoreRepository mockDataStoreRepository;
     late MockGitBranchesState mockGitBranchesState;
@@ -45,11 +45,14 @@ void main() {
       mockGitBranch2 = MockGitBranch();
       when(() => mockGitBranch2.uuid).thenReturn('a-uuid-2');
       when(() => mockGitBranch2.name).thenReturn('branch-a');
-      when(() => mockGitBranch2.directory).thenReturn('/home/user/src/project-branch-a');
+      when(() => mockGitBranch2.directory)
+          .thenReturn('/home/user/src/project-branch-a');
       when(() => mockGitBranch2.origin).thenReturn('git:someplace/bob');
 
-      when(() => mockGitBranchesState.status).thenReturn(GitBranchesStatus.loaded);
-      when(() => mockGitBranchesState.branches).thenReturn([mockGitBranch1, mockGitBranch2]);
+      when(() => mockGitBranchesState.status)
+          .thenReturn(GitBranchesStatus.loaded);
+      when(() => mockGitBranchesState.branches)
+          .thenReturn([mockGitBranch1, mockGitBranch2]);
 
       when(() => mockGitBranchesCubit.state).thenReturn(mockGitBranchesState);
 
@@ -60,12 +63,14 @@ void main() {
       await tester.pumpApp(
         MultiRepositoryProvider(
           providers: [
-            RepositoryProvider<DataStoreRepository>(create: (context) => mockDataStoreRepository),
+            RepositoryProvider<DataStoreRepository>(
+                create: (context) => mockDataStoreRepository),
             RepositoryProvider<GitCalls>(create: (context) => mockGitCalls),
           ],
           child: MultiBlocProvider(
             providers: [
-              BlocProvider<GitBranchesCubit>(create: (context) => mockGitBranchesCubit),
+              BlocProvider<GitBranchesCubit>(
+                  create: (context) => mockGitBranchesCubit),
             ],
             child: const BranchesScreen(),
           ),
@@ -86,55 +91,69 @@ void main() {
       await tester.pumpApp(
         MultiRepositoryProvider(
           providers: [
-            RepositoryProvider<DataStoreRepository>(create: (context) => mockDataStoreRepository),
+            RepositoryProvider<DataStoreRepository>(
+                create: (context) => mockDataStoreRepository),
             RepositoryProvider<GitCalls>(create: (context) => mockGitCalls),
           ],
           child: MultiBlocProvider(
             providers: [
-              BlocProvider<GitBranchesCubit>(create: (context) => mockGitBranchesCubit),
+              BlocProvider<GitBranchesCubit>(
+                  create: (context) => mockGitBranchesCubit),
             ],
             child: const BranchesScreen(),
           ),
         ),
       );
 
-      expect(tester.widget<IconButton>(find.byKey(const Key('DeleteIcon'))).color, equals(ThemeData.light().disabledColor));
+      expect(
+          tester.widget<IconButton>(find.byKey(const Key('DeleteIcon'))).color,
+          equals(ThemeData.light().disabledColor));
 
       await tester.tap(find.text('master'));
 
       await tester.pump();
 
-      expect(tester.widget<IconButton>(find.byKey(const Key('DeleteIcon'))).color, equals(ThemeData.light().iconTheme.color));
+      expect(
+          tester.widget<IconButton>(find.byKey(const Key('DeleteIcon'))).color,
+          equals(ThemeData.light().iconTheme.color));
 
       await tester.tap(find.text('branch-a'));
 
       await tester.pump();
 
-      expect(tester.widget<IconButton>(find.byKey(const Key('DeleteIcon'))).color, equals(ThemeData.light().iconTheme.color));
+      expect(
+          tester.widget<IconButton>(find.byKey(const Key('DeleteIcon'))).color,
+          equals(ThemeData.light().iconTheme.color));
 
       await tester.tap(find.text('master'));
 
       await tester.pump();
 
-      expect(tester.widget<IconButton>(find.byKey(const Key('DeleteIcon'))).color, equals(ThemeData.light().iconTheme.color));
+      expect(
+          tester.widget<IconButton>(find.byKey(const Key('DeleteIcon'))).color,
+          equals(ThemeData.light().iconTheme.color));
 
       await tester.tap(find.text('branch-a'));
 
       await tester.pump();
 
-      expect(tester.widget<IconButton>(find.byKey(const Key('DeleteIcon'))).color, equals(ThemeData.light().disabledColor));
+      expect(
+          tester.widget<IconButton>(find.byKey(const Key('DeleteIcon'))).color,
+          equals(ThemeData.light().disabledColor));
     });
 
     testWidgets('delete branches click cancel!', (tester) async {
       await tester.pumpApp(
         MultiRepositoryProvider(
           providers: [
-            RepositoryProvider<DataStoreRepository>(create: (context) => mockDataStoreRepository),
+            RepositoryProvider<DataStoreRepository>(
+                create: (context) => mockDataStoreRepository),
             RepositoryProvider<GitCalls>(create: (context) => mockGitCalls),
           ],
           child: MultiBlocProvider(
             providers: [
-              BlocProvider<GitBranchesCubit>(create: (context) => mockGitBranchesCubit),
+              BlocProvider<GitBranchesCubit>(
+                  create: (context) => mockGitBranchesCubit),
             ],
             child: const BranchesScreen(),
           ),
@@ -145,7 +164,9 @@ void main() {
       await tester.pump();
       await tester.tap(find.text('branch-a'));
       await tester.pump();
-      expect(tester.widget<IconButton>(find.byKey(const Key('DeleteIcon'))).color, equals(ThemeData.light().iconTheme.color));
+      expect(
+          tester.widget<IconButton>(find.byKey(const Key('DeleteIcon'))).color,
+          equals(ThemeData.light().iconTheme.color));
 
       await tester.tap(find.byKey(const Key('DeleteIcon')));
       await tester.pumpAndSettle();
@@ -169,12 +190,14 @@ void main() {
       await tester.pumpApp(
         MultiRepositoryProvider(
           providers: [
-            RepositoryProvider<DataStoreRepository>(create: (context) => mockDataStoreRepository),
+            RepositoryProvider<DataStoreRepository>(
+                create: (context) => mockDataStoreRepository),
             RepositoryProvider<GitCalls>(create: (context) => mockGitCalls),
           ],
           child: MultiBlocProvider(
             providers: [
-              BlocProvider<GitBranchesCubit>(create: (context) => mockGitBranchesCubit),
+              BlocProvider<GitBranchesCubit>(
+                  create: (context) => mockGitBranchesCubit),
             ],
             child: const BranchesScreen(),
           ),
@@ -185,7 +208,9 @@ void main() {
       await tester.pump();
       await tester.tap(find.text('branch-a'));
       await tester.pump();
-      expect(tester.widget<IconButton>(find.byKey(const Key('DeleteIcon'))).color, equals(ThemeData.light().iconTheme.color));
+      expect(
+          tester.widget<IconButton>(find.byKey(const Key('DeleteIcon'))).color,
+          equals(ThemeData.light().iconTheme.color));
 
       await tester.tap(find.byKey(const Key('DeleteIcon')));
       await tester.pumpAndSettle();
@@ -209,12 +234,14 @@ void main() {
       await tester.pumpApp(
         MultiRepositoryProvider(
           providers: [
-            RepositoryProvider<DataStoreRepository>(create: (context) => mockDataStoreRepository),
+            RepositoryProvider<DataStoreRepository>(
+                create: (context) => mockDataStoreRepository),
             RepositoryProvider<GitCalls>(create: (context) => mockGitCalls),
           ],
           child: MultiBlocProvider(
             providers: [
-              BlocProvider<GitBranchesCubit>(create: (context) => mockGitBranchesCubit),
+              BlocProvider<GitBranchesCubit>(
+                  create: (context) => mockGitBranchesCubit),
             ],
             child: const BranchesScreen(),
           ),
@@ -223,7 +250,8 @@ void main() {
 
       expect(find.byKey(const Key('AddIcon')), findsOneWidget);
 
-      when(() => mockGitCalls.getDirectoryPath(confirmButtonText: 'Select')).thenAnswer((invocation) => Future.value(null));
+      when(() => mockGitCalls.getDirectoryPath(confirmButtonText: 'Select'))
+          .thenAnswer((invocation) => Future.value(null));
 
       await tester.tap(find.byKey(const Key('AddIcon')));
       await tester.pumpAndSettle();
@@ -235,12 +263,14 @@ void main() {
       await tester.pumpApp(
         MultiRepositoryProvider(
           providers: [
-            RepositoryProvider<DataStoreRepository>(create: (context) => mockDataStoreRepository),
+            RepositoryProvider<DataStoreRepository>(
+                create: (context) => mockDataStoreRepository),
             RepositoryProvider<GitCalls>(create: (context) => mockGitCalls),
           ],
           child: MultiBlocProvider(
             providers: [
-              BlocProvider<GitBranchesCubit>(create: (context) => mockGitBranchesCubit),
+              BlocProvider<GitBranchesCubit>(
+                  create: (context) => mockGitBranchesCubit),
             ],
             child: const BranchesScreen(),
           ),
@@ -249,14 +279,19 @@ void main() {
 
       expect(find.byKey(const Key('AddIcon')), findsOneWidget);
 
-      when(() => mockGitCalls.getDirectoryPath(confirmButtonText: 'Select')).thenAnswer((invocation) => Future.value('/a/non/git/path'));
-      when(() => mockGitCalls.getGitRepository('/a/non/git/path')).thenAnswer((invocation) => Future.error('bad'));
+      when(() => mockGitCalls.getDirectoryPath(confirmButtonText: 'Select'))
+          .thenAnswer((invocation) => Future.value('/a/non/git/path'));
+      when(() => mockGitCalls.getGitRepository('/a/non/git/path'))
+          .thenAnswer((invocation) => Future.error('bad'));
 
       await tester.tap(find.byKey(const Key('AddIcon')));
       await tester.pumpAndSettle();
 
       expect(find.text('Add Branch'), findsOneWidget);
-      expect(find.text('You must select a directory that has a git repository.\n\nbad'), findsOneWidget);
+      expect(
+          find.text(
+              'You must select a directory that has a git repository.\n\nbad'),
+          findsOneWidget);
       expect(find.text('Cancel'), findsNothing);
       expect(find.text('Ok'), findsOneWidget);
 
@@ -270,12 +305,14 @@ void main() {
       await tester.pumpApp(
         MultiRepositoryProvider(
           providers: [
-            RepositoryProvider<DataStoreRepository>(create: (context) => mockDataStoreRepository),
+            RepositoryProvider<DataStoreRepository>(
+                create: (context) => mockDataStoreRepository),
             RepositoryProvider<GitCalls>(create: (context) => mockGitCalls),
           ],
           child: MultiBlocProvider(
             providers: [
-              BlocProvider<GitBranchesCubit>(create: (context) => mockGitBranchesCubit),
+              BlocProvider<GitBranchesCubit>(
+                  create: (context) => mockGitBranchesCubit),
             ],
             child: const BranchesScreen(),
           ),
@@ -284,9 +321,12 @@ void main() {
 
       expect(find.byKey(const Key('AddIcon')), findsOneWidget);
 
-      when(() => mockGitCalls.getDirectoryPath(confirmButtonText: 'Select')).thenAnswer((invocation) => Future.value('/a/non/git/path'));
-      when(() => mockGitCalls.getGitRepository('/a/non/git/path')).thenAnswer((invocation) => Future.value('peaches'));
-      when(() => mockGitCalls.getGitOriginRemote('/a/non/git/path')).thenAnswer((invocation) => Future.error('No remote origin\n\nbad'));
+      when(() => mockGitCalls.getDirectoryPath(confirmButtonText: 'Select'))
+          .thenAnswer((invocation) => Future.value('/a/non/git/path'));
+      when(() => mockGitCalls.getGitRepository('/a/non/git/path'))
+          .thenAnswer((invocation) => Future.value('peaches'));
+      when(() => mockGitCalls.getGitOriginRemote('/a/non/git/path'))
+          .thenAnswer((invocation) => Future.error('No remote origin\n\nbad'));
 
       await tester.tap(find.byKey(const Key('AddIcon')));
       await tester.pumpAndSettle();
@@ -306,12 +346,14 @@ void main() {
       await tester.pumpApp(
         MultiRepositoryProvider(
           providers: [
-            RepositoryProvider<DataStoreRepository>(create: (context) => mockDataStoreRepository),
+            RepositoryProvider<DataStoreRepository>(
+                create: (context) => mockDataStoreRepository),
             RepositoryProvider<GitCalls>(create: (context) => mockGitCalls),
           ],
           child: MultiBlocProvider(
             providers: [
-              BlocProvider<GitBranchesCubit>(create: (context) => mockGitBranchesCubit),
+              BlocProvider<GitBranchesCubit>(
+                  create: (context) => mockGitBranchesCubit),
             ],
             child: const BranchesScreen(),
           ),
@@ -320,14 +362,19 @@ void main() {
 
       expect(find.byKey(const Key('AddIcon')), findsOneWidget);
 
-      when(() => mockGitCalls.getDirectoryPath(confirmButtonText: 'Select')).thenAnswer((invocation) => Future.value('/a/non/git/path'));
-      when(() => mockGitCalls.getGitRepository('/a/non/git/path')).thenAnswer((invocation) => Future.value('peaches'));
-      when(() => mockGitCalls.getGitOriginRemote('/a/non/git/path')).thenAnswer((invocation) => Future.value('anorigin'));
+      when(() => mockGitCalls.getDirectoryPath(confirmButtonText: 'Select'))
+          .thenAnswer((invocation) => Future.value('/a/non/git/path'));
+      when(() => mockGitCalls.getGitRepository('/a/non/git/path'))
+          .thenAnswer((invocation) => Future.value('peaches'));
+      when(() => mockGitCalls.getGitOriginRemote('/a/non/git/path'))
+          .thenAnswer((invocation) => Future.value('anorigin'));
 
       await tester.tap(find.byKey(const Key('AddIcon')));
       await tester.pumpAndSettle();
 
-      final captured = verify(() => mockGitBranchesCubit.add(captureAny<GitBranch>())).captured;
+      final captured =
+          verify(() => mockGitBranchesCubit.add(captureAny<GitBranch>()))
+              .captured;
       final branch = captured.last as GitBranch;
 
       expect(branch.uuid, isNotEmpty);
@@ -340,12 +387,17 @@ void main() {
       await tester.pumpWidget(
         MultiRepositoryProvider(
           providers: [
-            RepositoryProvider<DataStoreRepository>(create: (context) => mockDataStoreRepository),
+            RepositoryProvider<DataStoreRepository>(
+                create: (context) => mockDataStoreRepository),
             RepositoryProvider<GitCalls>(create: (context) => mockGitCalls),
           ],
-          child: MultiBlocProvider(providers: [
-            BlocProvider<GitBranchesCubit>(create: (context) => mockGitBranchesCubit),
-          ], child: const TestApp()),
+          child: MultiBlocProvider(
+            providers: [
+              BlocProvider<GitBranchesCubit>(
+                  create: (context) => mockGitBranchesCubit),
+            ],
+            child: const TestApp(),
+          ),
         ),
       );
 
@@ -384,7 +436,8 @@ class DummyHomeRoute extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => MaterialButton(
-        onPressed: () => Navigator.of(context).pushNamed(BranchesScreen.routeName),
+        onPressed: () =>
+            Navigator.of(context).pushNamed(BranchesScreen.routeName),
         child: const Text('ClickMe'),
       );
 }

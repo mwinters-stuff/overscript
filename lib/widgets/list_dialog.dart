@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api, avoid_private_typedef_functions
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -30,7 +32,8 @@ class FormBuilderStringListEditor extends FormBuilderField<List<String>> {
   final InputCounterWidgetBuilder? buildCounter;
   final bool expands;
   final bool showCursor;
-  final Widget Function(BuildContext, Widget?)? editorBuilder; // widget.builder,
+  final Widget Function(BuildContext, Widget?)?
+      editorBuilder; // widget.builder,
 
   final RouteSettings? routeSettings; // widget.routeSettings,
   final String? saveText; // widget.saveText,
@@ -38,6 +41,7 @@ class FormBuilderStringListEditor extends FormBuilderField<List<String>> {
   final String labelText;
 
   /// Creates field for selecting a range of dates
+  // ignore: sort_constructors_first
   FormBuilderStringListEditor({
     Key? key,
     //From Super
@@ -55,7 +59,7 @@ class FormBuilderStringListEditor extends FormBuilderField<List<String>> {
     FocusNode? focusNode,
     this.obscureText = false,
     this.textCapitalization = TextCapitalization.none,
-    this.scrollPadding = const EdgeInsets.all(20.0),
+    this.scrollPadding = const EdgeInsets.all(20),
     this.enableInteractiveSelection = true,
     this.maxLengthEnforcement,
     this.textAlign = TextAlign.start,
@@ -98,52 +102,58 @@ class FormBuilderStringListEditor extends FormBuilderField<List<String>> {
           builder: (FormFieldState<List<String>?> field) {
             final state = field as _FormBuilderStringListEditorState;
             return TextField(
-                enabled: state.enabled,
-                style: style,
-                focusNode: state.effectiveFocusNode,
-                decoration: state._decoration,
-                maxLines: 1,
-                keyboardType: keyboardType,
-                obscureText: obscureText,
-                onEditingComplete: onEditingComplete,
-                controller: state._effectiveController,
-                autocorrect: autocorrect,
-                autofocus: autofocus,
-                buildCounter: buildCounter,
-                cursorColor: cursorColor,
-                cursorRadius: cursorRadius,
-                cursorWidth: cursorWidth,
-                enableInteractiveSelection: enableInteractiveSelection,
-                maxLength: maxLength,
-                inputFormatters: inputFormatters,
-                keyboardAppearance: keyboardAppearance,
-                maxLengthEnforcement: maxLengthEnforcement,
-                scrollPadding: scrollPadding,
-                textAlign: textAlign,
-                textCapitalization: textCapitalization,
-                textDirection: textDirection,
-                textInputAction: textInputAction,
-                strutStyle: strutStyle,
-                readOnly: true,
-                expands: expands,
-                minLines: 1,
-                showCursor: showCursor);
+              enabled: state.enabled,
+              style: style,
+              focusNode: state.effectiveFocusNode,
+              decoration: state._decoration,
+              keyboardType: keyboardType,
+              obscureText: obscureText,
+              onEditingComplete: onEditingComplete,
+              controller: state._effectiveController,
+              autocorrect: autocorrect,
+              autofocus: autofocus,
+              buildCounter: buildCounter,
+              cursorColor: cursorColor,
+              cursorRadius: cursorRadius,
+              cursorWidth: cursorWidth,
+              enableInteractiveSelection: enableInteractiveSelection,
+              maxLength: maxLength,
+              inputFormatters: inputFormatters,
+              keyboardAppearance: keyboardAppearance,
+              maxLengthEnforcement: maxLengthEnforcement,
+              scrollPadding: scrollPadding,
+              textAlign: textAlign,
+              textCapitalization: textCapitalization,
+              textDirection: textDirection,
+              textInputAction: textInputAction,
+              strutStyle: strutStyle,
+              readOnly: true,
+              expands: expands,
+              minLines: 1,
+              showCursor: showCursor,
+            );
           },
         );
 
   @override
-  _FormBuilderStringListEditorState createState() => _FormBuilderStringListEditorState();
+  _FormBuilderStringListEditorState createState() =>
+      _FormBuilderStringListEditorState();
 }
 
-class _FormBuilderStringListEditorState extends FormBuilderFieldState<FormBuilderStringListEditor, List<String>> {
+class _FormBuilderStringListEditorState
+    extends FormBuilderFieldState<FormBuilderStringListEditor, List<String>> {
   late TextEditingController _effectiveController;
 
-  InputDecoration get _decoration => widget.decoration.copyWith(label: Text(widget.labelText), suffixIcon: IconButton(onPressed: () => handleTap(), icon: const Icon(Icons.list)));
+  InputDecoration get _decoration => widget.decoration.copyWith(
+      label: Text(widget.labelText),
+      suffixIcon:
+          IconButton(onPressed: handleTap, icon: const Icon(Icons.list)));
 
   @override
   void initState() {
     super.initState();
-    _effectiveController = widget.controller ?? TextEditingController(text: _valueToText());
+    _effectiveController =
+        widget.controller ?? TextEditingController(text: _valueToText());
   }
 
   @override
@@ -200,32 +210,42 @@ class _OnAddItemEvent {
   void addItem() => addItemFunc!();
 }
 
-Future _showDialog(BuildContext context, String title, List<String> items) async {
+Future _showDialog(
+    BuildContext context, String title, List<String> items) async {
   final addItemEvent = _OnAddItemEvent();
 
-  final listView = _ArgumentsListView(items: List.from(items), onAddItemEvent: addItemEvent);
+  final listView =
+      _ArgumentsListView(items: List.from(items), onAddItemEvent: addItemEvent);
   return showDialog(
     context: context,
     builder: (context) => CustomAlertDialog(
       title: Text(title, style: DialogTheme.of(context).titleTextStyle),
       content: SizedBox(
-          width: double.maxFinite, //  <------- Use SizedBox to limit width
-          child: listView),
+        width: double.maxFinite, //  <------- Use SizedBox to limit width
+        child: listView,
+      ),
       actions: [
         Expanded(
-            child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          TextButton(
-            onPressed: addItemEvent.addItem,
-            child: const Text('Add'),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TextButton(
+                onPressed: addItemEvent.addItem,
+                child: const Text('Add'),
+              ),
+            ],
           ),
-        ])),
+        ),
         TextButton(
           onPressed: () => Navigator.pop(context, 'Cancel'),
           child: const Text('Cancel'),
         ),
         TextButton(
           onPressed: () {
-            Navigator.pop(context, List.from(listView.items.where((element) => element.isNotEmpty)));
+            Navigator.pop(
+                context,
+                List.from(
+                    listView.items.where((element) => element.isNotEmpty)));
           },
           child: const Text('OK'),
         ),
@@ -237,7 +257,9 @@ Future _showDialog(BuildContext context, String title, List<String> items) async
 }
 
 class _ArgumentsListView extends StatefulWidget {
-  const _ArgumentsListView({Key? key, required this.items, required this.onAddItemEvent}) : super(key: key);
+  const _ArgumentsListView(
+      {Key? key, required this.items, required this.onAddItemEvent})
+      : super(key: key);
 
   final List<String> items;
   final _OnAddItemEvent onAddItemEvent;
@@ -269,15 +291,16 @@ class _ArgumentsListViewState extends State<_ArgumentsListView> {
       buildDefaultDragHandles: false,
       itemBuilder: (BuildContext context, int index) {
         return _ArgumentListTile(
-            key: Key('$index'),
-            index: index,
-            value: widget.items[index],
-            onSubmitted: (value) => setState(() {
-                  widget.items[index] = value;
-                }),
-            onRemove: (index) => setState(() {
-                  widget.items.removeAt(index);
-                }));
+          key: Key('$index'),
+          index: index,
+          value: widget.items[index],
+          onSubmitted: (value) => setState(() {
+            widget.items[index] = value;
+          }),
+          onRemove: (index) => setState(() {
+            widget.items.removeAt(index);
+          }),
+        );
       },
       onReorder: (int oldIndex, int newIndex) {
         setState(() {
@@ -302,7 +325,13 @@ typedef _OnSubmitted = void Function(String value);
 typedef _OnRemove = void Function(int index);
 
 class _ArgumentListTile extends StatefulWidget {
-  const _ArgumentListTile({Key? key, required this.index, required this.value, required this.onSubmitted, required this.onRemove}) : super(key: key);
+  const _ArgumentListTile(
+      {Key? key,
+      required this.index,
+      required this.value,
+      required this.onSubmitted,
+      required this.onRemove})
+      : super(key: key);
 
   final int index;
   final String value;
@@ -331,29 +360,37 @@ class _ArgumentListTileState extends State<_ArgumentListTile> {
   @override
   Widget build(BuildContext context) {
     _controller.text = widget.value;
-    return Row(children: [
-      Padding(
-        padding: const EdgeInsets.all(8),
-        child: ReorderableDragStartListener(
-          index: widget.index,
-          child: IconButton(
-            icon: const Icon(Icons.drag_handle),
-            onPressed: () => {},
+    return Row(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8),
+          child: ReorderableDragStartListener(
+            index: widget.index,
+            child: IconButton(
+              icon: const Icon(Icons.drag_handle),
+              onPressed: () => {},
+            ),
           ),
         ),
-      ),
-      Expanded(
+        Expanded(
           child: Focus(
-              autofocus: true,
-              onFocusChange: (value) => setState(() {
-                    if (!value) {
-                      widget.onSubmitted(_controller.text);
-                    }
-                  }),
-              child: TextField(
-                controller: _controller,
-              ))),
-      Padding(padding: const EdgeInsets.all(8), child: IconButton(icon: const Icon(Icons.delete_forever), onPressed: () => widget.onRemove(widget.index)))
-    ]);
+            autofocus: true,
+            onFocusChange: (value) => setState(() {
+              if (!value) {
+                widget.onSubmitted(_controller.text);
+              }
+            }),
+            child: TextField(
+              controller: _controller,
+            ),
+          ),
+        ),
+        Padding(
+            padding: const EdgeInsets.all(8),
+            child: IconButton(
+                icon: const Icon(Icons.delete_forever),
+                onPressed: () => widget.onRemove(widget.index)))
+      ],
+    );
   }
 }
