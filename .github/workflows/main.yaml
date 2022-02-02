@@ -11,10 +11,6 @@ jobs:
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
-        with:
-          flutter-version: stable
-          channel: 2.8.1
-          cache: true
 
       - name: Install Dependencies
         run: |
