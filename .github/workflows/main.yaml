@@ -47,4 +47,4 @@ jobs:
 
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
-          publish_dir: ./coverage
+          publish_dir: /tmp/__zgosalvez_github-actions-report-lcov/html
