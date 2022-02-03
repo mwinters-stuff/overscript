@@ -1,18 +1,22 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:overscript/branch_variable_value/branch_variable_value.dart';
 import 'package:overscript/gitbranch/cubit/gitbranch.dart';
 import 'package:overscript/repositories/json_storage.dart';
+import 'package:overscript/variable/variable.dart';
 
 class DataStoreRepository {
   DataStoreRepository()
       : branches = [],
         scripts = [],
-        variables = [];
+        variables = [],
+        branchVariableValues = [];
 
   List<dynamic> scripts;
-  List<dynamic> variables;
+  List<Variable> variables;
   List<GitBranch> branches;
+  List<BranchVariableValue> branchVariableValues;
 
   // String? checkScriptNameUsed(String name) {
   //   for (var script in _scripts) {
@@ -57,6 +61,7 @@ class DataStoreRepository {
       scripts = List.from(jsonStorage.scripts, growable: true);
       variables = List.from(jsonStorage.variables, growable: true);
       branches = List.from(jsonStorage.branches, growable: true);
+      branchVariableValues = List.from(jsonStorage.branchVariableValues, growable: true);
     }
   }
 
@@ -178,8 +183,7 @@ class DataStoreRepository {
   // }
 
   void save(String filename) {
-    final jsonStorage =
-        JsonStorage(scripts: scripts, variables: variables, branches: branches);
+    final jsonStorage = JsonStorage(scripts: scripts, variables: variables, branches: branches, branchVariableValues: branchVariableValues);
     final output = const JsonEncoder.withIndent('  ').convert(jsonStorage);
     File(filename).writeAsStringSync(output);
   }

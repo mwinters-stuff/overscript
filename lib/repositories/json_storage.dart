@@ -1,6 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:overscript/branch_variable_value/branch_variable_value.dart';
 import 'package:overscript/gitbranch/cubit/gitbranch.dart';
+import 'package:overscript/variable/variable.dart';
 
 part 'json_storage.g.dart';
 
@@ -10,23 +12,29 @@ part 'json_storage.g.dart';
   disallowUnrecognizedKeys: true,
 )
 class JsonStorage extends Equatable {
-  const JsonStorage(
-      {required this.scripts, required this.variables, required this.branches});
+  const JsonStorage({
+    required this.scripts,
+    required this.variables,
+    required this.branches,
+    required this.branchVariableValues,
+  });
 
-  factory JsonStorage.fromJson(Map<String, dynamic> json) =>
-      _$JsonStorageFromJson(json);
+  factory JsonStorage.fromJson(Map<String, dynamic> json) => _$JsonStorageFromJson(json);
 
   const JsonStorage.empty()
       : scripts = const [],
         variables = const [],
-        branches = const [];
+        branches = const [],
+        branchVariableValues = const [];
 
   @JsonKey(required: true)
   final List<dynamic> scripts;
   @JsonKey(required: true)
-  final List<dynamic> variables;
+  final List<Variable> variables;
   @JsonKey(required: true)
   final List<GitBranch> branches;
+  @JsonKey(required: true)
+  final List<BranchVariableValue> branchVariableValues;
 
   Map<String, dynamic> toJson() => _$JsonStorageToJson(this);
 
@@ -34,5 +42,10 @@ class JsonStorage extends Equatable {
   String toString() => '${toJson()}';
 
   @override
-  List<Object?> get props => [scripts, variables, branches];
+  List<Object?> get props => [
+        scripts,
+        variables,
+        branches,
+        branchVariableValues,
+      ];
 }
