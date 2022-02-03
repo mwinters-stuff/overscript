@@ -1,0 +1,30 @@
+name: 'Flutter action'
+description: 'Setup your runner with Flutter environment'
+author: 'Alif Rachmawadi'
+branding:
+  icon: 'maximize'
+  color: 'blue'
+inputs:
+  flutter-version:
+    description: 'The Flutter version to make available on the path'
+    required: false
+  channel:
+    description: 'The Flutter build release channel'
+    required: false
+    default: 'stable'
+  cache:
+    description: 'Cache the Flutter SDK'
+    required: false
+  cache-key:
+    description: 'Identifier for the Flutter SDK cache'
+    required: false
+    default: 'flutter'
+  cache-path:
+    description: 'Flutter SDK cache path'
+    required: false
+    default: ${{ runner.tool_cache }}/flutter
+runs:
+  using: 'composite'
+  steps:
+    - run: $GITHUB_ACTION_PATH/flutter-setup.sh -c "${{ inputs.cache-path }}" ${{ inputs.channel }} ${{ inputs.flutter-version }}
+      shell: bash
