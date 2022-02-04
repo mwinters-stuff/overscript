@@ -32,12 +32,12 @@
             <td></td>
             <td class="headerItem">Lines:</td>
             <td class="headerCovTableEntry">43</td>
-            <td class="headerCovTableEntry">44</td>
-            <td class="headerCovTableEntryHi">97.7 %</td>
+            <td class="headerCovTableEntry">43</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2022-02-04 04:12:44</td>
+            <td class="headerValue">2022-02-04 04:35:35</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">0</td>
@@ -91,9 +91,9 @@
 <a name="20"><span class="lineNum">      20 </span>                :            :   final List&lt;Variable&gt; variables;</a>
 <a name="21"><span class="lineNum">      21 </span>                :            :   final VariablesStatus status;</a>
 <a name="22"><span class="lineNum">      22 </span>                :            : </a>
-<a name="23"><span class="lineNum">      23 </span>                :<span class="lineCov">          1 :   VariablesState copyWith({VariablesStatus? status, List&lt;Variable&gt;? variables}) {</span></a>
+<a name="23"><span class="lineNum">      23 </span>                :<span class="lineCov">          1 :   VariablesState copyWith({required VariablesStatus status, List&lt;Variable&gt;? variables}) {</span></a>
 <a name="24"><span class="lineNum">      24 </span>                :<span class="lineCov">          1 :     return VariablesState(</span></a>
-<a name="25"><span class="lineNum">      25 </span>                :<span class="lineNoCov">          0 :       status: status ?? this.status,</span></a>
+<a name="25"><span class="lineNum">      25 </span>                :            :       status: status,</a>
 <a name="26"><span class="lineNum">      26 </span>                :<span class="lineCov">          2 :       variables: List.from(variables ?? this.variables),</span></a>
 <a name="27"><span class="lineNum">      27 </span>                :            :     );</a>
 <a name="28"><span class="lineNum">      28 </span>                :            :   }</a>
