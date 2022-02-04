@@ -7,6 +7,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:form_builder_validators/localization/l10n.dart';
 import 'package:overscript/gitbranch/gitbranch.dart';
 import 'package:overscript/l10n/l10n.dart';
 import 'package:overscript/repositories/repositories.dart';
@@ -21,7 +22,9 @@ class App extends StatelessWidget {
     return BlocBuilder<ThemeCubit, ThemeState>(
       builder: (context, state) => MaterialApp(
         theme: context.read<ThemeCubit>().getTheme(),
-        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        localizationsDelegates: List.from(
+          AppLocalizations.localizationsDelegates,
+        )..add(FormBuilderLocalizations.delegate),
         onGenerateRoute: (settings) {
           switch (settings.name) {
             case BranchesScreen.routeName:

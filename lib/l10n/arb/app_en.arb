@@ -10,6 +10,17 @@
     "branchScreenTitle":"Branches",
     "addBranchTooltip":"Add Branch",
     "genericSelect":"Select",
-    "gitDirectoryError":"You must select a directory that has a git repository."
+    "gitDirectoryError":"You must select a directory that has a git repository.",
+    "defaultValueLabel":"Default Value",
+    "deleteVariableTooltip":"Delete Variable",
+    "deleteVariableConfirmTitle":"Delete Variable?",
+    "deleteVariablesConfirmTitle":"Delete Variables?",
+    "variableScreenTitle":"Variables",
+    "addVariableTooltip":"Add Variable",
+    "editVariable": "Edit Variable",
+    "nameLabel":"Name"
+    
+
+
     
 }

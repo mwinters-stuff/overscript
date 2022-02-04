@@ -55,12 +55,7 @@ void showSuccessMessage({
   );
 }
 
-void showConfirmMessage(
-    {required BuildContext context,
-    required String title,
-    required String message,
-    VoidCallback? onConfirmButton,
-    VoidCallback? onCancelButton}) {
+void showConfirmMessage({required BuildContext context, required String title, required String message, VoidCallback? onConfirmButton, VoidCallback? onCancelButton}) {
   confirmationDialog(
     context,
     title,
@@ -81,4 +76,26 @@ void showConfirmMessage(
     hideNeutralButton: true,
   );
 }
+
+void showContentDialog({required BuildContext context, required String title, required Widget content, VoidCallback? onConfirmButton, VoidCallback? onCancelButton}) {
+  customAlertDialog(
+    context,
+    Text(title),
+    content,
+    positiveButtonText: 'Ok',
+    negativeButtonText: 'Cancel',
+    positiveButtonAction: () {
+      if (onConfirmButton != null) {
+        onConfirmButton();
+      }
+    },
+    negativeButtonAction: () {
+      if (onCancelButton != null) {
+        onCancelButton();
+      }
+    },
+    hideNeutralButton: true,
+  );
+}
+
 // }

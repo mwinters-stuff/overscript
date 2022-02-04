@@ -2,21 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:overscript/gitbranch/gitbranch.dart';
 import 'package:overscript/l10n/l10n.dart';
+import 'package:overscript/variable/cubit/variable.dart';
+import 'package:overscript/variable/variable.dart';
 import 'package:overscript/widgets/widgets.dart';
 
-typedef BranchListItemSelectedCallback = void Function(GitBranch gitBranch, bool selected);
+typedef VariableListItemSelectedCallback = void Function(Variable variable, bool selected);
 
-class BranchListItem extends StatefulWidget {
-  const BranchListItem({Key? key, required this.gitBranch, this.selectedCallback}) : super(key: key);
+class VariableListItem extends StatefulWidget {
+  const VariableListItem({Key? key, required this.variable, this.selectedCallback}) : super(key: key);
 
-  final GitBranch gitBranch;
-  final BranchListItemSelectedCallback? selectedCallback;
+  final Variable variable;
+  final VariableListItemSelectedCallback? selectedCallback;
 
   @override
-  BranchListItemState createState() => BranchListItemState();
+  VariableListItemState createState() => VariableListItemState();
 }
 
-class BranchListItemState extends State<BranchListItem> {
+class VariableListItemState extends State<VariableListItem> {
   bool _checked = false;
 
   @override
@@ -34,21 +36,21 @@ class BranchListItemState extends State<BranchListItem> {
         color: _checked ? Theme.of(context).highlightColor : Theme.of(context).colorScheme.surface,
         child: InkWell(
           child: ListTile(
-            title: Text(widget.gitBranch.name),
-            subtitle: Text(widget.gitBranch.directory),
+            title: Text(widget.variable.name),
+            subtitle: Text('${l10n.defaultValueLabel}: ${widget.variable.defaultValue}'),
             trailing: IconButton(
               tooltip: l10n.deleteBranchTooltip,
               onPressed: () => showConfirmMessage(
                 context: context,
-                title: l10n.deleteBranchConfirmTitle,
-                message: widget.gitBranch.name,
-                onConfirmButton: () => context.read<GitBranchesCubit>().delete(widget.gitBranch),
+                title: l10n.deleteVariableConfirmTitle,
+                message: widget.variable.name,
+                onConfirmButton: () => context.read<VariablesCubit>().delete(widget.variable),
               ),
               icon: const Icon(Icons.delete),
             ),
           ),
           onTap: () {
-            widget.selectedCallback!(widget.gitBranch, !_checked);
+            widget.selectedCallback!(widget.variable, !_checked);
             setState(() {
               _checked = !_checked;
             });
