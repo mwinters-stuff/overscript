@@ -20,9 +20,9 @@ class VariablesState extends Equatable {
   final List<Variable> variables;
   final VariablesStatus status;
 
-  VariablesState copyWith({VariablesStatus? status, List<Variable>? variables}) {
+  VariablesState copyWith({required VariablesStatus status, List<Variable>? variables}) {
     return VariablesState(
-      status: status ?? this.status,
+      status: status,
       variables: List.from(variables ?? this.variables),
     );
   }

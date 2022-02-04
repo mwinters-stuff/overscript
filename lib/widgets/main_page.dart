@@ -50,7 +50,10 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
             tooltip: 'Reload Scripts',
             onPressed: () => {
               showErrorMessage(
-                  context: context, title: 'Error test', message: 'Error')
+                context: context,
+                title: 'Error test',
+                message: 'Error',
+              )
               //  BlocProvider.of<OldScriptsBloc>(context).add(OldScriptsReloadedEvent(context: context))
             },
             icon: const Icon(Icons.refresh),
@@ -64,32 +67,28 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
           ),
           IconButton(
             tooltip: 'Scripts',
-            onPressed: () =>
-                {}, //Navigator.of(context).pushNamed('ScriptsScreen.routeName'),
+            onPressed: () => {}, //Navigator.of(context).pushNamed('ScriptsScreen.routeName'),
             icon: const Icon(Icons.subscript_sharp),
           ),
           IconButton(
             tooltip: 'Branches',
-            onPressed: () =>
-                Navigator.of(context).pushNamed(BranchesScreen.routeName),
+            onPressed: () => Navigator.of(context).pushNamed(BranchesScreen.routeName),
             icon: const Icon(Icons.texture_rounded),
           ),
           IconButton(
             tooltip: 'Variables',
-            onPressed: () =>
-                {}, //Navigator.of(context).pushNamed('VariablesScreen.routeName'),
+            onPressed: () => {}, //Navigator.of(context).pushNamed('VariablesScreen.routeName'),
             icon: const Icon(Icons.vertical_distribute),
           ),
           IconButton(
-            icon: Icon(context.read<ThemeCubit>().state.status.isLight
-                ? Icons.dark_mode
-                : Icons.light_mode),
+            icon: Icon(
+              context.read<ThemeCubit>().state.status.isLight ? Icons.dark_mode : Icons.light_mode,
+            ),
             onPressed: () => context.read<ThemeCubit>().toggle(),
           ),
           IconButton(
             tooltip: 'Settings',
-            onPressed: () =>
-                {}, //Navigator.of(context).pushNamed('SettingsScreen.routeName'),
+            onPressed: () => {}, //Navigator.of(context).pushNamed('SettingsScreen.routeName'),
             icon: const Icon(Icons.settings),
           )
         ],

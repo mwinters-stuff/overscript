@@ -4,9 +4,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:overscript/l10n/l10n.dart';
 import 'package:overscript/repositories/repositories.dart';
-import 'package:overscript/variable/cubit/variable.dart';
 import 'package:overscript/variable/variable.dart';
-import 'package:overscript/variable/views/variable_list_item.dart';
 import 'package:overscript/widgets/widgets.dart';
 import 'package:uuid/uuid.dart';
 

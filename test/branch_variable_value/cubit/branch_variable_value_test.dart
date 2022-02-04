@@ -17,13 +17,14 @@ void main() {
       expect(value.value, equals('value'));
 
       expect(
-          value.props,
-          equals([
-            'uuid',
-            'branch-uuid',
-            'variable-uuid',
-            'value',
-          ]));
+        value.props,
+        equals([
+          'uuid',
+          'branch-uuid',
+          'variable-uuid',
+          'value',
+        ]),
+      );
     });
 
     test('Create Empty', () {

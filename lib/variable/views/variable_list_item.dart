@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:overscript/gitbranch/gitbranch.dart';
 import 'package:overscript/l10n/l10n.dart';
-import 'package:overscript/variable/cubit/variable.dart';
 import 'package:overscript/variable/variable.dart';
 import 'package:overscript/widgets/widgets.dart';
 

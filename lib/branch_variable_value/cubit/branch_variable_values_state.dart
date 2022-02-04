@@ -20,9 +20,9 @@ class BranchVariableValuesState extends Equatable {
   final List<BranchVariableValue> branchVariableValues;
   final BranchVariableValuesStatus status;
 
-  BranchVariableValuesState copyWith({BranchVariableValuesStatus? status, List<BranchVariableValue>? branchVariableValues}) {
+  BranchVariableValuesState copyWith({required BranchVariableValuesStatus status, List<BranchVariableValue>? branchVariableValues}) {
     return BranchVariableValuesState(
-      status: status ?? this.status,
+      status: status,
       branchVariableValues: List.from(branchVariableValues ?? this.branchVariableValues),
     );
   }

@@ -5,7 +5,11 @@ void main() {
   group('GitBranch', () {
     test('Create', () {
       const value = GitBranch(
-          uuid: 'uuid', name: 'name', directory: 'directory', origin: 'origin');
+        uuid: 'uuid',
+        name: 'name',
+        directory: 'directory',
+        origin: 'origin',
+      );
 
       expect(value.uuid, equals('uuid'));
       expect(value.name, equals('name'));
@@ -27,43 +31,48 @@ void main() {
 
     test('to Json', () {
       const value = GitBranch(
-          uuid: 'uuid', name: 'name', directory: 'directory', origin: 'origin');
+        uuid: 'uuid',
+        name: 'name',
+        directory: 'directory',
+        origin: 'origin',
+      );
 
       expect(
-          value.toJson(),
-          equals({
-            'uuid': 'uuid',
-            'name': 'name',
-            'directory': 'directory',
-            'origin': 'origin'
-          }));
+        value.toJson(),
+        equals({'uuid': 'uuid', 'name': 'name', 'directory': 'directory', 'origin': 'origin'}),
+      );
     });
 
     test('to String', () {
       const value = GitBranch(
-          uuid: 'uuid', name: 'name', directory: 'directory', origin: 'origin');
+        uuid: 'uuid',
+        name: 'name',
+        directory: 'directory',
+        origin: 'origin',
+      );
 
       expect(
-          value.toString(),
-          equals(
-              '{uuid: uuid, name: name, directory: directory, origin: origin}'));
+        value.toString(),
+        equals(
+          '{uuid: uuid, name: name, directory: directory, origin: origin}',
+        ),
+      );
     });
 
     test('From Json', () {
-      final value = GitBranch.fromJson(const {
-        'uuid': 'uuid',
-        'name': 'name',
-        'directory': 'directory',
-        'origin': 'origin'
-      });
+      final value = GitBranch.fromJson(const {'uuid': 'uuid', 'name': 'name', 'directory': 'directory', 'origin': 'origin'});
 
       expect(
-          value,
-          equals(const GitBranch(
-              uuid: 'uuid',
-              name: 'name',
-              directory: 'directory',
-              origin: 'origin')));
+        value,
+        equals(
+          const GitBranch(
+            uuid: 'uuid',
+            name: 'name',
+            directory: 'directory',
+            origin: 'origin',
+          ),
+        ),
+      );
     });
   });
 }

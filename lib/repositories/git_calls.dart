@@ -40,7 +40,8 @@ class GitCalls {
     String? confirmButtonText,
   }) {
     return getDirectoryPath(
-        confirmButtonText: confirmButtonText,
-        initialDirectory: initialDirectory);
+      confirmButtonText: confirmButtonText,
+      initialDirectory: initialDirectory,
+    );
   }
 }
