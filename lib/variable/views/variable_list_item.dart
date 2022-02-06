@@ -35,12 +35,12 @@ class VariableListItemState extends State<VariableListItem> {
         child: InkWell(
           child: ListTile(
             title: Text(widget.variable.name),
-            subtitle: Text('${l10n.defaultValueLabel}: ${widget.variable.defaultValue}'),
+            subtitle: Text('${l10n.defaultValue}: ${widget.variable.defaultValue}'),
             trailing: IconButton(
-              tooltip: l10n.deleteBranchTooltip,
+              tooltip: l10n.deleteVariable,
               onPressed: () => showConfirmMessage(
                 context: context,
-                title: l10n.deleteVariableConfirmTitle,
+                title: l10n.deleteVariableQuestion,
                 message: widget.variable.name,
                 onConfirmButton: () => context.read<VariablesCubit>().delete(widget.variable),
               ),

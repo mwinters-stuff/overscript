@@ -48,26 +48,24 @@ class BranchesScreenState extends State<BranchesScreen> {
     return BlocBuilder<GitBranchesCubit, GitBranchesState>(
       builder: (context, state) => Scaffold(
         appBar: AppBar(
-          title: Text(l10n.branchScreenTitle),
+          title: Text(l10n.branches),
           actions: [
             IconButton(
               key: const Key('AddIcon'),
-              tooltip: l10n.addBranchTooltip,
+              tooltip: l10n.addBranch,
               onPressed: () => addBranch(context),
               icon: const Icon(Icons.add),
             ),
             IconButton(
               key: const Key('DeleteIcon'),
-              color: _selected.isEmpty
-                  ? Theme.of(context).disabledColor
-                  : Theme.of(context).iconTheme.color,
-              tooltip: l10n.deleteBranchTooltip,
+              color: _selected.isEmpty ? Theme.of(context).disabledColor : Theme.of(context).iconTheme.color,
+              tooltip: l10n.deleteBranch,
               onPressed: () => _selected.isEmpty
                   ? null
                   : {
                       showConfirmMessage(
                         context: context,
-                        title: l10n.deleteBranchesConfirmTitle,
+                        title: l10n.deleteBranchesQuestion,
                         message: _branchesNameList(_selected),
                         onConfirmButton: () {
                           for (final element in _selected) {
@@ -88,10 +86,8 @@ class BranchesScreenState extends State<BranchesScreen> {
   void addBranch(BuildContext context) {
     final l10n = context.l10n;
     final gitCalls = context.read<GitCalls>();
-    gitCalls
-        .getDirectoryPath(confirmButtonText: l10n.genericSelect)
-        .then((directory) {
-      if (directory != null) {
+    getDirectory(context: context, initialDirectory: '~').then((directory) {
+      if (directory != null && directory.isNotEmpty) {
         gitCalls.getGitRepository(directory).then((branchname) {
           gitCalls.getGitOriginRemote(directory).then((origin) {
             context.read<GitBranchesCubit>().add(
@@ -105,14 +101,14 @@ class BranchesScreenState extends State<BranchesScreen> {
           }).catchError((error) {
             showErrorMessage(
               context: context,
-              title: l10n.addBranchTooltip,
+              title: l10n.addBranch,
               message: error! as String,
             );
           });
         }).catchError((error) {
           showErrorMessage(
             context: context,
-            title: l10n.addBranchTooltip,
+            title: l10n.addBranch,
             message: '${l10n.gitDirectoryError}\n\n$error',
           );
         });

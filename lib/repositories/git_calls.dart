@@ -34,14 +34,4 @@ class GitCalls {
       'No remote origin\n\n${gitremote.stdout.toString().trim()}',
     );
   }
-
-  Future<String?> getDirectoryPath({
-    String? initialDirectory,
-    String? confirmButtonText,
-  }) {
-    return getDirectoryPath(
-      confirmButtonText: confirmButtonText,
-      initialDirectory: initialDirectory,
-    );
-  }
 }

@@ -243,14 +243,14 @@ void main() {
     blocTest<BranchVariableValuesCubit, BranchVariableValuesState>(
       'load from datastore',
       setUp: () {
-        when(() => dataStoreRepository.branchVariableValues).thenReturn(const [
-          BranchVariableValue(
+        when(() => dataStoreRepository.branchVariableValues).thenReturn([
+          const BranchVariableValue(
             uuid: 'a-uuid',
             branchUuid: 'branch-uuid-1',
             variableUuid: 'variable-uuid',
             value: 'value',
           ),
-          BranchVariableValue(
+          const BranchVariableValue(
             uuid: 'a-uuid-2',
             branchUuid: 'branch-uuid-2',
             variableUuid: 'variable-uuid',
@@ -371,6 +371,78 @@ void main() {
       );
     });
 
+    blocTest<BranchVariableValuesCubit, BranchVariableValuesState>(
+      'update success',
+      build: () => BranchVariableValuesCubit()
+        ..add(
+          const BranchVariableValue(
+            uuid: 'a-uuid',
+            branchUuid: 'branch-uuid-1',
+            variableUuid: 'variable-uuid',
+            value: 'value',
+          ),
+        ),
+      act: (cubit) => cubit.updateValue(
+        const BranchVariableValue(
+          uuid: 'a-uuid',
+          branchUuid: 'branch-uuid-1',
+          variableUuid: 'variable-uuid',
+          value: 'updated value',
+        ),
+      ),
+      expect: () => [
+        equals(
+          BranchVariableValuesState(
+            status: BranchVariableValuesStatus.updated,
+            branchVariableValues: const [
+              BranchVariableValue(
+                uuid: 'a-uuid',
+                branchUuid: 'branch-uuid-1',
+                variableUuid: 'variable-uuid',
+                value: 'updated value',
+              )
+            ],
+          ),
+        )
+      ],
+    );
+
+    blocTest<BranchVariableValuesCubit, BranchVariableValuesState>(
+      'update failed uuid not found',
+      build: () => BranchVariableValuesCubit()
+        ..add(
+          const BranchVariableValue(
+            uuid: 'a-uuid',
+            branchUuid: 'branch-uuid-1',
+            variableUuid: 'variable-uuid',
+            value: 'value',
+          ),
+        ),
+      act: (cubit) => cubit.updateValue(
+        const BranchVariableValue(
+          uuid: 'a-uuid-v',
+          branchUuid: 'branch-uuid-1',
+          variableUuid: 'variable-uuid',
+          value: 'updated value',
+        ),
+      ),
+      expect: () => [
+        equals(
+          BranchVariableValuesState(
+            status: BranchVariableValuesStatus.updateFailedUUIDNotFound,
+            branchVariableValues: const [
+              BranchVariableValue(
+                uuid: 'a-uuid',
+                branchUuid: 'branch-uuid-1',
+                variableUuid: 'variable-uuid',
+                value: 'value',
+              )
+            ],
+          ),
+        )
+      ],
+    );
+
     test('x test', () {
       var value = BranchVariableValuesStatus.initial;
       expect(value.isInitial, isTrue);
@@ -398,6 +470,12 @@ void main() {
 
       value = BranchVariableValuesStatus.failure;
       expect(value.isFailure, isTrue);
+
+      value = BranchVariableValuesStatus.updated;
+      expect(value.isUpdated, isTrue);
+
+      value = BranchVariableValuesStatus.updateFailedUUIDNotFound;
+      expect(value.isUpdateFailedUUIDNotFound, isTrue);
     });
   });
 }

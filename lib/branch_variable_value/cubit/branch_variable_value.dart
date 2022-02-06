@@ -21,6 +21,10 @@ class BranchVariableValue extends Equatable {
 
   factory BranchVariableValue.fromJson(Map json) => _$BranchVariableValueFromJson(json);
 
+  BranchVariableValue copyWithNewValue({required String newValue}) {
+    return BranchVariableValue(uuid: uuid, branchUuid: branchUuid, variableUuid: variableUuid, value: newValue);
+  }
+
   @JsonKey(required: true)
   final String uuid;
   @JsonKey(required: true)

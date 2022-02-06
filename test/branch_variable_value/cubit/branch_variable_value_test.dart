@@ -4,7 +4,7 @@ import 'package:overscript/branch_variable_value/branch_variable_value.dart';
 void main() {
   group('BranchVariableValue', () {
     test('Create', () {
-      const value = BranchVariableValue(
+      final value = BranchVariableValue(
         uuid: 'uuid',
         branchUuid: 'branch-uuid',
         variableUuid: 'variable-uuid',
@@ -28,7 +28,7 @@ void main() {
     });
 
     test('Create Empty', () {
-      const value = BranchVariableValue.empty();
+      final value = BranchVariableValue.empty();
 
       expect(value.uuid, equals(''));
       expect(value.branchUuid, equals(''));
@@ -37,7 +37,7 @@ void main() {
     });
 
     test('to Json', () {
-      const value = BranchVariableValue(uuid: 'uuid', branchUuid: 'branch-uuid', variableUuid: 'variable-uuid', value: 'value');
+      final value = BranchVariableValue(uuid: 'uuid', branchUuid: 'branch-uuid', variableUuid: 'variable-uuid', value: 'value');
 
       expect(
         value.toJson(),
@@ -46,7 +46,7 @@ void main() {
     });
 
     test('to String', () {
-      const value = BranchVariableValue(uuid: 'uuid', branchUuid: 'branch-uuid', variableUuid: 'variable-uuid', value: 'value');
+      final value = BranchVariableValue(uuid: 'uuid', branchUuid: 'branch-uuid', variableUuid: 'variable-uuid', value: 'value');
 
       expect(
         value.toString(),
@@ -62,7 +62,7 @@ void main() {
       expect(
         value,
         equals(
-          const BranchVariableValue(uuid: 'uuid', branchUuid: 'branch-uuid', variableUuid: 'variable-uuid', value: 'value'),
+          BranchVariableValue(uuid: 'uuid', branchUuid: 'branch-uuid', variableUuid: 'variable-uuid', value: 'value'),
         ),
       );
     });

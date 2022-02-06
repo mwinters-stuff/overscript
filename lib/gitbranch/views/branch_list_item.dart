@@ -37,10 +37,10 @@ class BranchListItemState extends State<BranchListItem> {
             title: Text(widget.gitBranch.name),
             subtitle: Text(widget.gitBranch.directory),
             trailing: IconButton(
-              tooltip: l10n.deleteBranchTooltip,
+              tooltip: l10n.deleteBranch,
               onPressed: () => showConfirmMessage(
                 context: context,
-                title: l10n.deleteBranchConfirmTitle,
+                title: l10n.deleteBranchQuestion,
                 message: widget.gitBranch.name,
                 onConfirmButton: () => context.read<GitBranchesCubit>().delete(widget.gitBranch),
               ),

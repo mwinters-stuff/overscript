@@ -1,4 +1,5 @@
 import 'package:bloc_test/bloc_test.dart';
+import 'package:file_selector_platform_interface/file_selector_platform_interface.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -20,6 +21,12 @@ class MockGitBranch extends Mock implements GitBranch {}
 
 class MockGitCalls extends Mock implements GitCalls {}
 
+abstract class ResultTest {
+  void onResult(String value);
+}
+
+class MockResultTest extends Mock implements ResultTest {}
+
 void main() {
   group('BranchesScreen', () {
     late MockGitBranch mockGitBranch1;
@@ -28,6 +35,7 @@ void main() {
     late MockDataStoreRepository mockDataStoreRepository;
     late MockGitBranchesState mockGitBranchesState;
     late MockGitCalls mockGitCalls;
+    late FakeFileSelector fakeFileSelectorImplementation;
 
     setUp(() {
       mockDataStoreRepository = MockDataStoreRepository();
@@ -53,6 +61,9 @@ void main() {
       when(() => mockGitBranchesCubit.state).thenReturn(mockGitBranchesState);
 
       registerFallbackValue(const GitBranch.empty());
+
+      fakeFileSelectorImplementation = FakeFileSelector();
+      FileSelectorPlatform.instance = fakeFileSelectorImplementation;
     });
 
     testWidgets('create and show branches', (tester) async {
@@ -263,7 +274,11 @@ void main() {
 
       expect(find.byKey(const Key('AddIcon')), findsOneWidget);
 
-      when(() => mockGitCalls.getDirectoryPath(confirmButtonText: 'Select')).thenAnswer((invocation) => Future.value(null));
+      fakeFileSelectorImplementation
+        ..setExpectations(initialDirectory: '~', confirmButtonText: 'Select')
+        ..setPathResponse('');
+
+      // when(() => mockGitCalls.getDirectoryPath(confirmButtonText: 'Select')).thenAnswer((invocation) => Future.value(null));
 
       await tester.tap(find.byKey(const Key('AddIcon')));
       await tester.pumpAndSettle();
@@ -293,7 +308,11 @@ void main() {
 
       expect(find.byKey(const Key('AddIcon')), findsOneWidget);
 
-      when(() => mockGitCalls.getDirectoryPath(confirmButtonText: 'Select')).thenAnswer((invocation) => Future.value('/a/non/git/path'));
+      fakeFileSelectorImplementation
+        ..setExpectations(initialDirectory: '~', confirmButtonText: 'Select')
+        ..setPathResponse('/a/non/git/path');
+
+      //when(() => getDirectoryPath(confirmButtonText: 'Select')).thenAnswer((invocation) => Future.value('/a/non/git/path'));
       when(() => mockGitCalls.getGitRepository('/a/non/git/path')).thenAnswer((invocation) => Future.error('bad'));
 
       await tester.tap(find.byKey(const Key('AddIcon')));
@@ -337,7 +356,11 @@ void main() {
 
       expect(find.byKey(const Key('AddIcon')), findsOneWidget);
 
-      when(() => mockGitCalls.getDirectoryPath(confirmButtonText: 'Select')).thenAnswer((invocation) => Future.value('/a/non/git/path'));
+      fakeFileSelectorImplementation
+        ..setExpectations(initialDirectory: '~', confirmButtonText: 'Select')
+        ..setPathResponse('/a/non/git/path');
+
+      // when(() => mockGitCalls.getDirectoryPath(confirmButtonText: 'Select')).thenAnswer((invocation) => Future.value('/a/non/git/path'));
       when(() => mockGitCalls.getGitRepository('/a/non/git/path')).thenAnswer((invocation) => Future.value('peaches'));
       when(() => mockGitCalls.getGitOriginRemote('/a/non/git/path')).thenAnswer((invocation) => Future.error('No remote origin\n\nbad'));
 
@@ -377,7 +400,10 @@ void main() {
 
       expect(find.byKey(const Key('AddIcon')), findsOneWidget);
 
-      when(() => mockGitCalls.getDirectoryPath(confirmButtonText: 'Select')).thenAnswer((invocation) => Future.value('/a/non/git/path'));
+      fakeFileSelectorImplementation
+        ..setExpectations(initialDirectory: '~', confirmButtonText: 'Select')
+        ..setPathResponse('/a/non/git/path');
+
       when(() => mockGitCalls.getGitRepository('/a/non/git/path')).thenAnswer((invocation) => Future.value('peaches'));
       when(() => mockGitCalls.getGitOriginRemote('/a/non/git/path')).thenAnswer((invocation) => Future.value('anorigin'));
 

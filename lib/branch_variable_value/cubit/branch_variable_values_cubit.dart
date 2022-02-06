@@ -27,4 +27,8 @@ class BranchVariableValuesCubit extends Cubit<BranchVariableValuesState> {
   BranchVariableValue? getBranchVariableValue(String uuid) {
     return state.getBranchVariableValue(uuid);
   }
+
+  void updateValue(BranchVariableValue currentValue) {
+    emit(state.update(currentValue));
+  }
 }

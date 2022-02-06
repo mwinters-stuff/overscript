@@ -1,12 +1,14 @@
 part of 'branch_variable_values_cubit.dart';
 
-enum BranchVariableValuesStatus { initial, loaded, saved, added, addFailedUUIDExists, addFailedUUIDCombinationExists, deleted, deleteFailedNotFound, failure }
+enum BranchVariableValuesStatus { initial, loaded, saved, added, updated, addFailedUUIDExists, addFailedUUIDCombinationExists, deleted, deleteFailedNotFound, failure, updateFailedUUIDNotFound }
 
 extension BranchVariableValuesStatusX on BranchVariableValuesStatus {
   bool get isInitial => this == BranchVariableValuesStatus.initial;
   bool get isSaved => this == BranchVariableValuesStatus.saved;
   bool get isLoaded => this == BranchVariableValuesStatus.loaded;
   bool get isAdded => this == BranchVariableValuesStatus.added;
+  bool get isUpdated => this == BranchVariableValuesStatus.updated;
+  bool get isUpdateFailedUUIDNotFound => this == BranchVariableValuesStatus.updateFailedUUIDNotFound;
   bool get isAddFailedUUIDExists => this == BranchVariableValuesStatus.addFailedUUIDExists;
   bool get isAddFailedUUIDCombinationExists => this == BranchVariableValuesStatus.addFailedUUIDCombinationExists;
   bool get isDeleted => this == BranchVariableValuesStatus.deleted;
@@ -88,5 +90,15 @@ class BranchVariableValuesState extends Equatable {
       }
     }
     return null;
+  }
+
+  BranchVariableValuesState update(BranchVariableValue newValue) {
+    final existing = _findVariableUUID(newValue.uuid);
+    if (existing != null) {
+      final index = branchVariableValues.indexOf(existing);
+      branchVariableValues.replaceRange(index, index + 1, [newValue]);
+      return copyWith(status: BranchVariableValuesStatus.updated);
+    }
+    return copyWith(status: BranchVariableValuesStatus.updateFailedUUIDNotFound);
   }
 }

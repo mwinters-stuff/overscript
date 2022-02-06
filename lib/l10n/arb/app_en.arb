@@ -2,23 +2,30 @@
     "@@locale": "en",
     "appTitle": "Overscript",
     "@appTitle": {
-        "description": "Name of the app"
+        "description": "Overscript"
     },
-    "deleteBranchTooltip":"Delete Branch",
-    "deleteBranchConfirmTitle":"Delete Branch?",
-    "deleteBranchesConfirmTitle":"Delete Branches?",
-    "branchScreenTitle":"Branches",
-    "addBranchTooltip":"Add Branch",
-    "genericSelect":"Select",
+    "deleteBranch":"Delete Branch",
+    "deleteBranchQuestion":"Delete Branch?",
+    "deleteBranchesQuestion":"Delete Branches?",
+    "branches":"Branches",
+    "addBranch":"Add Branch",
+    "select":"Select",
     "gitDirectoryError":"You must select a directory that has a git repository.",
-    "defaultValueLabel":"Default Value",
-    "deleteVariableTooltip":"Delete Variable",
-    "deleteVariableConfirmTitle":"Delete Variable?",
-    "deleteVariablesConfirmTitle":"Delete Variables?",
-    "variableScreenTitle":"Variables",
-    "addVariableTooltip":"Add Variable",
+    "defaultValue":"Default Value",
+    "deleteVariable":"Delete Variable",
+    "deleteVariableQuestion":"Delete Variable?",
+    "deleteVariablesQuestion":"Delete Variables?",
+    "variables":"Variables",
+    "addVariable":"Add Variable",
     "editVariable": "Edit Variable",
-    "nameLabel":"Name"
+    "name":"Name",
+    "resetDefault":"Reset to Default",
+    "resetDefaultValueQuestion":"Reset to the default value?",
+    "ofStr":"of",
+    "editVariableValue":"Edit Variable Value",
+    "value":"Value",
+    "selectDirectory":"Select Directory",
+    "selectFile":"Select File"
     
 
 

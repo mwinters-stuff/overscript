@@ -55,24 +55,24 @@ class VariablesScreenState extends State<VariablesScreen> {
     return BlocBuilder<VariablesCubit, VariablesState>(
       builder: (context, state) => Scaffold(
         appBar: AppBar(
-          title: Text(l10n.branchScreenTitle),
+          title: Text(l10n.variables),
           actions: [
             IconButton(
               key: const Key('AddIcon'),
-              tooltip: l10n.addVariableTooltip,
+              tooltip: l10n.addVariable,
               onPressed: () => addVariable(context),
               icon: const Icon(Icons.add),
             ),
             IconButton(
               key: const Key('DeleteIcon'),
               color: _selected.isEmpty ? Theme.of(context).disabledColor : Theme.of(context).iconTheme.color,
-              tooltip: l10n.deleteVariableTooltip,
+              tooltip: l10n.deleteVariable,
               onPressed: () => _selected.isEmpty
                   ? null
                   : {
                       showConfirmMessage(
                         context: context,
-                        title: l10n.deleteVariablesConfirmTitle,
+                        title: l10n.deleteVariablesQuestion,
                         message: _variablesNameList(_selected),
                         onConfirmButton: () {
                           for (final element in _selected) {
@@ -95,7 +95,7 @@ class VariablesScreenState extends State<VariablesScreen> {
 
     showContentDialog(
       context: context,
-      title: l10n.addVariableTooltip,
+      title: l10n.addVariable,
       content: FormBuilder(
         key: _formKey,
         // enabled: false,
@@ -112,7 +112,7 @@ class VariablesScreenState extends State<VariablesScreen> {
               autovalidateMode: AutovalidateMode.always,
               name: 'name',
               decoration: InputDecoration(
-                labelText: l10n.nameLabel,
+                labelText: l10n.name,
               ),
               validator: FormBuilderValidators.compose([
                 FormBuilderValidators.required(context),
@@ -125,7 +125,7 @@ class VariablesScreenState extends State<VariablesScreen> {
               autovalidateMode: AutovalidateMode.always,
               name: 'defaultValue',
               decoration: InputDecoration(
-                labelText: l10n.defaultValueLabel,
+                labelText: l10n.defaultValue,
               ),
               validator: FormBuilderValidators.compose([
                 FormBuilderValidators.required(context),

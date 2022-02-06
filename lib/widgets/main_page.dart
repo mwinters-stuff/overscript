@@ -67,7 +67,25 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
           ),
           IconButton(
             tooltip: 'Scripts',
-            onPressed: () => {}, //Navigator.of(context).pushNamed('ScriptsScreen.routeName'),
+            onPressed: () => {
+              showInputDialog(
+                context: context,
+                title: 'Input Dialog',
+                label: 'Input Something',
+                value: 'Initial Value',
+                onCancelButton: () => print("Cancelled"),
+                // onCancelButton: () => showErrorMessage(
+                //   context: context,
+                //   title: 'Input Result',
+                //   message: 'Cancel Pressed',
+                // ),
+                onConfirmButton: (String newValue) => showErrorMessage(
+                  context: context,
+                  title: 'Input Result',
+                  message: 'Ok Pressed $newValue',
+                ),
+              )
+            }, //Navigator.of(context).pushNamed('ScriptsScreen.routeName'),
             icon: const Icon(Icons.subscript_sharp),
           ),
           IconButton(
