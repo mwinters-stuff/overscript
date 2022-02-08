@@ -1,9 +1,10 @@
 part of 'gitbranches_cubit.dart';
 
-enum GitBranchesStatus { initial, loaded, saved, added, addFailedUUIDExists, addFailedNameExists, addFailedDirectoryExists, addFailedOriginMismatch, deleted, deleteFailedNotFound, failure }
+enum GitBranchesStatus { initial, changing, loaded, saved, added, addFailedUUIDExists, addFailedNameExists, addFailedDirectoryExists, addFailedOriginMismatch, deleted, deleteFailedNotFound, failure }
 
 extension GitBranchesStatusX on GitBranchesStatus {
   bool get isInitial => this == GitBranchesStatus.initial;
+  bool get isChanging => this == GitBranchesStatus.changing;
   bool get isSaved => this == GitBranchesStatus.saved;
   bool get isLoaded => this == GitBranchesStatus.loaded;
   bool get isAdded => this == GitBranchesStatus.added;
@@ -108,6 +109,10 @@ class GitBranchesState extends Equatable {
     }
     branches.removeWhere((element) => element.uuid == branch.uuid);
     return copyWith(status: GitBranchesStatus.deleted);
+  }
+
+  GitBranchesState changing() {
+    return copyWith(status: GitBranchesStatus.changing);
   }
 
   @override

@@ -9,14 +9,17 @@ class GitBranchesCubit extends Cubit<GitBranchesState> {
   GitBranchesCubit() : super(GitBranchesState());
 
   void add(GitBranch branch) {
+    emit(state.changing());
     emit(state.add(branch));
   }
 
   void delete(GitBranch branch) {
+    emit(state.changing());
     emit(state.delete(branch));
   }
 
   void load(DataStoreRepository dataStoreRepository) {
+    emit(state.changing());
     emit(state.load(dataStoreRepository));
   }
 

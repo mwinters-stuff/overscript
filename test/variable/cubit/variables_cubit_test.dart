@@ -44,6 +44,18 @@ void main() {
       expect: () => [
         equals(
           VariablesState(
+            status: VariablesStatus.changing,
+            variables: const [
+              Variable(
+                uuid: 'a-uuid',
+                name: 'variable-one',
+                defaultValue: '/some/defaultValue',
+              )
+            ],
+          ),
+        ),
+        equals(
+          VariablesState(
             status: VariablesStatus.added,
             variables: const [
               Variable(
@@ -78,6 +90,47 @@ void main() {
           );
       },
       expect: () => [
+        equals(
+          VariablesState(
+            status: VariablesStatus.changing,
+            variables: const [
+              Variable(
+                uuid: 'a-uuid',
+                name: 'variable-one',
+                defaultValue: '/some/defaultValue',
+              )
+            ],
+          ),
+        ),
+        equals(
+          VariablesState(
+            status: VariablesStatus.added,
+            variables: const [
+              Variable(
+                uuid: 'a-uuid',
+                name: 'variable-one',
+                defaultValue: '/some/defaultValue',
+              )
+            ],
+          ),
+        ),
+        equals(
+          VariablesState(
+            status: VariablesStatus.changing,
+            variables: const [
+              Variable(
+                uuid: 'a-uuid',
+                name: 'variable-one',
+                defaultValue: '/some/defaultValue',
+              ),
+              Variable(
+                uuid: 'a-uuid-2',
+                name: 'variable-two',
+                defaultValue: '/some/other/defaultValue',
+              )
+            ],
+          ),
+        ),
         equals(
           VariablesState(
             status: VariablesStatus.added,
@@ -118,6 +171,18 @@ void main() {
       expect: () => [
         equals(
           VariablesState(
+            status: VariablesStatus.changing,
+            variables: const [
+              Variable(
+                uuid: 'a-uuid',
+                name: 'variable-one',
+                defaultValue: '/some/defaultValue',
+              )
+            ],
+          ),
+        ),
+        equals(
+          VariablesState(
             status: VariablesStatus.addFailedUUIDExists,
             variables: const [
               Variable(
@@ -149,6 +214,18 @@ void main() {
         ),
       ),
       expect: () => [
+        equals(
+          VariablesState(
+            status: VariablesStatus.changing,
+            variables: const [
+              Variable(
+                uuid: 'a-uuid',
+                name: 'variable-one',
+                defaultValue: '/some/defaultValue',
+              )
+            ],
+          ),
+        ),
         equals(
           VariablesState(
             status: VariablesStatus.addFailedNameExists,
@@ -184,6 +261,12 @@ void main() {
       expect: () => [
         equals(
           VariablesState(
+            status: VariablesStatus.changing,
+            variables: const [],
+          ),
+        ),
+        equals(
+          VariablesState(
             status: VariablesStatus.deleted,
             variables: const [],
           ),
@@ -209,6 +292,18 @@ void main() {
         ),
       ),
       expect: () => [
+        equals(
+          VariablesState(
+            status: VariablesStatus.changing,
+            variables: const [
+              Variable(
+                uuid: 'a-uuid',
+                name: 'variable-one',
+                defaultValue: '/some/defaultValue',
+              )
+            ],
+          ),
+        ),
         equals(
           VariablesState(
             status: VariablesStatus.deleteFailedNotFound,
@@ -243,6 +338,12 @@ void main() {
       build: () => VariablesCubit(),
       act: (cubit) => cubit.load(dataStoreRepository),
       expect: () => [
+        equals(
+          VariablesState(
+            status: VariablesStatus.changing,
+            variables: const [],
+          ),
+        ),
         equals(
           VariablesState(
             status: VariablesStatus.loaded,
@@ -283,6 +384,23 @@ void main() {
         ),
       act: (cubit) => cubit.save(dataStoreRepository),
       expect: () => [
+        equals(
+          VariablesState(
+            status: VariablesStatus.changing,
+            variables: const [
+              Variable(
+                uuid: 'a-uuid',
+                name: 'variable-one',
+                defaultValue: '/some/defaultValue',
+              ),
+              Variable(
+                uuid: 'a-uuid-2',
+                name: 'variable-two',
+                defaultValue: '/some/other/defaultValue',
+              ),
+            ],
+          ),
+        ),
         equals(
           VariablesState(
             status: VariablesStatus.saved,
@@ -352,7 +470,8 @@ void main() {
 
       value = VariablesStatus.saved;
       expect(value.isSaved, isTrue);
-
+      value = VariablesStatus.changing;
+      expect(value.isChanging, isTrue);
       value = VariablesStatus.added;
       expect(value.isAdded, isTrue);
 

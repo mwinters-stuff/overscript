@@ -4,7 +4,7 @@ import 'package:overscript/branch_variable_value/branch_variable_value.dart';
 void main() {
   group('BranchVariableValue', () {
     test('Create', () {
-      final value = BranchVariableValue(
+      const value = BranchVariableValue(
         uuid: 'uuid',
         branchUuid: 'branch-uuid',
         variableUuid: 'variable-uuid',
@@ -28,7 +28,7 @@ void main() {
     });
 
     test('Create Empty', () {
-      final value = BranchVariableValue.empty();
+      const value = BranchVariableValue.empty();
 
       expect(value.uuid, equals(''));
       expect(value.branchUuid, equals(''));
@@ -36,8 +36,17 @@ void main() {
       expect(value.value, equals(''));
     });
 
+    test('copyWithNewValue', () {
+      const value = BranchVariableValue(uuid: 'uuid', branchUuid: 'branch-uuid', variableUuid: 'variable-uuid', value: 'value');
+
+      expect(
+        value.copyWithNewValue(newValue: 'new-value'),
+        equals(const BranchVariableValue(uuid: 'uuid', branchUuid: 'branch-uuid', variableUuid: 'variable-uuid', value: 'new-value')),
+      );
+    });
+
     test('to Json', () {
-      final value = BranchVariableValue(uuid: 'uuid', branchUuid: 'branch-uuid', variableUuid: 'variable-uuid', value: 'value');
+      const value = BranchVariableValue(uuid: 'uuid', branchUuid: 'branch-uuid', variableUuid: 'variable-uuid', value: 'value');
 
       expect(
         value.toJson(),
@@ -46,7 +55,7 @@ void main() {
     });
 
     test('to String', () {
-      final value = BranchVariableValue(uuid: 'uuid', branchUuid: 'branch-uuid', variableUuid: 'variable-uuid', value: 'value');
+      const value = BranchVariableValue(uuid: 'uuid', branchUuid: 'branch-uuid', variableUuid: 'variable-uuid', value: 'value');
 
       expect(
         value.toString(),
@@ -62,7 +71,7 @@ void main() {
       expect(
         value,
         equals(
-          BranchVariableValue(uuid: 'uuid', branchUuid: 'branch-uuid', variableUuid: 'variable-uuid', value: 'value'),
+          const BranchVariableValue(uuid: 'uuid', branchUuid: 'branch-uuid', variableUuid: 'variable-uuid', value: 'value'),
         ),
       );
     });

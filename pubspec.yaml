@@ -11,6 +11,7 @@ dependencies:
   dog: ^1.4.0
   equatable: ^2.0.3
   fialogs: ^2.0.4
+  file: ^6.1.2
   file_selector: ^0.8.3
   file_selector_linux: ^0.0.2+1
   flutter:
@@ -23,6 +24,7 @@ dependencies:
   hydrated_bloc: ^8.0.0
   intl: ^0.17.0
   json_annotation: ^4.4.0
+  process: ^4.2.4
   settings_ui: ^2.0.2
   streaming_shared_preferences: ^2.0.0
   uuid: ^3.0.5

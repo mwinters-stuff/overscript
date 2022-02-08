@@ -9,12 +9,16 @@ import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:file/local.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:overscript/branch_variable_value/cubit/branch_variable_values_cubit.dart';
 import 'package:overscript/gitbranch/gitbranch.dart';
 import 'package:overscript/repositories/repositories.dart';
 import 'package:overscript/theme/theme.dart';
+import 'package:overscript/variable/variable.dart';
+import 'package:process/process.dart';
 
 class AppBlocObserver extends BlocObserver {
   @override
@@ -46,14 +50,20 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
           MultiRepositoryProvider(
             providers: [
               RepositoryProvider<DataStoreRepository>(
-                create: (context) => DataStoreRepository(),
+                create: (context) => DataStoreRepository(const LocalFileSystem()),
               ),
-              RepositoryProvider<GitCalls>(create: (context) => GitCalls()),
+              RepositoryProvider<GitCalls>(create: (context) => GitCalls(const LocalProcessManager())),
             ],
             child: MultiBlocProvider(
               providers: [
                 BlocProvider<GitBranchesCubit>(
                   create: (context) => GitBranchesCubit(),
+                ),
+                BlocProvider<VariablesCubit>(
+                  create: (context) => VariablesCubit(),
+                ),
+                BlocProvider<BranchVariableValuesCubit>(
+                  create: (context) => BranchVariableValuesCubit(),
                 ),
                 BlocProvider<ThemeCubit>(create: (context) => ThemeCubit()),
               ],

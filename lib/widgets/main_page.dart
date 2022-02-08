@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:overscript/gitbranch/gitbranch.dart';
 import 'package:overscript/theme/cubit/theme_cubit.dart';
+import 'package:overscript/variable/variable.dart';
 import 'package:overscript/widgets/widgets.dart';
 
 class MainPage extends StatefulWidget {
@@ -95,7 +96,7 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
           ),
           IconButton(
             tooltip: 'Variables',
-            onPressed: () => {}, //Navigator.of(context).pushNamed('VariablesScreen.routeName'),
+            onPressed: () => Navigator.of(context).pushNamed(VariablesScreen.routeName),
             icon: const Icon(Icons.vertical_distribute),
           ),
           IconButton(

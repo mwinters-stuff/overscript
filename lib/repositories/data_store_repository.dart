@@ -1,18 +1,20 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:file/file.dart';
 import 'package:overscript/branch_variable_value/branch_variable_value.dart';
 import 'package:overscript/gitbranch/cubit/gitbranch.dart';
 import 'package:overscript/repositories/json_storage.dart';
 import 'package:overscript/variable/variable.dart';
 
 class DataStoreRepository {
-  DataStoreRepository()
+  DataStoreRepository(this.fileSystem)
       : branches = [],
         scripts = [],
         variables = [],
         branchVariableValues = [];
 
+  final FileSystem fileSystem;
   List<dynamic> scripts;
   List<Variable> variables;
   List<GitBranch> branches;
@@ -52,8 +54,8 @@ class DataStoreRepository {
   // }
 
   void load(String filename) {
-    final file = File(filename);
-    if (file.existsSync()) {
+    if (fileSystem.isFileSync(filename)) {
+      final file = fileSystem.file(filename);
       final content = file.readAsStringSync();
       final jsonStorage = JsonStorage.fromJson(
         const JsonDecoder().convert(content) as Map<String, dynamic>,
@@ -63,6 +65,12 @@ class DataStoreRepository {
       branches = List.from(jsonStorage.branches, growable: true);
       branchVariableValues = List.from(jsonStorage.branchVariableValues, growable: true);
     }
+  }
+
+  void save(String filename) {
+    final jsonStorage = JsonStorage(scripts: scripts, variables: variables, branches: branches, branchVariableValues: branchVariableValues);
+    final output = const JsonEncoder.withIndent('  ').convert(jsonStorage);
+    fileSystem.file(filename).writeAsStringSync(output);
   }
 
   // StoredScript? getScript(String uuid) {
@@ -182,9 +190,4 @@ class DataStoreRepository {
   //   _branches.removeWhere((element) => element.uuid == uuid);
   // }
 
-  void save(String filename) {
-    final jsonStorage = JsonStorage(scripts: scripts, variables: variables, branches: branches, branchVariableValues: branchVariableValues);
-    final output = const JsonEncoder.withIndent('  ').convert(jsonStorage);
-    File(filename).writeAsStringSync(output);
-  }
 }

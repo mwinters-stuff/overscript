@@ -1,9 +1,10 @@
 part of 'variables_cubit.dart';
 
-enum VariablesStatus { initial, loaded, saved, added, addFailedUUIDExists, addFailedNameExists, deleted, deleteFailedNotFound, failure }
+enum VariablesStatus { initial, loaded, changing, saved, added, addFailedUUIDExists, addFailedNameExists, deleted, deleteFailedNotFound, failure }
 
 extension VariablesStatusX on VariablesStatus {
   bool get isInitial => this == VariablesStatus.initial;
+  bool get isChanging => this == VariablesStatus.changing;
   bool get isSaved => this == VariablesStatus.saved;
   bool get isLoaded => this == VariablesStatus.loaded;
   bool get isAdded => this == VariablesStatus.added;
@@ -88,5 +89,9 @@ class VariablesState extends Equatable {
       }
     }
     return null;
+  }
+
+  VariablesState changing() {
+    return copyWith(status: VariablesStatus.changing);
   }
 }

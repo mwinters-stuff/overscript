@@ -313,7 +313,7 @@ void main() {
         ..setPathResponse('/a/non/git/path');
 
       //when(() => getDirectoryPath(confirmButtonText: 'Select')).thenAnswer((invocation) => Future.value('/a/non/git/path'));
-      when(() => mockGitCalls.getGitRepository('/a/non/git/path')).thenAnswer((invocation) => Future.error('bad'));
+      when(() => mockGitCalls.getBranchName('/a/non/git/path')).thenAnswer((invocation) => Future.error('bad'));
 
       await tester.tap(find.byKey(const Key('AddIcon')));
       await tester.pumpAndSettle();
@@ -361,8 +361,8 @@ void main() {
         ..setPathResponse('/a/non/git/path');
 
       // when(() => mockGitCalls.getDirectoryPath(confirmButtonText: 'Select')).thenAnswer((invocation) => Future.value('/a/non/git/path'));
-      when(() => mockGitCalls.getGitRepository('/a/non/git/path')).thenAnswer((invocation) => Future.value('peaches'));
-      when(() => mockGitCalls.getGitOriginRemote('/a/non/git/path')).thenAnswer((invocation) => Future.error('No remote origin\n\nbad'));
+      when(() => mockGitCalls.getBranchName('/a/non/git/path')).thenAnswer((invocation) => Future.value('peaches'));
+      when(() => mockGitCalls.getOriginRemote('/a/non/git/path')).thenAnswer((invocation) => Future.error('No remote origin\n\nbad'));
 
       await tester.tap(find.byKey(const Key('AddIcon')));
       await tester.pumpAndSettle();
@@ -404,8 +404,8 @@ void main() {
         ..setExpectations(initialDirectory: '~', confirmButtonText: 'Select')
         ..setPathResponse('/a/non/git/path');
 
-      when(() => mockGitCalls.getGitRepository('/a/non/git/path')).thenAnswer((invocation) => Future.value('peaches'));
-      when(() => mockGitCalls.getGitOriginRemote('/a/non/git/path')).thenAnswer((invocation) => Future.value('anorigin'));
+      when(() => mockGitCalls.getBranchName('/a/non/git/path')).thenAnswer((invocation) => Future.value('peaches'));
+      when(() => mockGitCalls.getOriginRemote('/a/non/git/path')).thenAnswer((invocation) => Future.value('anorigin'));
 
       await tester.tap(find.byKey(const Key('AddIcon')));
       await tester.pumpAndSettle();

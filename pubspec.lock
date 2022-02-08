@@ -247,7 +247,7 @@ packages:
     source: hosted
     version: "2.0.4"
   file:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: file
       url: "https://pub.dartlang.org"
@@ -540,7 +540,7 @@ packages:
     source: hosted
     version: "1.5.0"
   process:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: process
       url: "https://pub.dartlang.org"

@@ -12,6 +12,7 @@ import 'package:overscript/gitbranch/gitbranch.dart';
 import 'package:overscript/l10n/l10n.dart';
 import 'package:overscript/repositories/repositories.dart';
 import 'package:overscript/theme/theme.dart';
+import 'package:overscript/variable/variable.dart';
 import 'package:overscript/widgets/main_page.dart';
 
 class App extends StatelessWidget {
@@ -29,6 +30,8 @@ class App extends StatelessWidget {
           switch (settings.name) {
             case BranchesScreen.routeName:
               return BranchesScreen.pageRoute(context);
+            case VariablesScreen.routeName:
+              return VariablesScreen.pageRoute(context);
           }
         },
         supportedLocales: AppLocalizations.supportedLocales,

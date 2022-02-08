@@ -46,6 +46,19 @@ void main() {
       expect: () => [
         equals(
           GitBranchesState(
+            status: GitBranchesStatus.changing,
+            branches: const [
+              GitBranch(
+                uuid: 'a-uuid',
+                name: 'branch-one',
+                directory: '/some/directory',
+                origin: 'theorigin',
+              )
+            ],
+          ),
+        ),
+        equals(
+          GitBranchesState(
             status: GitBranchesStatus.added,
             branches: const [
               GitBranch(
@@ -83,6 +96,51 @@ void main() {
           );
       },
       expect: () => [
+        equals(
+          GitBranchesState(
+            status: GitBranchesStatus.changing,
+            branches: const [
+              GitBranch(
+                uuid: 'a-uuid',
+                name: 'branch-one',
+                directory: '/some/directory',
+                origin: 'theorigin',
+              )
+            ],
+          ),
+        ),
+        equals(
+          GitBranchesState(
+            status: GitBranchesStatus.added,
+            branches: const [
+              GitBranch(
+                uuid: 'a-uuid',
+                name: 'branch-one',
+                directory: '/some/directory',
+                origin: 'theorigin',
+              )
+            ],
+          ),
+        ),
+        equals(
+          GitBranchesState(
+            status: GitBranchesStatus.changing,
+            branches: const [
+              GitBranch(
+                uuid: 'a-uuid',
+                name: 'branch-one',
+                directory: '/some/directory',
+                origin: 'theorigin',
+              ),
+              GitBranch(
+                uuid: 'a-uuid-2',
+                name: 'branch-two',
+                directory: '/some/other/directory',
+                origin: 'theorigin',
+              )
+            ],
+          ),
+        ),
         equals(
           GitBranchesState(
             status: GitBranchesStatus.added,
@@ -127,6 +185,19 @@ void main() {
       expect: () => [
         equals(
           GitBranchesState(
+            status: GitBranchesStatus.changing,
+            branches: const [
+              GitBranch(
+                uuid: 'a-uuid',
+                name: 'branch-one',
+                directory: '/some/directory',
+                origin: 'theorigin',
+              )
+            ],
+          ),
+        ),
+        equals(
+          GitBranchesState(
             status: GitBranchesStatus.addFailedUUIDExists,
             branches: const [
               GitBranch(
@@ -161,6 +232,19 @@ void main() {
         ),
       ),
       expect: () => [
+        equals(
+          GitBranchesState(
+            status: GitBranchesStatus.changing,
+            branches: const [
+              GitBranch(
+                uuid: 'a-uuid',
+                name: 'branch-one',
+                directory: '/some/directory',
+                origin: 'theorigin',
+              )
+            ],
+          ),
+        ),
         equals(
           GitBranchesState(
             status: GitBranchesStatus.addFailedNameExists,
@@ -199,6 +283,19 @@ void main() {
       expect: () => [
         equals(
           GitBranchesState(
+            status: GitBranchesStatus.changing,
+            branches: const [
+              GitBranch(
+                uuid: 'a-uuid',
+                name: 'branch-one',
+                directory: '/some/directory',
+                origin: 'theorigin',
+              )
+            ],
+          ),
+        ),
+        equals(
+          GitBranchesState(
             status: GitBranchesStatus.addFailedDirectoryExists,
             branches: const [
               GitBranch(
@@ -233,6 +330,19 @@ void main() {
         ),
       ),
       expect: () => [
+        equals(
+          GitBranchesState(
+            status: GitBranchesStatus.changing,
+            branches: const [
+              GitBranch(
+                uuid: 'a-uuid',
+                name: 'branch-one',
+                directory: '/some/directory',
+                origin: 'theorigin',
+              )
+            ],
+          ),
+        ),
         equals(
           GitBranchesState(
             status: GitBranchesStatus.addFailedOriginMismatch,
@@ -271,6 +381,12 @@ void main() {
       expect: () => [
         equals(
           GitBranchesState(
+            status: GitBranchesStatus.changing,
+            branches: const [],
+          ),
+        ),
+        equals(
+          GitBranchesState(
             status: GitBranchesStatus.deleted,
             branches: const [],
           ),
@@ -298,6 +414,19 @@ void main() {
         ),
       ),
       expect: () => [
+        equals(
+          GitBranchesState(
+            status: GitBranchesStatus.changing,
+            branches: const [
+              GitBranch(
+                uuid: 'a-uuid',
+                name: 'branch-one',
+                directory: '/some/directory',
+                origin: 'theorigin',
+              )
+            ],
+          ),
+        ),
         equals(
           GitBranchesState(
             status: GitBranchesStatus.deleteFailedNotFound,
@@ -335,6 +464,12 @@ void main() {
       build: () => GitBranchesCubit(),
       act: (cubit) => cubit.load(dataStoreRepository),
       expect: () => [
+        equals(
+          GitBranchesState(
+            status: GitBranchesStatus.changing,
+            branches: const [],
+          ),
+        ),
         equals(
           GitBranchesState(
             status: GitBranchesStatus.loaded,
@@ -460,6 +595,9 @@ void main() {
 
       value = GitBranchesStatus.addFailedUUIDExists;
       expect(value.isAddFailedUUIDExists, isTrue);
+
+      value = GitBranchesStatus.changing;
+      expect(value.isChanging, isTrue);
 
       value = GitBranchesStatus.addFailedNameExists;
       expect(value.isAddFailedNameExists, isTrue);

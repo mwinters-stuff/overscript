@@ -88,8 +88,8 @@ class BranchesScreenState extends State<BranchesScreen> {
     final gitCalls = context.read<GitCalls>();
     getDirectory(context: context, initialDirectory: '~').then((directory) {
       if (directory != null && directory.isNotEmpty) {
-        gitCalls.getGitRepository(directory).then((branchname) {
-          gitCalls.getGitOriginRemote(directory).then((origin) {
+        gitCalls.getBranchName(directory).then((branchname) {
+          gitCalls.getOriginRemote(directory).then((origin) {
             context.read<GitBranchesCubit>().add(
                   GitBranch(
                     uuid: const Uuid().v1(),

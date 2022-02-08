@@ -9,18 +9,22 @@ class VariablesCubit extends Cubit<VariablesState> {
   VariablesCubit() : super(VariablesState());
 
   void add(Variable variable) {
+    emit(state.changing());
     emit(state.add(variable));
   }
 
   void delete(Variable variable) {
+    emit(state.changing());
     emit(state.delete(variable));
   }
 
   void load(DataStoreRepository dataStoreRepository) {
+    emit(state.changing());
     emit(state.load(dataStoreRepository));
   }
 
   void save(DataStoreRepository dataStoreRepository) {
+    emit(state.changing());
     emit(state.save(dataStoreRepository));
   }
 
