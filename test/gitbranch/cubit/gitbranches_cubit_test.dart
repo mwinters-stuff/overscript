@@ -47,14 +47,7 @@ void main() {
         equals(
           GitBranchesState(
             status: GitBranchesStatus.changing,
-            branches: const [
-              GitBranch(
-                uuid: 'a-uuid',
-                name: 'branch-one',
-                directory: '/some/directory',
-                origin: 'theorigin',
-              )
-            ],
+            branches: const [],
           ),
         ),
         equals(
@@ -75,25 +68,24 @@ void main() {
 
     blocTest<GitBranchesCubit, GitBranchesState>(
       'add success existing origin matches',
-      build: () => GitBranchesCubit(),
+      build: () => GitBranchesCubit()
+        ..add(
+          const GitBranch(
+            uuid: 'a-uuid',
+            name: 'branch-one',
+            directory: '/some/directory',
+            origin: 'theorigin',
+          ),
+        ),
       act: (cubit) {
-        cubit
-          ..add(
-            const GitBranch(
-              uuid: 'a-uuid',
-              name: 'branch-one',
-              directory: '/some/directory',
-              origin: 'theorigin',
-            ),
-          )
-          ..add(
-            const GitBranch(
-              uuid: 'a-uuid-2',
-              name: 'branch-two',
-              directory: '/some/other/directory',
-              origin: 'theorigin',
-            ),
-          );
+        cubit.add(
+          const GitBranch(
+            uuid: 'a-uuid-2',
+            name: 'branch-two',
+            directory: '/some/other/directory',
+            origin: 'theorigin',
+          ),
+        );
       },
       expect: () => [
         equals(
@@ -104,38 +96,6 @@ void main() {
                 uuid: 'a-uuid',
                 name: 'branch-one',
                 directory: '/some/directory',
-                origin: 'theorigin',
-              )
-            ],
-          ),
-        ),
-        equals(
-          GitBranchesState(
-            status: GitBranchesStatus.added,
-            branches: const [
-              GitBranch(
-                uuid: 'a-uuid',
-                name: 'branch-one',
-                directory: '/some/directory',
-                origin: 'theorigin',
-              )
-            ],
-          ),
-        ),
-        equals(
-          GitBranchesState(
-            status: GitBranchesStatus.changing,
-            branches: const [
-              GitBranch(
-                uuid: 'a-uuid',
-                name: 'branch-one',
-                directory: '/some/directory',
-                origin: 'theorigin',
-              ),
-              GitBranch(
-                uuid: 'a-uuid-2',
-                name: 'branch-two',
-                directory: '/some/other/directory',
                 origin: 'theorigin',
               )
             ],
@@ -382,7 +342,14 @@ void main() {
         equals(
           GitBranchesState(
             status: GitBranchesStatus.changing,
-            branches: const [],
+            branches: const [
+              GitBranch(
+                uuid: 'a-uuid',
+                name: 'branch-one',
+                directory: '/some/directory',
+                origin: 'theorigin',
+              ),
+            ],
           ),
         ),
         equals(

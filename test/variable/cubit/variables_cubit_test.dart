@@ -45,13 +45,7 @@ void main() {
         equals(
           VariablesState(
             status: VariablesStatus.changing,
-            variables: const [
-              Variable(
-                uuid: 'a-uuid',
-                name: 'variable-one',
-                defaultValue: '/some/defaultValue',
-              )
-            ],
+            variables: const [],
           ),
         ),
         equals(
@@ -93,13 +87,7 @@ void main() {
         equals(
           VariablesState(
             status: VariablesStatus.changing,
-            variables: const [
-              Variable(
-                uuid: 'a-uuid',
-                name: 'variable-one',
-                defaultValue: '/some/defaultValue',
-              )
-            ],
+            variables: const [],
           ),
         ),
         equals(
@@ -123,11 +111,6 @@ void main() {
                 name: 'variable-one',
                 defaultValue: '/some/defaultValue',
               ),
-              Variable(
-                uuid: 'a-uuid-2',
-                name: 'variable-two',
-                defaultValue: '/some/other/defaultValue',
-              )
             ],
           ),
         ),
@@ -262,7 +245,13 @@ void main() {
         equals(
           VariablesState(
             status: VariablesStatus.changing,
-            variables: const [],
+            variables: const [
+              Variable(
+                uuid: 'a-uuid',
+                name: 'variable-one',
+                defaultValue: '/some/defaultValue',
+              ),
+            ],
           ),
         ),
         equals(

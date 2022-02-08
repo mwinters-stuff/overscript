@@ -21,7 +21,7 @@ class GitBranchesState extends Equatable {
   GitBranchesState({
     this.status = GitBranchesStatus.initial,
     List<GitBranch>? branches,
-  }) : branches = List.from(branches ?? []);
+  }) : branches = branches ?? [];
 
   final List<GitBranch> branches;
   final GitBranchesStatus status;
@@ -32,7 +32,7 @@ class GitBranchesState extends Equatable {
   }) {
     return GitBranchesState(
       status: status,
-      branches: List.from(branches ?? this.branches),
+      branches: branches ?? this.branches,
     );
   }
 
@@ -73,7 +73,7 @@ class GitBranchesState extends Equatable {
   GitBranchesState load(DataStoreRepository dataStoreRepository) {
     return copyWith(
       status: GitBranchesStatus.loaded,
-      branches: List.from(dataStoreRepository.branches, growable: true),
+      branches: List.from(dataStoreRepository.branches),
     );
   }
 
@@ -99,16 +99,15 @@ class GitBranchesState extends Equatable {
       return copyWith(status: GitBranchesStatus.addFailedOriginMismatch);
     }
 
-    branches.add(branch);
-    return copyWith(status: GitBranchesStatus.added);
+    return copyWith(status: GitBranchesStatus.added, branches: List.from(branches)..add(branch));
   }
 
   GitBranchesState delete(GitBranch branch) {
     if (_findBranchUUID(branch.uuid) != branch) {
       return copyWith(status: GitBranchesStatus.deleteFailedNotFound);
     }
-    branches.removeWhere((element) => element.uuid == branch.uuid);
-    return copyWith(status: GitBranchesStatus.deleted);
+
+    return copyWith(status: GitBranchesStatus.deleted, branches: List.from(branches)..removeWhere((element) => element.uuid == branch.uuid));
   }
 
   GitBranchesState changing() {

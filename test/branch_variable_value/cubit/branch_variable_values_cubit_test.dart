@@ -44,6 +44,12 @@ void main() {
       expect: () => [
         equals(
           BranchVariableValuesState(
+            status: BranchVariableValuesStatus.changing,
+            branchVariableValues: const [],
+          ),
+        ),
+        equals(
+          BranchVariableValuesState(
             status: BranchVariableValuesStatus.added,
             branchVariableValues: const [
               BranchVariableValue(
@@ -81,6 +87,38 @@ void main() {
           );
       },
       expect: () => [
+        equals(
+          BranchVariableValuesState(
+            status: BranchVariableValuesStatus.changing,
+            branchVariableValues: const [],
+          ),
+        ),
+        equals(
+          BranchVariableValuesState(
+            status: BranchVariableValuesStatus.added,
+            branchVariableValues: const [
+              BranchVariableValue(
+                uuid: 'uuid',
+                branchUuid: 'branch-uuid',
+                variableUuid: 'variable-uuid',
+                value: 'value',
+              ),
+            ],
+          ),
+        ),
+        equals(
+          BranchVariableValuesState(
+            status: BranchVariableValuesStatus.changing,
+            branchVariableValues: const [
+              BranchVariableValue(
+                uuid: 'uuid',
+                branchUuid: 'branch-uuid',
+                variableUuid: 'variable-uuid',
+                value: 'value',
+              ),
+            ],
+          ),
+        ),
         equals(
           BranchVariableValuesState(
             status: BranchVariableValuesStatus.added,
@@ -125,6 +163,19 @@ void main() {
       expect: () => [
         equals(
           BranchVariableValuesState(
+            status: BranchVariableValuesStatus.changing,
+            branchVariableValues: const [
+              BranchVariableValue(
+                uuid: 'uuid',
+                branchUuid: 'branch-uuid',
+                variableUuid: 'variable-uuid',
+                value: 'value',
+              )
+            ],
+          ),
+        ),
+        equals(
+          BranchVariableValuesState(
             status: BranchVariableValuesStatus.addFailedUUIDExists,
             branchVariableValues: const [
               BranchVariableValue(
@@ -159,6 +210,19 @@ void main() {
         ),
       ),
       expect: () => [
+        equals(
+          BranchVariableValuesState(
+            status: BranchVariableValuesStatus.changing,
+            branchVariableValues: const [
+              BranchVariableValue(
+                uuid: 'a-uuid',
+                branchUuid: 'branch-uuid',
+                variableUuid: 'variable-uuid',
+                value: 'value',
+              )
+            ],
+          ),
+        ),
         equals(
           BranchVariableValuesState(
             status: BranchVariableValuesStatus.addFailedUUIDCombinationExists,
@@ -197,6 +261,19 @@ void main() {
       expect: () => [
         equals(
           BranchVariableValuesState(
+            status: BranchVariableValuesStatus.changing,
+            branchVariableValues: const [
+              BranchVariableValue(
+                uuid: 'a-uuid',
+                branchUuid: 'branch-uuid',
+                variableUuid: 'variable-uuid',
+                value: 'value',
+              )
+            ],
+          ),
+        ),
+        equals(
+          BranchVariableValuesState(
             status: BranchVariableValuesStatus.deleted,
             branchVariableValues: const [],
           ),
@@ -224,6 +301,19 @@ void main() {
         ),
       ),
       expect: () => [
+        equals(
+          BranchVariableValuesState(
+            status: BranchVariableValuesStatus.changing,
+            branchVariableValues: const [
+              BranchVariableValue(
+                uuid: 'a-uuid',
+                branchUuid: 'branch-uuid',
+                variableUuid: 'variable-uuid',
+                value: 'value',
+              )
+            ],
+          ),
+        ),
         equals(
           BranchVariableValuesState(
             status: BranchVariableValuesStatus.deleteFailedNotFound,
@@ -261,6 +351,12 @@ void main() {
       build: () => BranchVariableValuesCubit(),
       act: (cubit) => cubit.load(dataStoreRepository),
       expect: () => [
+        equals(
+          BranchVariableValuesState(
+            status: BranchVariableValuesStatus.changing,
+            branchVariableValues: const [],
+          ),
+        ),
         equals(
           BranchVariableValuesState(
             status: BranchVariableValuesStatus.loaded,
@@ -393,6 +489,19 @@ void main() {
       expect: () => [
         equals(
           BranchVariableValuesState(
+            status: BranchVariableValuesStatus.changing,
+            branchVariableValues: const [
+              BranchVariableValue(
+                uuid: 'a-uuid',
+                branchUuid: 'branch-uuid-1',
+                variableUuid: 'variable-uuid',
+                value: 'value',
+              ),
+            ],
+          ),
+        ),
+        equals(
+          BranchVariableValuesState(
             status: BranchVariableValuesStatus.updated,
             branchVariableValues: const [
               BranchVariableValue(
@@ -427,6 +536,17 @@ void main() {
         ),
       ),
       expect: () => [
+        BranchVariableValuesState(
+          status: BranchVariableValuesStatus.changing,
+          branchVariableValues: const [
+            BranchVariableValue(
+              uuid: 'a-uuid',
+              branchUuid: 'branch-uuid-1',
+              variableUuid: 'variable-uuid',
+              value: 'value',
+            ),
+          ],
+        ),
         equals(
           BranchVariableValuesState(
             status: BranchVariableValuesStatus.updateFailedUUIDNotFound,
@@ -455,6 +575,9 @@ void main() {
 
       value = BranchVariableValuesStatus.added;
       expect(value.isAdded, isTrue);
+
+      value = BranchVariableValuesStatus.changing;
+      expect(value.isChanging, isTrue);
 
       value = BranchVariableValuesStatus.addFailedUUIDExists;
       expect(value.isAddFailedUUIDExists, isTrue);

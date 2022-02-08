@@ -9,14 +9,17 @@ class BranchVariableValuesCubit extends Cubit<BranchVariableValuesState> {
   BranchVariableValuesCubit() : super(BranchVariableValuesState());
 
   void add(BranchVariableValue branchVariableValue) {
+    emit(state.changing());
     emit(state.add(branchVariableValue));
   }
 
   void delete(BranchVariableValue branchVariableValue) {
+    emit(state.changing());
     emit(state.delete(branchVariableValue));
   }
 
   void load(DataStoreRepository dataStoreRepository) {
+    emit(state.changing());
     emit(state.load(dataStoreRepository));
   }
 
@@ -29,6 +32,7 @@ class BranchVariableValuesCubit extends Cubit<BranchVariableValuesState> {
   }
 
   void updateValue(BranchVariableValue currentValue) {
+    emit(state.changing());
     emit(state.update(currentValue));
   }
 }

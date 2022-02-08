@@ -1,10 +1,24 @@
 part of 'branch_variable_values_cubit.dart';
 
-enum BranchVariableValuesStatus { initial, loaded, saved, added, updated, addFailedUUIDExists, addFailedUUIDCombinationExists, deleted, deleteFailedNotFound, failure, updateFailedUUIDNotFound }
+enum BranchVariableValuesStatus {
+  initial,
+  loaded,
+  changing,
+  saved,
+  added,
+  updated,
+  addFailedUUIDExists,
+  addFailedUUIDCombinationExists,
+  deleted,
+  deleteFailedNotFound,
+  failure,
+  updateFailedUUIDNotFound
+}
 
 extension BranchVariableValuesStatusX on BranchVariableValuesStatus {
   bool get isInitial => this == BranchVariableValuesStatus.initial;
   bool get isSaved => this == BranchVariableValuesStatus.saved;
+  bool get isChanging => this == BranchVariableValuesStatus.changing;
   bool get isLoaded => this == BranchVariableValuesStatus.loaded;
   bool get isAdded => this == BranchVariableValuesStatus.added;
   bool get isUpdated => this == BranchVariableValuesStatus.updated;
@@ -17,15 +31,21 @@ extension BranchVariableValuesStatusX on BranchVariableValuesStatus {
 }
 
 class BranchVariableValuesState extends Equatable {
-  BranchVariableValuesState({this.status = BranchVariableValuesStatus.initial, List<BranchVariableValue>? branchVariableValues}) : branchVariableValues = List.from(branchVariableValues ?? []);
+  BranchVariableValuesState({
+    this.status = BranchVariableValuesStatus.initial,
+    List<BranchVariableValue>? branchVariableValues,
+  }) : branchVariableValues = branchVariableValues ?? [];
 
   final List<BranchVariableValue> branchVariableValues;
   final BranchVariableValuesStatus status;
 
-  BranchVariableValuesState copyWith({required BranchVariableValuesStatus status, List<BranchVariableValue>? branchVariableValues}) {
+  BranchVariableValuesState copyWith({
+    required BranchVariableValuesStatus status,
+    List<BranchVariableValue>? branchVariableValues,
+  }) {
     return BranchVariableValuesState(
       status: status,
-      branchVariableValues: List.from(branchVariableValues ?? this.branchVariableValues),
+      branchVariableValues: branchVariableValues ?? this.branchVariableValues,
     );
   }
 
@@ -50,7 +70,7 @@ class BranchVariableValuesState extends Equatable {
   BranchVariableValuesState load(DataStoreRepository dataStoreRepository) {
     return copyWith(
       status: BranchVariableValuesStatus.loaded,
-      branchVariableValues: List.from(dataStoreRepository.branchVariableValues, growable: true),
+      branchVariableValues: List.from(dataStoreRepository.branchVariableValues),
     );
   }
 
@@ -68,16 +88,21 @@ class BranchVariableValuesState extends Equatable {
       return copyWith(status: BranchVariableValuesStatus.addFailedUUIDCombinationExists);
     }
 
-    branchVariableValues.add(branchVariableValue);
-    return copyWith(status: BranchVariableValuesStatus.added);
+    return copyWith(
+      status: BranchVariableValuesStatus.added,
+      branchVariableValues: List.from(branchVariableValues)..add(branchVariableValue),
+    );
   }
 
   BranchVariableValuesState delete(BranchVariableValue branchVariableValue) {
     if (_findVariableUUID(branchVariableValue.uuid) != branchVariableValue) {
       return copyWith(status: BranchVariableValuesStatus.deleteFailedNotFound);
     }
-    branchVariableValues.removeWhere((element) => element.uuid == branchVariableValue.uuid);
-    return copyWith(status: BranchVariableValuesStatus.deleted);
+
+    return copyWith(
+      status: BranchVariableValuesStatus.deleted,
+      branchVariableValues: List.from(branchVariableValues)..removeWhere((element) => element.uuid == branchVariableValue.uuid),
+    );
   }
 
   @override
@@ -96,9 +121,16 @@ class BranchVariableValuesState extends Equatable {
     final existing = _findVariableUUID(newValue.uuid);
     if (existing != null) {
       final index = branchVariableValues.indexOf(existing);
-      branchVariableValues.replaceRange(index, index + 1, [newValue]);
-      return copyWith(status: BranchVariableValuesStatus.updated);
+
+      return copyWith(
+        status: BranchVariableValuesStatus.updated,
+        branchVariableValues: List.from(branchVariableValues)..replaceRange(index, index + 1, [newValue]),
+      );
     }
     return copyWith(status: BranchVariableValuesStatus.updateFailedUUIDNotFound);
+  }
+
+  BranchVariableValuesState changing() {
+    return copyWith(status: BranchVariableValuesStatus.changing);
   }
 }

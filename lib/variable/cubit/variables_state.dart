@@ -16,7 +16,7 @@ extension VariablesStatusX on VariablesStatus {
 }
 
 class VariablesState extends Equatable {
-  VariablesState({this.status = VariablesStatus.initial, List<Variable>? variables}) : variables = List.from(variables ?? []);
+  VariablesState({this.status = VariablesStatus.initial, List<Variable>? variables}) : variables = variables ?? [];
 
   final List<Variable> variables;
   final VariablesStatus status;
@@ -24,7 +24,7 @@ class VariablesState extends Equatable {
   VariablesState copyWith({required VariablesStatus status, List<Variable>? variables}) {
     return VariablesState(
       status: status,
-      variables: List.from(variables ?? this.variables),
+      variables: variables ?? this.variables,
     );
   }
 
@@ -67,16 +67,20 @@ class VariablesState extends Equatable {
       return copyWith(status: VariablesStatus.addFailedNameExists);
     }
 
-    variables.add(variable);
-    return copyWith(status: VariablesStatus.added);
+    return copyWith(
+      status: VariablesStatus.added,
+      variables: List.from(variables)..add(variable),
+    );
   }
 
   VariablesState delete(Variable variable) {
     if (_findVariableUUID(variable.uuid) != variable) {
       return copyWith(status: VariablesStatus.deleteFailedNotFound);
     }
-    variables.removeWhere((element) => element.uuid == variable.uuid);
-    return copyWith(status: VariablesStatus.deleted);
+    return copyWith(
+      status: VariablesStatus.deleted,
+      variables: List.from(variables)..removeWhere((element) => element.uuid == variable.uuid),
+    );
   }
 
   @override
