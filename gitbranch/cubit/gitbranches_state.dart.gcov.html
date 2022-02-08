@@ -31,13 +31,13 @@
             <td class="headerValue">lcov.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">59</td>
-            <td class="headerCovTableEntry">59</td>
+            <td class="headerCovTableEntry">57</td>
+            <td class="headerCovTableEntry">57</td>
             <td class="headerCovTableEntryHi">100.0 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2022-02-08 02:04:20</td>
+            <td class="headerValue">2022-02-08 07:06:16</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">0</td>
@@ -92,7 +92,7 @@
 <a name="21"><span class="lineNum">      21 </span>                :<span class="lineCov">          1 :   GitBranchesState({</span></a>
 <a name="22"><span class="lineNum">      22 </span>                :            :     this.status = GitBranchesStatus.initial,</a>
 <a name="23"><span class="lineNum">      23 </span>                :            :     List&lt;GitBranch&gt;? branches,</a>
-<a name="24"><span class="lineNum">      24 </span>                :<span class="lineCov">          2 :   }) : branches = List.from(branches ?? []);</span></a>
+<a name="24"><span class="lineNum">      24 </span>                :<span class="lineCov">          1 :   }) : branches = branches ?? [];</span></a>
 <a name="25"><span class="lineNum">      25 </span>                :            : </a>
 <a name="26"><span class="lineNum">      26 </span>                :            :   final List&lt;GitBranch&gt; branches;</a>
 <a name="27"><span class="lineNum">      27 </span>                :            :   final GitBranchesStatus status;</a>
@@ -103,7 +103,7 @@
 <a name="32"><span class="lineNum">      32 </span>                :            :   }) {</a>
 <a name="33"><span class="lineNum">      33 </span>                :<span class="lineCov">          1 :     return GitBranchesState(</span></a>
 <a name="34"><span class="lineNum">      34 </span>                :            :       status: status,</a>
-<a name="35"><span class="lineNum">      35 </span>                :<span class="lineCov">          2 :       branches: List.from(branches ?? this.branches),</span></a>
+<a name="35"><span class="lineNum">      35 </span>                :<span class="lineCov">          1 :       branches: branches ?? this.branches,</span></a>
 <a name="36"><span class="lineNum">      36 </span>                :            :     );</a>
 <a name="37"><span class="lineNum">      37 </span>                :            :   }</a>
 <a name="38"><span class="lineNum">      38 </span>                :            : </a>
@@ -144,7 +144,7 @@
 <a name="73"><span class="lineNum">      73 </span>                :<span class="lineCov">          1 :   GitBranchesState load(DataStoreRepository dataStoreRepository) {</span></a>
 <a name="74"><span class="lineNum">      74 </span>                :<span class="lineCov">          1 :     return copyWith(</span></a>
 <a name="75"><span class="lineNum">      75 </span>                :            :       status: GitBranchesStatus.loaded,</a>
-<a name="76"><span class="lineNum">      76 </span>                :<span class="lineCov">          2 :       branches: List.from(dataStoreRepository.branches, growable: true),</span></a>
+<a name="76"><span class="lineNum">      76 </span>                :<span class="lineCov">          2 :       branches: List.from(dataStoreRepository.branches),</span></a>
 <a name="77"><span class="lineNum">      77 </span>                :            :     );</a>
 <a name="78"><span class="lineNum">      78 </span>                :            :   }</a>
 <a name="79"><span class="lineNum">      79 </span>                :            : </a>
@@ -170,34 +170,33 @@
 <a name="99"><span class="lineNum">      99 </span>                :<span class="lineCov">          1 :       return copyWith(status: GitBranchesStatus.addFailedOriginMismatch);</span></a>
 <a name="100"><span class="lineNum">     100 </span>                :            :     }</a>
 <a name="101"><span class="lineNum">     101 </span>                :            : </a>
-<a name="102"><span class="lineNum">     102 </span>                :<span class="lineCov">          2 :     branches.add(branch);</span></a>
-<a name="103"><span class="lineNum">     103 </span>                :<span class="lineCov">          1 :     return copyWith(status: GitBranchesStatus.added);</span></a>
-<a name="104"><span class="lineNum">     104 </span>                :            :   }</a>
-<a name="105"><span class="lineNum">     105 </span>                :            : </a>
-<a name="106"><span class="lineNum">     106 </span>                :<span class="lineCov">          1 :   GitBranchesState delete(GitBranch branch) {</span></a>
-<a name="107"><span class="lineNum">     107 </span>                :<span class="lineCov">          3 :     if (_findBranchUUID(branch.uuid) != branch) {</span></a>
-<a name="108"><span class="lineNum">     108 </span>                :<span class="lineCov">          1 :       return copyWith(status: GitBranchesStatus.deleteFailedNotFound);</span></a>
-<a name="109"><span class="lineNum">     109 </span>                :            :     }</a>
-<a name="110"><span class="lineNum">     110 </span>                :<span class="lineCov">          6 :     branches.removeWhere((element) =&gt; element.uuid == branch.uuid);</span></a>
-<a name="111"><span class="lineNum">     111 </span>                :<span class="lineCov">          1 :     return copyWith(status: GitBranchesStatus.deleted);</span></a>
-<a name="112"><span class="lineNum">     112 </span>                :            :   }</a>
-<a name="113"><span class="lineNum">     113 </span>                :            : </a>
-<a name="114"><span class="lineNum">     114 </span>                :<span class="lineCov">          1 :   GitBranchesState changing() {</span></a>
-<a name="115"><span class="lineNum">     115 </span>                :<span class="lineCov">          1 :     return copyWith(status: GitBranchesStatus.changing);</span></a>
-<a name="116"><span class="lineNum">     116 </span>                :            :   }</a>
-<a name="117"><span class="lineNum">     117 </span>                :            : </a>
-<a name="118"><span class="lineNum">     118 </span>                :<span class="lineCov">          1 :   @override</span></a>
-<a name="119"><span class="lineNum">     119 </span>                :<span class="lineCov">          3 :   List&lt;Object?&gt; get props =&gt; [status, branches];</span></a>
-<a name="120"><span class="lineNum">     120 </span>                :            : </a>
-<a name="121"><span class="lineNum">     121 </span>                :<span class="lineCov">          1 :   GitBranch? getBranch(String uuid) {</span></a>
-<a name="122"><span class="lineNum">     122 </span>                :<span class="lineCov">          2 :     for (final branch in branches) {</span></a>
-<a name="123"><span class="lineNum">     123 </span>                :<span class="lineCov">          2 :       if (uuid == branch.uuid) {</span></a>
-<a name="124"><span class="lineNum">     124 </span>                :            :         return branch;</a>
-<a name="125"><span class="lineNum">     125 </span>                :            :       }</a>
-<a name="126"><span class="lineNum">     126 </span>                :            :     }</a>
-<a name="127"><span class="lineNum">     127 </span>                :            :     return null;</a>
-<a name="128"><span class="lineNum">     128 </span>                :            :   }</a>
-<a name="129"><span class="lineNum">     129 </span>                :            : }</a>
+<a name="102"><span class="lineNum">     102 </span>                :<span class="lineCov">          4 :     return copyWith(status: GitBranchesStatus.added, branches: List.from(branches)..add(branch));</span></a>
+<a name="103"><span class="lineNum">     103 </span>                :            :   }</a>
+<a name="104"><span class="lineNum">     104 </span>                :            : </a>
+<a name="105"><span class="lineNum">     105 </span>                :<span class="lineCov">          1 :   GitBranchesState delete(GitBranch branch) {</span></a>
+<a name="106"><span class="lineNum">     106 </span>                :<span class="lineCov">          3 :     if (_findBranchUUID(branch.uuid) != branch) {</span></a>
+<a name="107"><span class="lineNum">     107 </span>                :<span class="lineCov">          1 :       return copyWith(status: GitBranchesStatus.deleteFailedNotFound);</span></a>
+<a name="108"><span class="lineNum">     108 </span>                :            :     }</a>
+<a name="109"><span class="lineNum">     109 </span>                :            : </a>
+<a name="110"><span class="lineNum">     110 </span>                :<span class="lineCov">          8 :     return copyWith(status: GitBranchesStatus.deleted, branches: List.from(branches)..removeWhere((element) =&gt; element.uuid == branch.uuid));</span></a>
+<a name="111"><span class="lineNum">     111 </span>                :            :   }</a>
+<a name="112"><span class="lineNum">     112 </span>                :            : </a>
+<a name="113"><span class="lineNum">     113 </span>                :<span class="lineCov">          1 :   GitBranchesState changing() {</span></a>
+<a name="114"><span class="lineNum">     114 </span>                :<span class="lineCov">          1 :     return copyWith(status: GitBranchesStatus.changing);</span></a>
+<a name="115"><span class="lineNum">     115 </span>                :            :   }</a>
+<a name="116"><span class="lineNum">     116 </span>                :            : </a>
+<a name="117"><span class="lineNum">     117 </span>                :<span class="lineCov">          1 :   @override</span></a>
+<a name="118"><span class="lineNum">     118 </span>                :<span class="lineCov">          3 :   List&lt;Object?&gt; get props =&gt; [status, branches];</span></a>
+<a name="119"><span class="lineNum">     119 </span>                :            : </a>
+<a name="120"><span class="lineNum">     120 </span>                :<span class="lineCov">          1 :   GitBranch? getBranch(String uuid) {</span></a>
+<a name="121"><span class="lineNum">     121 </span>                :<span class="lineCov">          2 :     for (final branch in branches) {</span></a>
+<a name="122"><span class="lineNum">     122 </span>                :<span class="lineCov">          2 :       if (uuid == branch.uuid) {</span></a>
+<a name="123"><span class="lineNum">     123 </span>                :            :         return branch;</a>
+<a name="124"><span class="lineNum">     124 </span>                :            :       }</a>
+<a name="125"><span class="lineNum">     125 </span>                :            :     }</a>
+<a name="126"><span class="lineNum">     126 </span>                :            :     return null;</a>
+<a name="127"><span class="lineNum">     127 </span>                :            :   }</a>
+<a name="128"><span class="lineNum">     128 </span>                :            : }</a>
 </pre>
       </td>
     </tr>
