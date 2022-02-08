@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2022-02-06 06:41:13</td>
+            <td class="headerValue">2022-02-08 02:04:20</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">0</td>
@@ -77,30 +77,30 @@
 <a name="6"><span class="lineNum">       6 </span>                :            : // JsonSerializableGenerator</a>
 <a name="7"><span class="lineNum">       7 </span>                :            : // **************************************************************************</a>
 <a name="8"><span class="lineNum">       8 </span>                :            : </a>
-<a name="9"><span class="lineNum">       9 </span>                :<span class="lineCov">          4 : GitBranch _$GitBranchFromJson(Map json) =&gt; $checkedCreate(</span></a>
+<a name="9"><span class="lineNum">       9 </span>                :<span class="lineCov">          6 : GitBranch _$GitBranchFromJson(Map json) =&gt; $checkedCreate(</span></a>
 <a name="10"><span class="lineNum">      10 </span>                :            :       'GitBranch',</a>
 <a name="11"><span class="lineNum">      11 </span>                :            :       json,</a>
-<a name="12"><span class="lineNum">      12 </span>                :<span class="lineCov">          2 :       ($checkedConvert) {</span></a>
-<a name="13"><span class="lineNum">      13 </span>                :<span class="lineCov">          2 :         $checkKeys(</span></a>
+<a name="12"><span class="lineNum">      12 </span>                :<span class="lineCov">          3 :       ($checkedConvert) {</span></a>
+<a name="13"><span class="lineNum">      13 </span>                :<span class="lineCov">          3 :         $checkKeys(</span></a>
 <a name="14"><span class="lineNum">      14 </span>                :            :           json,</a>
 <a name="15"><span class="lineNum">      15 </span>                :            :           allowedKeys: const ['uuid', 'name', 'directory', 'origin'],</a>
 <a name="16"><span class="lineNum">      16 </span>                :            :           requiredKeys: const ['uuid', 'name', 'directory', 'origin'],</a>
 <a name="17"><span class="lineNum">      17 </span>                :            :         );</a>
-<a name="18"><span class="lineNum">      18 </span>                :<span class="lineCov">          2 :         final val = GitBranch(</span></a>
-<a name="19"><span class="lineNum">      19 </span>                :<span class="lineCov">          4 :           uuid: $checkedConvert('uuid', (v) =&gt; v as String),</span></a>
-<a name="20"><span class="lineNum">      20 </span>                :<span class="lineCov">          4 :           name: $checkedConvert('name', (v) =&gt; v as String),</span></a>
-<a name="21"><span class="lineNum">      21 </span>                :<span class="lineCov">          4 :           directory: $checkedConvert('directory', (v) =&gt; v as String),</span></a>
-<a name="22"><span class="lineNum">      22 </span>                :<span class="lineCov">          4 :           origin: $checkedConvert('origin', (v) =&gt; v as String),</span></a>
+<a name="18"><span class="lineNum">      18 </span>                :<span class="lineCov">          3 :         final val = GitBranch(</span></a>
+<a name="19"><span class="lineNum">      19 </span>                :<span class="lineCov">          6 :           uuid: $checkedConvert('uuid', (v) =&gt; v as String),</span></a>
+<a name="20"><span class="lineNum">      20 </span>                :<span class="lineCov">          6 :           name: $checkedConvert('name', (v) =&gt; v as String),</span></a>
+<a name="21"><span class="lineNum">      21 </span>                :<span class="lineCov">          6 :           directory: $checkedConvert('directory', (v) =&gt; v as String),</span></a>
+<a name="22"><span class="lineNum">      22 </span>                :<span class="lineCov">          6 :           origin: $checkedConvert('origin', (v) =&gt; v as String),</span></a>
 <a name="23"><span class="lineNum">      23 </span>                :            :         );</a>
 <a name="24"><span class="lineNum">      24 </span>                :            :         return val;</a>
 <a name="25"><span class="lineNum">      25 </span>                :            :       },</a>
 <a name="26"><span class="lineNum">      26 </span>                :            :     );</a>
 <a name="27"><span class="lineNum">      27 </span>                :            : </a>
-<a name="28"><span class="lineNum">      28 </span>                :<span class="lineCov">          6 : Map&lt;String, dynamic&gt; _$GitBranchToJson(GitBranch instance) =&gt; &lt;String, dynamic&gt;{</span></a>
-<a name="29"><span class="lineNum">      29 </span>                :<span class="lineCov">          3 :       'uuid': instance.uuid,</span></a>
-<a name="30"><span class="lineNum">      30 </span>                :<span class="lineCov">          3 :       'name': instance.name,</span></a>
-<a name="31"><span class="lineNum">      31 </span>                :<span class="lineCov">          3 :       'directory': instance.directory,</span></a>
-<a name="32"><span class="lineNum">      32 </span>                :<span class="lineCov">          3 :       'origin': instance.origin,</span></a>
+<a name="28"><span class="lineNum">      28 </span>                :<span class="lineCov">          8 : Map&lt;String, dynamic&gt; _$GitBranchToJson(GitBranch instance) =&gt; &lt;String, dynamic&gt;{</span></a>
+<a name="29"><span class="lineNum">      29 </span>                :<span class="lineCov">          4 :       'uuid': instance.uuid,</span></a>
+<a name="30"><span class="lineNum">      30 </span>                :<span class="lineCov">          4 :       'name': instance.name,</span></a>
+<a name="31"><span class="lineNum">      31 </span>                :<span class="lineCov">          4 :       'directory': instance.directory,</span></a>
+<a name="32"><span class="lineNum">      32 </span>                :<span class="lineCov">          4 :       'origin': instance.origin,</span></a>
 <a name="33"><span class="lineNum">      33 </span>                :            :     };</a>
 </pre>
       </td>

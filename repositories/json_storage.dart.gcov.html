@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2022-02-06 06:41:13</td>
+            <td class="headerValue">2022-02-08 02:04:20</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">0</td>
@@ -83,14 +83,14 @@
 <a name="12"><span class="lineNum">      12 </span>                :            :   disallowUnrecognizedKeys: true,</a>
 <a name="13"><span class="lineNum">      13 </span>                :            : )</a>
 <a name="14"><span class="lineNum">      14 </span>                :            : class JsonStorage extends Equatable {</a>
-<a name="15"><span class="lineNum">      15 </span>                :<span class="lineCov">          1 :   const JsonStorage({</span></a>
+<a name="15"><span class="lineNum">      15 </span>                :<span class="lineCov">          2 :   const JsonStorage({</span></a>
 <a name="16"><span class="lineNum">      16 </span>                :            :     required this.scripts,</a>
 <a name="17"><span class="lineNum">      17 </span>                :            :     required this.variables,</a>
 <a name="18"><span class="lineNum">      18 </span>                :            :     required this.branches,</a>
 <a name="19"><span class="lineNum">      19 </span>                :            :     required this.branchVariableValues,</a>
 <a name="20"><span class="lineNum">      20 </span>                :            :   });</a>
 <a name="21"><span class="lineNum">      21 </span>                :            : </a>
-<a name="22"><span class="lineNum">      22 </span>                :<span class="lineCov">          2 :   factory JsonStorage.fromJson(Map&lt;String, dynamic&gt; json) =&gt; _$JsonStorageFromJson(json);</span></a>
+<a name="22"><span class="lineNum">      22 </span>                :<span class="lineCov">          4 :   factory JsonStorage.fromJson(Map&lt;String, dynamic&gt; json) =&gt; _$JsonStorageFromJson(json);</span></a>
 <a name="23"><span class="lineNum">      23 </span>                :            : </a>
 <a name="24"><span class="lineNum">      24 </span>                :<span class="lineCov">          1 :   const JsonStorage.empty()</span></a>
 <a name="25"><span class="lineNum">      25 </span>                :            :       : scripts = const [],</a>
@@ -107,7 +107,7 @@
 <a name="36"><span class="lineNum">      36 </span>                :            :   @JsonKey(required: true)</a>
 <a name="37"><span class="lineNum">      37 </span>                :            :   final List&lt;BranchVariableValue&gt; branchVariableValues;</a>
 <a name="38"><span class="lineNum">      38 </span>                :            : </a>
-<a name="39"><span class="lineNum">      39 </span>                :<span class="lineCov">          2 :   Map&lt;String, dynamic&gt; toJson() =&gt; _$JsonStorageToJson(this);</span></a>
+<a name="39"><span class="lineNum">      39 </span>                :<span class="lineCov">          4 :   Map&lt;String, dynamic&gt; toJson() =&gt; _$JsonStorageToJson(this);</span></a>
 <a name="40"><span class="lineNum">      40 </span>                :            : </a>
 <a name="41"><span class="lineNum">      41 </span>                :<span class="lineCov">          1 :   @override</span></a>
 <a name="42"><span class="lineNum">      42 </span>                :<span class="lineCov">          2 :   String toString() =&gt; '${toJson()}';</span></a>
