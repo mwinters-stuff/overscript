@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:overscript/branch_variable_value/branch_variable_value.dart';
 import 'package:overscript/l10n/l10n.dart';
 import 'package:overscript/repositories/repositories.dart';
 import 'package:overscript/variable/variable.dart';
@@ -21,7 +22,6 @@ class VariablesScreen extends StatefulWidget {
 }
 
 class VariablesScreenState extends State<VariablesScreen> {
-  final List<Variable> _selected = [];
   final _formKey = GlobalKey<FormBuilderState>();
 
   @override
@@ -34,14 +34,6 @@ class VariablesScreenState extends State<VariablesScreen> {
     context.read<VariablesCubit>().save(context.read<DataStoreRepository>());
     context.read<DataStoreRepository>().save('test.json');
     super.deactivate();
-  }
-
-  String _variablesNameList(List<Variable> variables) {
-    final sb = StringBuffer();
-    for (final script in variables) {
-      sb.writeln(script.name);
-    }
-    return sb.toString();
   }
 
   @override
@@ -63,30 +55,11 @@ class VariablesScreenState extends State<VariablesScreen> {
               onPressed: () => addVariable(context),
               icon: const Icon(Icons.add),
             ),
-            IconButton(
-              key: const Key('DeleteIcon'),
-              color: _selected.isEmpty ? Theme.of(context).disabledColor : Theme.of(context).iconTheme.color,
-              tooltip: l10n.deleteVariable,
-              onPressed: () => _selected.isEmpty
-                  ? null
-                  : {
-                      showConfirmMessage(
-                        context: context,
-                        title: l10n.deleteVariablesQuestion,
-                        message: _variablesNameList(_selected),
-                        onConfirmButton: () {
-                          for (final element in _selected) {
-                            context.read<VariablesCubit>().delete(element);
-                          }
-                        },
-                      ),
-                    },
-              icon: const Icon(Icons.delete),
-            ),
           ],
         ),
         body: _listView(state.variables),
       ),
+      // ),
     );
   }
 
@@ -152,14 +125,6 @@ class VariablesScreenState extends State<VariablesScreen> {
       itemCount: branches.length,
       itemBuilder: (context, index) => VariableListItem(
         variable: branches[index],
-        selectedCallback: (script, selected) {
-          setState(() {
-            _selected.removeWhere((element) => element.uuid == script.uuid);
-            if (selected) {
-              _selected.add(script);
-            }
-          });
-        },
       ),
     );
   }

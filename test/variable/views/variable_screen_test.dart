@@ -1,9 +1,12 @@
+import 'dart:ui';
+
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:form_builder_validators/localization/l10n.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:overscript/branch_variable_value/branch_variable_value.dart';
 import 'package:overscript/l10n/l10n.dart';
 import 'package:overscript/repositories/repositories.dart';
 import 'package:overscript/variable/variable.dart';
@@ -20,6 +23,8 @@ class MockVariable extends Mock implements Variable {}
 
 class MockGitCalls extends Mock implements GitCalls {}
 
+class MockBranchVariableValuesCubit extends MockCubit<BranchVariableValuesState> implements BranchVariableValuesCubit {}
+
 void main() {
   group('VariablesScreen', () {
     late MockVariable mockVariable1;
@@ -28,6 +33,7 @@ void main() {
     late MockDataStoreRepository mockDataStoreRepository;
     late MockVariablesState mockVariablesState;
     late MockGitCalls mockGitCalls;
+    late MockBranchVariableValuesCubit mockBranchVariableValuesCubit;
 
     setUp(() {
       mockDataStoreRepository = MockDataStoreRepository();
@@ -50,6 +56,9 @@ void main() {
 
       when(() => mockVariablesCubit.state).thenReturn(mockVariablesState);
 
+      mockBranchVariableValuesCubit = MockBranchVariableValuesCubit();
+      when(() => mockBranchVariableValuesCubit.getVariableListItems(any())).thenReturn([]);
+
       registerFallbackValue(const Variable.empty());
     });
 
@@ -57,12 +66,21 @@ void main() {
       await tester.pumpApp(
         MultiRepositoryProvider(
           providers: [
-            RepositoryProvider<DataStoreRepository>(create: (context) => mockDataStoreRepository),
-            RepositoryProvider<GitCalls>(create: (context) => mockGitCalls),
+            RepositoryProvider<DataStoreRepository>(
+              create: (context) => mockDataStoreRepository,
+            ),
+            RepositoryProvider<GitCalls>(
+              create: (context) => mockGitCalls,
+            ),
           ],
           child: MultiBlocProvider(
             providers: [
-              BlocProvider<VariablesCubit>(create: (context) => mockVariablesCubit),
+              BlocProvider<VariablesCubit>(
+                create: (context) => mockVariablesCubit,
+              ),
+              BlocProvider<BranchVariableValuesCubit>(
+                create: (context) => mockBranchVariableValuesCubit,
+              ),
             ],
             child: const VariablesScreen(),
           ),
@@ -79,139 +97,25 @@ void main() {
       expect(find.text('Default Value: /home/user/src/project-branch-a'), findsOneWidget);
     });
 
-    testWidgets('select delete enables and disables', (tester) async {
-      await tester.pumpApp(
-        MultiRepositoryProvider(
-          providers: [
-            RepositoryProvider<DataStoreRepository>(create: (context) => mockDataStoreRepository),
-            RepositoryProvider<GitCalls>(create: (context) => mockGitCalls),
-          ],
-          child: MultiBlocProvider(
-            providers: [
-              BlocProvider<VariablesCubit>(create: (context) => mockVariablesCubit),
-            ],
-            child: const VariablesScreen(),
-          ),
-        ),
-      );
-
-      expect(tester.widget<IconButton>(find.byKey(const Key('DeleteIcon'))).color, equals(ThemeData.light().disabledColor));
-
-      await tester.tap(find.text('variable-1'));
-
-      await tester.pump();
-
-      expect(tester.widget<IconButton>(find.byKey(const Key('DeleteIcon'))).color, equals(ThemeData.light().iconTheme.color));
-
-      await tester.tap(find.text('variable-2'));
-
-      await tester.pump();
-
-      expect(tester.widget<IconButton>(find.byKey(const Key('DeleteIcon'))).color, equals(ThemeData.light().iconTheme.color));
-
-      await tester.tap(find.text('variable-1'));
-
-      await tester.pump();
-
-      expect(tester.widget<IconButton>(find.byKey(const Key('DeleteIcon'))).color, equals(ThemeData.light().iconTheme.color));
-
-      await tester.tap(find.text('variable-2'));
-
-      await tester.pump();
-
-      expect(tester.widget<IconButton>(find.byKey(const Key('DeleteIcon'))).color, equals(ThemeData.light().disabledColor));
-    });
-
-    testWidgets('delete variables click cancel!', (tester) async {
-      await tester.pumpApp(
-        MultiRepositoryProvider(
-          providers: [
-            RepositoryProvider<DataStoreRepository>(create: (context) => mockDataStoreRepository),
-            RepositoryProvider<GitCalls>(create: (context) => mockGitCalls),
-          ],
-          child: MultiBlocProvider(
-            providers: [
-              BlocProvider<VariablesCubit>(create: (context) => mockVariablesCubit),
-            ],
-            child: const VariablesScreen(),
-          ),
-        ),
-      );
-
-      await tester.tap(find.text('variable-1'));
-      await tester.pump();
-      await tester.tap(find.text('variable-2'));
-      await tester.pump();
-      expect(tester.widget<IconButton>(find.byKey(const Key('DeleteIcon'))).color, equals(ThemeData.light().iconTheme.color));
-
-      await tester.tap(find.byKey(const Key('DeleteIcon')));
-      await tester.pumpAndSettle();
-
-      expect(find.text('Delete Variables?'), findsOneWidget);
-      final names = StringBuffer()
-        ..writeln('variable-1')
-        ..writeln('variable-2');
-      expect(find.text(names.toString()), findsOneWidget);
-      expect(find.text('Cancel'), findsOneWidget);
-      expect(find.text('Ok'), findsOneWidget);
-
-      await tester.press(find.text('Cancel'));
-      await tester.pump();
-
-      verifyNever(() => mockVariablesCubit.delete(mockVariable1));
-      verifyNever(() => mockVariablesCubit.delete(mockVariable2));
-    });
-
-    testWidgets('delete variables click ok!', (tester) async {
-      await tester.pumpApp(
-        MultiRepositoryProvider(
-          providers: [
-            RepositoryProvider<DataStoreRepository>(create: (context) => mockDataStoreRepository),
-            RepositoryProvider<GitCalls>(create: (context) => mockGitCalls),
-          ],
-          child: MultiBlocProvider(
-            providers: [
-              BlocProvider<VariablesCubit>(create: (context) => mockVariablesCubit),
-            ],
-            child: const VariablesScreen(),
-          ),
-        ),
-      );
-
-      await tester.tap(find.text('variable-1'));
-      await tester.pump();
-      await tester.tap(find.text('variable-2'));
-      await tester.pump();
-      expect(tester.widget<IconButton>(find.byKey(const Key('DeleteIcon'))).color, equals(ThemeData.light().iconTheme.color));
-
-      await tester.tap(find.byKey(const Key('DeleteIcon')));
-      await tester.pumpAndSettle();
-
-      expect(find.text('Delete Variables?'), findsOneWidget);
-      final names = StringBuffer()
-        ..writeln('variable-1')
-        ..writeln('variable-2');
-      expect(find.text(names.toString()), findsOneWidget);
-      expect(find.text('Cancel'), findsOneWidget);
-      expect(find.text('Ok'), findsOneWidget);
-
-      await tester.tap(find.text('Ok'));
-      await tester.pumpAndSettle();
-
-      verify(() => mockVariablesCubit.delete(mockVariable1)).called(1);
-      verify(() => mockVariablesCubit.delete(mockVariable2)).called(1);
-    });
-
     testWidgets('add "cancel clicked"!', (tester) async {
       await tester.pumpApp(
         MultiRepositoryProvider(
           providers: [
-            RepositoryProvider<DataStoreRepository>(create: (context) => mockDataStoreRepository),
-            RepositoryProvider<GitCalls>(create: (context) => mockGitCalls),
+            RepositoryProvider<DataStoreRepository>(
+              create: (context) => mockDataStoreRepository,
+            ),
+            RepositoryProvider<GitCalls>(
+              create: (context) => mockGitCalls,
+            ),
           ],
           child: MultiBlocProvider(
             providers: [
-              BlocProvider<VariablesCubit>(create: (context) => mockVariablesCubit),
+              BlocProvider<VariablesCubit>(
+                create: (context) => mockVariablesCubit,
+              ),
+              BlocProvider<BranchVariableValuesCubit>(
+                create: (context) => mockBranchVariableValuesCubit,
+              ),
             ],
             child: MaterialApp(
               localizationsDelegates: List.from(
@@ -247,12 +151,21 @@ void main() {
       await tester.pumpApp(
         MultiRepositoryProvider(
           providers: [
-            RepositoryProvider<DataStoreRepository>(create: (context) => mockDataStoreRepository),
-            RepositoryProvider<GitCalls>(create: (context) => mockGitCalls),
+            RepositoryProvider<DataStoreRepository>(
+              create: (context) => mockDataStoreRepository,
+            ),
+            RepositoryProvider<GitCalls>(
+              create: (context) => mockGitCalls,
+            ),
           ],
           child: MultiBlocProvider(
             providers: [
-              BlocProvider<VariablesCubit>(create: (context) => mockVariablesCubit),
+              BlocProvider<VariablesCubit>(
+                create: (context) => mockVariablesCubit,
+              ),
+              BlocProvider<BranchVariableValuesCubit>(
+                create: (context) => mockBranchVariableValuesCubit,
+              ),
             ],
             child: MaterialApp(
               localizationsDelegates: List.from(
@@ -298,12 +211,21 @@ void main() {
       await tester.pumpWidget(
         MultiRepositoryProvider(
           providers: [
-            RepositoryProvider<DataStoreRepository>(create: (context) => mockDataStoreRepository),
-            RepositoryProvider<GitCalls>(create: (context) => mockGitCalls),
+            RepositoryProvider<DataStoreRepository>(
+              create: (context) => mockDataStoreRepository,
+            ),
+            RepositoryProvider<GitCalls>(
+              create: (context) => mockGitCalls,
+            ),
           ],
           child: MultiBlocProvider(
             providers: [
-              BlocProvider<VariablesCubit>(create: (context) => mockVariablesCubit),
+              BlocProvider<VariablesCubit>(
+                create: (context) => mockVariablesCubit,
+              ),
+              BlocProvider<BranchVariableValuesCubit>(
+                create: (context) => mockBranchVariableValuesCubit,
+              ),
             ],
             child: const TestApp(),
           ),

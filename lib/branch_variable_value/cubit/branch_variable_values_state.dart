@@ -133,4 +133,24 @@ class BranchVariableValuesState extends Equatable {
   BranchVariableValuesState changing() {
     return copyWith(status: BranchVariableValuesStatus.changing);
   }
+
+  List<BranchVariableValue> getVariableValues(String variableUuid) {
+    final result = <BranchVariableValue>[];
+    for (final branchVariableValue in branchVariableValues) {
+      if (variableUuid == branchVariableValue.variableUuid) {
+        result.add(branchVariableValue);
+      }
+    }
+    return result;
+  }
+
+  List<BranchVariableValue> getBranchValues(String branchUuid) {
+    final result = <BranchVariableValue>[];
+    for (final branchVariableValue in branchVariableValues) {
+      if (branchUuid == branchVariableValue.branchUuid) {
+        result.add(branchVariableValue);
+      }
+    }
+    return result;
+  }
 }

@@ -115,8 +115,10 @@ void main() {
               create: (context) => mockVariablesCubit,
             ),
           ],
-          child: BranchVariableValueListItem(
-            branchVariableValue: mockBranchVariableValue1,
+          child: Card(
+            child: BranchVariableValueListItem(
+              branchVariableValue: mockBranchVariableValue1,
+            ),
           ),
         ),
       );

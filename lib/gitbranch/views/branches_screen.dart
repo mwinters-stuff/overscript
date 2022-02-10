@@ -20,8 +20,6 @@ class BranchesScreen extends StatefulWidget {
 }
 
 class BranchesScreenState extends State<BranchesScreen> {
-  final List<GitBranch> _selected = [];
-
   @override
   void initState() {
     super.initState();
@@ -32,14 +30,6 @@ class BranchesScreenState extends State<BranchesScreen> {
     context.read<GitBranchesCubit>().save(context.read<DataStoreRepository>());
     context.read<DataStoreRepository>().save('test.json');
     super.deactivate();
-  }
-
-  String _branchesNameList(List<GitBranch> branches) {
-    final sb = StringBuffer();
-    for (final script in branches) {
-      sb.writeln(script.name);
-    }
-    return sb.toString();
   }
 
   @override
@@ -55,26 +45,6 @@ class BranchesScreenState extends State<BranchesScreen> {
               tooltip: l10n.addBranch,
               onPressed: () => addBranch(context),
               icon: const Icon(Icons.add),
-            ),
-            IconButton(
-              key: const Key('DeleteIcon'),
-              color: _selected.isEmpty ? Theme.of(context).disabledColor : Theme.of(context).iconTheme.color,
-              tooltip: l10n.deleteBranch,
-              onPressed: () => _selected.isEmpty
-                  ? null
-                  : {
-                      showConfirmMessage(
-                        context: context,
-                        title: l10n.deleteBranchesQuestion,
-                        message: _branchesNameList(_selected),
-                        onConfirmButton: () {
-                          for (final element in _selected) {
-                            context.read<GitBranchesCubit>().delete(element);
-                          }
-                        },
-                      ),
-                    },
-              icon: const Icon(Icons.delete),
             ),
           ],
         ),
@@ -121,14 +91,6 @@ class BranchesScreenState extends State<BranchesScreen> {
       itemCount: branches.length,
       itemBuilder: (context, index) => BranchListItem(
         gitBranch: branches[index],
-        selectedCallback: (script, selected) {
-          setState(() {
-            _selected.removeWhere((element) => element.uuid == script.uuid);
-            if (selected) {
-              _selected.add(script);
-            }
-          });
-        },
       ),
     );
   }

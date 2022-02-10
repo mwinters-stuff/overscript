@@ -4,21 +4,16 @@ import 'package:overscript/gitbranch/gitbranch.dart';
 import 'package:overscript/l10n/l10n.dart';
 import 'package:overscript/widgets/widgets.dart';
 
-typedef BranchListItemSelectedCallback = void Function(GitBranch gitBranch, bool selected);
-
 class BranchListItem extends StatefulWidget {
-  const BranchListItem({Key? key, required this.gitBranch, this.selectedCallback}) : super(key: key);
+  const BranchListItem({Key? key, required this.gitBranch}) : super(key: key);
 
   final GitBranch gitBranch;
-  final BranchListItemSelectedCallback? selectedCallback;
 
   @override
   BranchListItemState createState() => BranchListItemState();
 }
 
 class BranchListItemState extends State<BranchListItem> {
-  bool _checked = false;
-
   @override
   void initState() {
     super.initState();
@@ -31,28 +26,24 @@ class BranchListItemState extends State<BranchListItem> {
       padding: const EdgeInsets.all(8),
       child: Card(
         margin: const EdgeInsets.fromLTRB(16, 4, 16, 4),
-        color: _checked ? Theme.of(context).highlightColor : Theme.of(context).colorScheme.surface,
-        child: InkWell(
-          child: ListTile(
-            title: Text(widget.gitBranch.name),
-            subtitle: Text(widget.gitBranch.directory),
-            trailing: IconButton(
-              tooltip: l10n.deleteBranch,
-              onPressed: () => showConfirmMessage(
-                context: context,
-                title: l10n.deleteBranchQuestion,
-                message: widget.gitBranch.name,
-                onConfirmButton: () => context.read<GitBranchesCubit>().delete(widget.gitBranch),
-              ),
-              icon: const Icon(Icons.delete),
-            ),
+        child: ListTile(
+          // controlAffinity: ListTileControlAffinity.leading,
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [Text(widget.gitBranch.name), Text(widget.gitBranch.directory)],
           ),
-          onTap: () {
-            widget.selectedCallback!(widget.gitBranch, !_checked);
-            setState(() {
-              _checked = !_checked;
-            });
-          },
+          // subtitle: Text(widget.gitBranch.directory),
+          trailing: IconButton(
+            tooltip: l10n.deleteBranch,
+            onPressed: () => showConfirmMessage(
+              context: context,
+              title: l10n.deleteBranchQuestion,
+              message: widget.gitBranch.name,
+              onConfirmButton: () => context.read<GitBranchesCubit>().delete(widget.gitBranch),
+            ),
+            icon: const Icon(Icons.delete),
+          ),
+          // children: context.read<BranchVariableValuesCubit>().getBranchListItems(widget.gitBranch.uuid),
         ),
       ),
     );

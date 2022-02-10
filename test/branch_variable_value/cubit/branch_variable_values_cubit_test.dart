@@ -30,6 +30,282 @@ void main() {
       },
     );
 
+    test('state getVariableValues', () {
+      final cubit = BranchVariableValuesCubit()
+        ..add(
+          const BranchVariableValue(
+            uuid: 'uuid1',
+            branchUuid: 'branch-uuid',
+            variableUuid: 'variable1-uuid',
+            value: 'value',
+          ),
+        )
+        ..add(
+          const BranchVariableValue(
+            uuid: 'uuid2',
+            branchUuid: 'branch-uuid-2',
+            variableUuid: 'variable1-uuid',
+            value: 'value',
+          ),
+        )
+        ..add(
+          const BranchVariableValue(
+            uuid: 'uuid3',
+            branchUuid: 'branch-uuid',
+            variableUuid: 'variable2-uuid',
+            value: 'value2',
+          ),
+        )
+        ..add(
+          const BranchVariableValue(
+            uuid: 'uuid4',
+            branchUuid: 'branch-uuid-2',
+            variableUuid: 'variable2-uuid',
+            value: 'value2',
+          ),
+        );
+
+      expect(
+        cubit.state.getVariableValues('variable2-uuid'),
+        equals(
+          [
+            const BranchVariableValue(
+              uuid: 'uuid3',
+              branchUuid: 'branch-uuid',
+              variableUuid: 'variable2-uuid',
+              value: 'value2',
+            ),
+            const BranchVariableValue(
+              uuid: 'uuid4',
+              branchUuid: 'branch-uuid-2',
+              variableUuid: 'variable2-uuid',
+              value: 'value2',
+            ),
+          ],
+        ),
+      );
+
+      expect(
+        cubit.state.getVariableValues('variable1-uuid'),
+        equals(
+          [
+            const BranchVariableValue(
+              uuid: 'uuid1',
+              branchUuid: 'branch-uuid',
+              variableUuid: 'variable1-uuid',
+              value: 'value',
+            ),
+            const BranchVariableValue(
+              uuid: 'uuid2',
+              branchUuid: 'branch-uuid-2',
+              variableUuid: 'variable1-uuid',
+              value: 'value',
+            ),
+          ],
+        ),
+      );
+      expect(cubit.state.getVariableValues('variable3-uuid'), equals([]));
+    });
+
+    test('getVariableListItems', () {
+      final cubit = BranchVariableValuesCubit()
+        ..add(
+          const BranchVariableValue(
+            uuid: 'uuid1',
+            branchUuid: 'branch-uuid',
+            variableUuid: 'variable1-uuid',
+            value: 'value',
+          ),
+        )
+        ..add(
+          const BranchVariableValue(
+            uuid: 'uuid2',
+            branchUuid: 'branch-uuid-2',
+            variableUuid: 'variable1-uuid',
+            value: 'value',
+          ),
+        )
+        ..add(
+          const BranchVariableValue(
+            uuid: 'uuid3',
+            branchUuid: 'branch-uuid',
+            variableUuid: 'variable2-uuid',
+            value: 'value2',
+          ),
+        )
+        ..add(
+          const BranchVariableValue(
+            uuid: 'uuid4',
+            branchUuid: 'branch-uuid-2',
+            variableUuid: 'variable2-uuid',
+            value: 'value2',
+          ),
+        );
+
+      final items = cubit.getVariableListItems('variable2-uuid');
+      expect(items.length, equals(2));
+      expect(
+        (items[0] as BranchVariableValueListItem).branchVariableValue,
+        equals(
+          const BranchVariableValue(
+            uuid: 'uuid3',
+            branchUuid: 'branch-uuid',
+            variableUuid: 'variable2-uuid',
+            value: 'value2',
+          ),
+        ),
+      );
+      expect(
+        (items[1] as BranchVariableValueListItem).branchVariableValue,
+        equals(
+          const BranchVariableValue(
+            uuid: 'uuid4',
+            branchUuid: 'branch-uuid-2',
+            variableUuid: 'variable2-uuid',
+            value: 'value2',
+          ),
+        ),
+      );
+    });
+
+    test('state getBranchValues', () {
+      final cubit = BranchVariableValuesCubit()
+        ..add(
+          const BranchVariableValue(
+            uuid: 'uuid1',
+            branchUuid: 'branch-uuid-1',
+            variableUuid: 'variable1-uuid',
+            value: 'value',
+          ),
+        )
+        ..add(
+          const BranchVariableValue(
+            uuid: 'uuid2',
+            branchUuid: 'branch-uuid-2',
+            variableUuid: 'variable1-uuid',
+            value: 'value',
+          ),
+        )
+        ..add(
+          const BranchVariableValue(
+            uuid: 'uuid3',
+            branchUuid: 'branch-uuid-1',
+            variableUuid: 'variable2-uuid',
+            value: 'value2',
+          ),
+        )
+        ..add(
+          const BranchVariableValue(
+            uuid: 'uuid4',
+            branchUuid: 'branch-uuid-2',
+            variableUuid: 'variable2-uuid',
+            value: 'value2',
+          ),
+        );
+
+      expect(
+        cubit.state.getBranchValues('branch-uuid-1'),
+        equals(
+          [
+            const BranchVariableValue(
+              uuid: 'uuid1',
+              branchUuid: 'branch-uuid-1',
+              variableUuid: 'variable1-uuid',
+              value: 'value',
+            ),
+            const BranchVariableValue(
+              uuid: 'uuid3',
+              branchUuid: 'branch-uuid-1',
+              variableUuid: 'variable2-uuid',
+              value: 'value2',
+            ),
+          ],
+        ),
+      );
+
+      expect(
+        cubit.state.getBranchValues('branch-uuid-2'),
+        equals(
+          [
+            const BranchVariableValue(
+              uuid: 'uuid2',
+              branchUuid: 'branch-uuid-2',
+              variableUuid: 'variable1-uuid',
+              value: 'value',
+            ),
+            const BranchVariableValue(
+              uuid: 'uuid4',
+              branchUuid: 'branch-uuid-2',
+              variableUuid: 'variable2-uuid',
+              value: 'value2',
+            ),
+          ],
+        ),
+      );
+      expect(cubit.state.getBranchValues('branch-uuid-3'), equals([]));
+    });
+
+    test('getBranchListItems', () {
+      final cubit = BranchVariableValuesCubit()
+        ..add(
+          const BranchVariableValue(
+            uuid: 'uuid1',
+            branchUuid: 'branch-uuid-1',
+            variableUuid: 'variable1-uuid',
+            value: 'value',
+          ),
+        )
+        ..add(
+          const BranchVariableValue(
+            uuid: 'uuid2',
+            branchUuid: 'branch-uuid-2',
+            variableUuid: 'variable1-uuid',
+            value: 'value',
+          ),
+        )
+        ..add(
+          const BranchVariableValue(
+            uuid: 'uuid3',
+            branchUuid: 'branch-uuid-1',
+            variableUuid: 'variable2-uuid',
+            value: 'value2',
+          ),
+        )
+        ..add(
+          const BranchVariableValue(
+            uuid: 'uuid4',
+            branchUuid: 'branch-uuid-2',
+            variableUuid: 'variable2-uuid',
+            value: 'value2',
+          ),
+        );
+      final list = cubit.getBranchListItems('branch-uuid-1');
+      expect(list.length, equals(2));
+
+      expect(
+        (list[0] as BranchVariableValueListItem).branchVariableValue,
+        equals(
+          const BranchVariableValue(
+            uuid: 'uuid1',
+            branchUuid: 'branch-uuid-1',
+            variableUuid: 'variable1-uuid',
+            value: 'value',
+          ),
+        ),
+      );
+      expect(
+        (list[1] as BranchVariableValueListItem).branchVariableValue,
+        equals(
+          const BranchVariableValue(
+            uuid: 'uuid3',
+            branchUuid: 'branch-uuid-1',
+            variableUuid: 'variable2-uuid',
+            value: 'value2',
+          ),
+        ),
+      );
+    });
+
     blocTest<BranchVariableValuesCubit, BranchVariableValuesState>(
       'add success',
       build: () => BranchVariableValuesCubit(),
