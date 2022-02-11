@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:overscript/branch_variable_value/branch_variable_value.dart';
 import 'package:overscript/gitbranch/gitbranch.dart';
 import 'package:overscript/gitbranch/views/branch_list_item.dart';
 import 'package:overscript/l10n/l10n.dart';
@@ -21,6 +22,8 @@ class MockGitBranch extends Mock implements GitBranch {}
 
 class MockGitCalls extends Mock implements GitCalls {}
 
+class MockBranchVariableValuesCubit extends MockCubit<BranchVariableValuesState> implements BranchVariableValuesCubit {}
+
 abstract class ResultTest {
   void onResult(String value);
 }
@@ -36,6 +39,7 @@ void main() {
     late MockGitBranchesState mockGitBranchesState;
     late MockGitCalls mockGitCalls;
     late FakeFileSelector fakeFileSelectorImplementation;
+    late MockBranchVariableValuesCubit mockBranchVariableValuesCubit;
 
     setUp(() {
       mockDataStoreRepository = MockDataStoreRepository();
@@ -60,6 +64,10 @@ void main() {
 
       when(() => mockGitBranchesCubit.state).thenReturn(mockGitBranchesState);
 
+      mockBranchVariableValuesCubit = MockBranchVariableValuesCubit();
+      when(() => mockBranchVariableValuesCubit.getVariableListItems(any())).thenReturn(const []);
+      when(() => mockBranchVariableValuesCubit.getBranchListItems(any())).thenReturn(const []);
+
       registerFallbackValue(const GitBranch.empty());
 
       fakeFileSelectorImplementation = FakeFileSelector();
@@ -79,6 +87,9 @@ void main() {
             providers: [
               BlocProvider<GitBranchesCubit>(
                 create: (context) => mockGitBranchesCubit,
+              ),
+              BlocProvider<BranchVariableValuesCubit>(
+                create: (context) => mockBranchVariableValuesCubit,
               ),
             ],
             child: const BranchesScreen(),
@@ -109,6 +120,9 @@ void main() {
             providers: [
               BlocProvider<GitBranchesCubit>(
                 create: (context) => mockGitBranchesCubit,
+              ),
+              BlocProvider<BranchVariableValuesCubit>(
+                create: (context) => mockBranchVariableValuesCubit,
               ),
             ],
             child: const BranchesScreen(),
@@ -143,6 +157,9 @@ void main() {
             providers: [
               BlocProvider<GitBranchesCubit>(
                 create: (context) => mockGitBranchesCubit,
+              ),
+              BlocProvider<BranchVariableValuesCubit>(
+                create: (context) => mockBranchVariableValuesCubit,
               ),
             ],
             child: const BranchesScreen(),
@@ -192,6 +209,9 @@ void main() {
               BlocProvider<GitBranchesCubit>(
                 create: (context) => mockGitBranchesCubit,
               ),
+              BlocProvider<BranchVariableValuesCubit>(
+                create: (context) => mockBranchVariableValuesCubit,
+              ),
             ],
             child: const BranchesScreen(),
           ),
@@ -236,6 +256,9 @@ void main() {
               BlocProvider<GitBranchesCubit>(
                 create: (context) => mockGitBranchesCubit,
               ),
+              BlocProvider<BranchVariableValuesCubit>(
+                create: (context) => mockBranchVariableValuesCubit,
+              ),
             ],
             child: const BranchesScreen(),
           ),
@@ -276,6 +299,9 @@ void main() {
             providers: [
               BlocProvider<GitBranchesCubit>(
                 create: (context) => mockGitBranchesCubit,
+              ),
+              BlocProvider<BranchVariableValuesCubit>(
+                create: (context) => mockBranchVariableValuesCubit,
               ),
             ],
             child: const TestApp(),

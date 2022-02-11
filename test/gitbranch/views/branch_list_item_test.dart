@@ -6,6 +6,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:overscript/branch_variable_value/branch_variable_value.dart';
 import 'package:overscript/gitbranch/gitbranch.dart';
 import 'package:overscript/gitbranch/views/branch_list_item.dart';
+import 'package:overscript/variable/variable.dart';
 
 import '../../helpers/helpers.dart';
 
@@ -15,11 +16,14 @@ class MockGitBranch extends Mock implements GitBranch {}
 
 class MockBranchVariableValuesCubit extends MockCubit<BranchVariableValuesState> implements BranchVariableValuesCubit {}
 
+class MockVariablesCubit extends MockCubit<VariablesState> implements VariablesCubit {}
+
 void main() {
   group('BranchListItem', () {
     late MockGitBranch mockGitBranch;
     late MockGitBranchesCubit mockGitBranchesCubit;
     late MockBranchVariableValuesCubit mockBranchVariableValuesCubit;
+    late MockVariablesCubit mockVariablesCubit;
 
     setUp(() {
       mockGitBranch = MockGitBranch();
@@ -31,7 +35,40 @@ void main() {
       mockGitBranchesCubit = MockGitBranchesCubit();
 
       mockBranchVariableValuesCubit = MockBranchVariableValuesCubit();
-      when(() => mockBranchVariableValuesCubit.getBranchListItems(any())).thenReturn([]);
+      when(() => mockBranchVariableValuesCubit.getBranchListItems(any())).thenReturn(const [
+        VariableBranchValueListItem(
+          branchVariableValue: BranchVariableValue(
+            uuid: 'uuid-1',
+            branchUuid: 'branch-1',
+            variableUuid: 'a-uuid-1',
+            value: 'value 1',
+          ),
+        ),
+        VariableBranchValueListItem(
+          branchVariableValue: BranchVariableValue(
+            uuid: 'uuid-2',
+            branchUuid: 'branch-1',
+            variableUuid: 'a-uuid-2',
+            value: 'value 2',
+          ),
+        ),
+      ]);
+
+      mockVariablesCubit = MockVariablesCubit();
+      when(() => mockVariablesCubit.getVariable('a-uuid-1')).thenReturn(
+        const Variable(
+          uuid: 'a-uuid-1',
+          name: 'Variable 1',
+          defaultValue: 'default1',
+        ),
+      );
+      when(() => mockVariablesCubit.getVariable('a-uuid-2')).thenReturn(
+        const Variable(
+          uuid: 'a-uuid-2',
+          name: 'Variable 2',
+          defaultValue: 'default2',
+        ),
+      );
     });
 
     testWidgets('renders BranchListItem', (tester) async {
@@ -52,6 +89,9 @@ void main() {
           providers: [
             BlocProvider<GitBranchesCubit>(
               create: (context) => mockGitBranchesCubit,
+            ),
+            BlocProvider<VariablesCubit>(
+              create: (context) => mockVariablesCubit,
             ),
             BlocProvider<BranchVariableValuesCubit>(
               create: (context) => mockBranchVariableValuesCubit,
@@ -87,6 +127,9 @@ void main() {
             BlocProvider<GitBranchesCubit>(
               create: (context) => mockGitBranchesCubit,
             ),
+            BlocProvider<VariablesCubit>(
+              create: (context) => mockVariablesCubit,
+            ),
             BlocProvider<BranchVariableValuesCubit>(
               create: (context) => mockBranchVariableValuesCubit,
             ),
@@ -112,6 +155,45 @@ void main() {
       await tester.pump();
 
       verify(() => mockGitBranchesCubit.delete(mockGitBranch)).called(1);
+    });
+
+    testWidgets('click to expand and show variable values', (tester) async {
+      await tester.pumpApp(
+        MultiBlocProvider(
+          providers: [
+            BlocProvider<GitBranchesCubit>(
+              create: (context) => mockGitBranchesCubit,
+            ),
+            BlocProvider<VariablesCubit>(
+              create: (context) => mockVariablesCubit,
+            ),
+            BlocProvider<BranchVariableValuesCubit>(
+              create: (context) => mockBranchVariableValuesCubit,
+            ),
+          ],
+          child: BranchListItem(
+            gitBranch: mockGitBranch,
+          ),
+        ),
+      );
+
+      expect(find.byType(ExpansionTile), findsOneWidget);
+      expect(find.byType(VariableBranchValueListItem), findsNothing);
+
+      await tester.tap(find.text('master'));
+      await tester.pumpAndSettle();
+
+      expect(find.byType(VariableBranchValueListItem), findsNWidgets(2));
+
+      expect(find.text('Variable 1'), findsOneWidget);
+      expect(find.text('Variable 2'), findsOneWidget);
+      expect(find.text('value 1'), findsOneWidget);
+      expect(find.text('value 2'), findsOneWidget);
+
+      await tester.tap(find.text('master'));
+      await tester.pumpAndSettle();
+
+      expect(find.byType(VariableBranchValueListItem), findsNothing);
     });
   });
 }

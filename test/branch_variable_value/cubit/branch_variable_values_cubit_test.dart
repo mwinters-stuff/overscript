@@ -145,7 +145,7 @@ void main() {
       final items = cubit.getVariableListItems('variable2-uuid');
       expect(items.length, equals(2));
       expect(
-        (items[0] as BranchVariableValueListItem).branchVariableValue,
+        items[0].branchVariableValue,
         equals(
           const BranchVariableValue(
             uuid: 'uuid3',
@@ -156,7 +156,7 @@ void main() {
         ),
       );
       expect(
-        (items[1] as BranchVariableValueListItem).branchVariableValue,
+        items[1].branchVariableValue,
         equals(
           const BranchVariableValue(
             uuid: 'uuid4',
@@ -283,7 +283,7 @@ void main() {
       expect(list.length, equals(2));
 
       expect(
-        (list[0] as BranchVariableValueListItem).branchVariableValue,
+        list[0].branchVariableValue,
         equals(
           const BranchVariableValue(
             uuid: 'uuid1',
@@ -294,7 +294,7 @@ void main() {
         ),
       );
       expect(
-        (list[1] as BranchVariableValueListItem).branchVariableValue,
+        list[1].branchVariableValue,
         equals(
           const BranchVariableValue(
             uuid: 'uuid3',
