@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2022-02-10 07:23:29</td>
+            <td class="headerValue">2022-02-11 22:09:15</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">0</td>
@@ -129,25 +129,25 @@
 <a name="58"><span class="lineNum">      58 </span>                :            :   );</a>
 <a name="59"><span class="lineNum">      59 </span>                :            : }</a>
 <a name="60"><span class="lineNum">      60 </span>                :            : </a>
-<a name="61"><span class="lineNum">      61 </span>                :<span class="lineCov">          4 : void showConfirmMessage({</span></a>
+<a name="61"><span class="lineNum">      61 </span>                :<span class="lineCov">          5 : void showConfirmMessage({</span></a>
 <a name="62"><span class="lineNum">      62 </span>                :            :   required BuildContext context,</a>
 <a name="63"><span class="lineNum">      63 </span>                :            :   required String title,</a>
 <a name="64"><span class="lineNum">      64 </span>                :            :   required String message,</a>
 <a name="65"><span class="lineNum">      65 </span>                :            :   VoidCallback? onConfirmButton,</a>
 <a name="66"><span class="lineNum">      66 </span>                :            :   VoidCallback? onCancelButton,</a>
 <a name="67"><span class="lineNum">      67 </span>                :            : }) {</a>
-<a name="68"><span class="lineNum">      68 </span>                :<span class="lineCov">          4 :   confirmationDialog(</span></a>
+<a name="68"><span class="lineNum">      68 </span>                :<span class="lineCov">          5 :   confirmationDialog(</span></a>
 <a name="69"><span class="lineNum">      69 </span>                :            :     context,</a>
 <a name="70"><span class="lineNum">      70 </span>                :            :     title,</a>
 <a name="71"><span class="lineNum">      71 </span>                :            :     message,</a>
 <a name="72"><span class="lineNum">      72 </span>                :            :     positiveButtonText: 'Ok',</a>
 <a name="73"><span class="lineNum">      73 </span>                :            :     negativeButtonText: 'Cancel',</a>
-<a name="74"><span class="lineNum">      74 </span>                :<span class="lineCov">          4 :     positiveButtonAction: () {</span></a>
+<a name="74"><span class="lineNum">      74 </span>                :<span class="lineCov">          5 :     positiveButtonAction: () {</span></a>
 <a name="75"><span class="lineNum">      75 </span>                :            :       if (onConfirmButton != null) {</a>
-<a name="76"><span class="lineNum">      76 </span>                :<span class="lineCov">          4 :         onConfirmButton();</span></a>
+<a name="76"><span class="lineNum">      76 </span>                :<span class="lineCov">          5 :         onConfirmButton();</span></a>
 <a name="77"><span class="lineNum">      77 </span>                :            :       }</a>
 <a name="78"><span class="lineNum">      78 </span>                :            :     },</a>
-<a name="79"><span class="lineNum">      79 </span>                :<span class="lineCov">          2 :     negativeButtonAction: () {</span></a>
+<a name="79"><span class="lineNum">      79 </span>                :<span class="lineCov">          3 :     negativeButtonAction: () {</span></a>
 <a name="80"><span class="lineNum">      80 </span>                :            :       if (onCancelButton != null) {</a>
 <a name="81"><span class="lineNum">      81 </span>                :<span class="lineCov">          1 :         onCancelButton();</span></a>
 <a name="82"><span class="lineNum">      82 </span>                :            :       }</a>
@@ -184,7 +184,7 @@
 <a name="113"><span class="lineNum">     113 </span>                :            :   );</a>
 <a name="114"><span class="lineNum">     114 </span>                :            : }</a>
 <a name="115"><span class="lineNum">     115 </span>                :            : </a>
-<a name="116"><span class="lineNum">     116 </span>                :<span class="lineCov">          2 : void showInputDialog({</span></a>
+<a name="116"><span class="lineNum">     116 </span>                :<span class="lineCov">          3 : void showInputDialog({</span></a>
 <a name="117"><span class="lineNum">     117 </span>                :            :   required BuildContext context,</a>
 <a name="118"><span class="lineNum">     118 </span>                :            :   required String title,</a>
 <a name="119"><span class="lineNum">     119 </span>                :            :   required String label,</a>
@@ -192,18 +192,18 @@
 <a name="121"><span class="lineNum">     121 </span>                :            :   dynamic Function(String)? onConfirmButton,</a>
 <a name="122"><span class="lineNum">     122 </span>                :            :   VoidCallback? onCancelButton,</a>
 <a name="123"><span class="lineNum">     123 </span>                :            : }) {</a>
-<a name="124"><span class="lineNum">     124 </span>                :<span class="lineCov">          2 :   singleInputDialog(</span></a>
+<a name="124"><span class="lineNum">     124 </span>                :<span class="lineCov">          3 :   singleInputDialog(</span></a>
 <a name="125"><span class="lineNum">     125 </span>                :            :     context,</a>
 <a name="126"><span class="lineNum">     126 </span>                :            :     title,</a>
-<a name="127"><span class="lineNum">     127 </span>                :<span class="lineCov">          2 :     DialogTextField(label: label, value: value),</span></a>
+<a name="127"><span class="lineNum">     127 </span>                :<span class="lineCov">          3 :     DialogTextField(label: label, value: value),</span></a>
 <a name="128"><span class="lineNum">     128 </span>                :            :     positiveButtonText: 'Ok',</a>
 <a name="129"><span class="lineNum">     129 </span>                :            :     negativeButtonText: 'Cancel',</a>
-<a name="130"><span class="lineNum">     130 </span>                :<span class="lineCov">          2 :     positiveButtonAction: (String newValue) {</span></a>
+<a name="130"><span class="lineNum">     130 </span>                :<span class="lineCov">          3 :     positiveButtonAction: (String newValue) {</span></a>
 <a name="131"><span class="lineNum">     131 </span>                :            :       if (onConfirmButton != null) {</a>
-<a name="132"><span class="lineNum">     132 </span>                :<span class="lineCov">          2 :         onConfirmButton(newValue);</span></a>
+<a name="132"><span class="lineNum">     132 </span>                :<span class="lineCov">          3 :         onConfirmButton(newValue);</span></a>
 <a name="133"><span class="lineNum">     133 </span>                :            :       }</a>
 <a name="134"><span class="lineNum">     134 </span>                :            :     },</a>
-<a name="135"><span class="lineNum">     135 </span>                :<span class="lineCov">          2 :     negativeButtonAction: () {</span></a>
+<a name="135"><span class="lineNum">     135 </span>                :<span class="lineCov">          3 :     negativeButtonAction: () {</span></a>
 <a name="136"><span class="lineNum">     136 </span>                :            :       if (onCancelButton != null) {</a>
 <a name="137"><span class="lineNum">     137 </span>                :<span class="lineCov">          1 :         onCancelButton();</span></a>
 <a name="138"><span class="lineNum">     138 </span>                :            :       }</a>
@@ -212,12 +212,12 @@
 <a name="141"><span class="lineNum">     141 </span>                :            :   );</a>
 <a name="142"><span class="lineNum">     142 </span>                :            : }</a>
 <a name="143"><span class="lineNum">     143 </span>                :            : </a>
-<a name="144"><span class="lineNum">     144 </span>                :<span class="lineCov">          3 : Future&lt;String?&gt; getDirectory({required BuildContext context, required String initialDirectory}) async {</span></a>
-<a name="145"><span class="lineNum">     145 </span>                :<span class="lineCov">          9 :   return getDirectoryPath(initialDirectory: initialDirectory, confirmButtonText: context.l10n.select);</span></a>
+<a name="144"><span class="lineNum">     144 </span>                :<span class="lineCov">          4 : Future&lt;String?&gt; getDirectory({required BuildContext context, required String initialDirectory}) async {</span></a>
+<a name="145"><span class="lineNum">     145 </span>                :<span class="lineCov">         12 :   return getDirectoryPath(initialDirectory: initialDirectory, confirmButtonText: context.l10n.select);</span></a>
 <a name="146"><span class="lineNum">     146 </span>                :            : }</a>
 <a name="147"><span class="lineNum">     147 </span>                :            : </a>
-<a name="148"><span class="lineNum">     148 </span>                :<span class="lineCov">          2 : Future&lt;String?&gt; getFile({required BuildContext context, required String currentFile}) async {</span></a>
-<a name="149"><span class="lineNum">     149 </span>                :<span class="lineCov">         10 :   return getSavePath(initialDirectory: dirname(currentFile), suggestedName: basename(currentFile), confirmButtonText: context.l10n.select);</span></a>
+<a name="148"><span class="lineNum">     148 </span>                :<span class="lineCov">          3 : Future&lt;String?&gt; getFile({required BuildContext context, required String currentFile}) async {</span></a>
+<a name="149"><span class="lineNum">     149 </span>                :<span class="lineCov">         15 :   return getSavePath(initialDirectory: dirname(currentFile), suggestedName: basename(currentFile), confirmButtonText: context.l10n.select);</span></a>
 <a name="150"><span class="lineNum">     150 </span>                :            : }</a>
 <a name="151"><span class="lineNum">     151 </span>                :            : // }</a>
 </pre>
