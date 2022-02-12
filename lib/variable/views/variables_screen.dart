@@ -31,7 +31,7 @@ class VariablesScreenState extends State<VariablesScreen> {
 
   @override
   void deactivate() {
-    context.read<VariablesCubit>().save(context.read<DataStoreRepository>());
+    // context.read<VariablesCubit>().save();
     context.read<DataStoreRepository>().save('test.json');
     super.deactivate();
   }

@@ -16,15 +16,24 @@ extension VariablesStatusX on VariablesStatus {
 }
 
 class VariablesState extends Equatable {
-  VariablesState({this.status = VariablesStatus.initial, List<Variable>? variables}) : variables = variables ?? [];
+  VariablesState({
+    required this.dataStoreRepository,
+    this.status = VariablesStatus.initial,
+    List<Variable>? variables,
+  }) {
+    dataStoreRepository.variables = variables ?? [];
+  }
 
-  final List<Variable> variables;
   final VariablesStatus status;
+  final DataStoreRepository dataStoreRepository;
+
+  List<Variable> get variables => dataStoreRepository.variables;
 
   VariablesState copyWith({required VariablesStatus status, List<Variable>? variables}) {
     return VariablesState(
+      dataStoreRepository: dataStoreRepository,
       status: status,
-      variables: variables ?? this.variables,
+      variables: variables ?? dataStoreRepository.variables,
     );
   }
 
@@ -46,16 +55,11 @@ class VariablesState extends Equatable {
     return null;
   }
 
-  VariablesState load(DataStoreRepository dataStoreRepository) {
+  VariablesState load() {
     return copyWith(
       status: VariablesStatus.loaded,
-      variables: List.from(dataStoreRepository.variables, growable: true),
+      variables: List.from(variables),
     );
-  }
-
-  VariablesState save(DataStoreRepository dataStoreRepository) {
-    dataStoreRepository.variables = variables;
-    return copyWith(status: VariablesStatus.saved);
   }
 
   VariablesState add(Variable variable) {
@@ -69,7 +73,7 @@ class VariablesState extends Equatable {
 
     return copyWith(
       status: VariablesStatus.added,
-      variables: List.from(variables)..add(variable),
+      variables: dataStoreRepository.addVariable(variable),
     );
   }
 
@@ -77,9 +81,10 @@ class VariablesState extends Equatable {
     if (_findVariableUUID(variable.uuid) != variable) {
       return copyWith(status: VariablesStatus.deleteFailedNotFound);
     }
+
     return copyWith(
       status: VariablesStatus.deleted,
-      variables: List.from(variables)..removeWhere((element) => element.uuid == variable.uuid),
+      variables: dataStoreRepository.deleteVariable(variable),
     );
   }
 

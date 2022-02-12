@@ -27,7 +27,6 @@ class BranchesScreenState extends State<BranchesScreen> {
 
   @override
   void deactivate() {
-    context.read<GitBranchesCubit>().save(context.read<DataStoreRepository>());
     context.read<DataStoreRepository>().save('test.json');
     super.deactivate();
   }

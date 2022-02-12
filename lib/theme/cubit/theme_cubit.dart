@@ -7,14 +7,19 @@ part 'theme_state.dart';
 class ThemeCubit extends HydratedCubit<ThemeState> {
   ThemeCubit() : super(const ThemeState());
 
+  // final lightScheme = ColorScheme.fromSeed(seedColor: Colors.green);
+  // final darkScheme = ColorScheme.fromSeed(seedColor: Colors.green, brightness: Brightness.dark);
+
+  final lightTheme = ThemeData(colorSchemeSeed: Colors.deepOrange[600], useMaterial3: true);
+  final darkTheme = ThemeData(colorSchemeSeed: Colors.deepOrange[600], brightness: Brightness.dark, useMaterial3: true);
+
   @override
   ThemeState? fromJson(Map<String, dynamic> json) => ThemeState(
         status: (json['isDark'] as bool) ? ThemeStatus.dark : ThemeStatus.light,
       );
 
   @override
-  Map<String, dynamic>? toJson(ThemeState state) =>
-      {'isDark': state.status.isDark};
+  Map<String, dynamic>? toJson(ThemeState state) => {'isDark': state.status.isDark};
 
   void setDark() {
     emit(state.setDark());
@@ -29,12 +34,6 @@ class ThemeCubit extends HydratedCubit<ThemeState> {
   }
 
   ThemeData getTheme() {
-    //  ThemeData(
-    //     appBarTheme: const AppBarTheme(color: Color(0xFF13B9FF)),
-    //     colorScheme: ColorScheme.fromSwatch(
-    //       accentColor: const Color(0xFF13B9FF),
-    //     ),
-    //   ),
-    return state.status.isDark ? ThemeData.dark() : ThemeData.light();
+    return state.status.isDark ? darkTheme : lightTheme;
   }
 }

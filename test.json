@@ -1,19 +1,14 @@
 {
-  "branchVariableValues": [],
-  "scripts":[],
-  "variables":[],
+  "scripts": [],
+  "variables": [
+  ],
   "branches": [
     {
-      "uuid": "84020a50-8191-11ec-a699-e761ba805684",
-      "name": "EWSIM_2_8_release",
-      "directory": "/home/mathew/src-work/earthworks_simulator",
-      "origin": ""
-    },
-    {
-      "uuid": "878d2ce0-8191-11ec-a699-e761ba805684",
-      "name": "main_darkside_staging_AR-779-B2",
-      "directory": "/home/mathew/src-work/ctct_products_darksidemain",
-      "origin": ""
+      "uuid": "4405db30-8bc7-11ec-adf4-ffdcde624e34",
+      "name": "master",
+      "directory": "/home/mathew/src/overscript",
+      "origin": "https://github.com/mwinters-stuff/overscript.git"
     }
-  ]
+  ],
+  "branchVariableValues": []
 }

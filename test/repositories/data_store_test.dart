@@ -1,15 +1,14 @@
-import 'dart:io';
+import 'dart:math';
 
 import 'package:file/file.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:overscript/branch_variable_value/branch_variable_value.dart';
 import 'package:overscript/gitbranch/gitbranch.dart';
-import 'package:overscript/repositories/json_storage.dart';
 import 'package:overscript/repositories/repositories.dart';
 import 'package:overscript/variable/variable.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:mocktail/mocktail.dart';
-import 'package:process/process.dart';
+
+import '../helpers/helpers.dart';
 
 class MockFileSystem extends Mock implements FileSystem {}
 
@@ -17,17 +16,11 @@ class MockFile extends Mock implements File {}
 
 void main() {
   group('DataStoreRepository', () {
+    final mockFileSystem = MockFileSystem();
+    final mockFile = MockFile();
+
     test('load Success', () {
-      final mockFileSystem = MockFileSystem();
-      final mockFile = MockFile();
-
-      when(mockFile.readAsStringSync).thenReturn(
-        '{"scripts": [], "variables": [{"uuid": "v-uuid-1", "name": "variable1", "defaultValue": "default1"}], "branches": [{"uuid": "a-uuid-1", "name": "master", "directory": "/home/user/src/project", "origin": "git:someplace/bob"}], "branchVariableValues": [{"uuid": "bvv-uuid-1", "branchUuid": "a-uuid-1", "variableUuid": "v-uuid-1", "value": "start value 1"}]}',
-      );
-      when(() => mockFileSystem.isFileSync('a-file.json')).thenReturn(true);
-      when(() => mockFileSystem.file('a-file.json')).thenReturn(mockFile);
-
-      final dataStoreRepository = DataStoreRepository(mockFileSystem);
+      final dataStoreRepository = DataStoreRepository(mockDataStoreRepositoryJsonFile());
 
       // ignore: cascade_invocations
       dataStoreRepository.load('a-file.json');
@@ -39,9 +32,6 @@ void main() {
     });
 
     test('load file doesnt exist', () {
-      final mockFileSystem = MockFileSystem();
-      final mockFile = MockFile();
-
       when(() => mockFileSystem.isFileSync('a-file.json')).thenReturn(false);
       when(() => mockFileSystem.file('a-file.json')).thenReturn(mockFile);
 
@@ -57,9 +47,6 @@ void main() {
     });
 
     test('save Success', () {
-      final mockFileSystem = MockFileSystem();
-      final mockFile = MockFile();
-
       when(() => mockFileSystem.file('a-file.json')).thenReturn(mockFile);
 
       final dataStoreRepository = DataStoreRepository(mockFileSystem);
@@ -103,6 +90,109 @@ void main() {
           '}',
         ),
       );
+    });
+
+    test('add variable, adds branch variable values', () {
+      final dataStoreRepository = DataStoreRepository(mockFileSystem);
+
+      dataStoreRepository.branches.add(const GitBranch(uuid: 'b-uuid-1', name: 'branch 1', directory: 'directory1', origin: 'origin'));
+      dataStoreRepository.branches.add(const GitBranch(uuid: 'b-uuid-2', name: 'branch 2', directory: 'directory2', origin: 'origin'));
+
+      dataStoreRepository.addVariable(const Variable(uuid: 'v-uuid-1', name: 'variable', defaultValue: 'defaultValue'));
+
+      expect(dataStoreRepository.branchVariableValues.length, equals(2));
+
+      expect(
+        dataStoreRepository.branchVariableValues[0].branchUuid,
+        equals('b-uuid-1'),
+      );
+      expect(
+        dataStoreRepository.branchVariableValues[0].variableUuid,
+        equals('v-uuid-1'),
+      );
+      expect(
+        dataStoreRepository.branchVariableValues[0].value,
+        equals('defaultValue'),
+      );
+
+      expect(
+        dataStoreRepository.branchVariableValues[1].branchUuid,
+        equals('b-uuid-2'),
+      );
+      expect(
+        dataStoreRepository.branchVariableValues[1].variableUuid,
+        equals('v-uuid-1'),
+      );
+      expect(
+        dataStoreRepository.branchVariableValues[1].value,
+        equals('defaultValue'),
+      );
+    });
+
+    test('delete variable, removes branch variables values', () {
+      final dataStoreRepository = DataStoreRepository(mockFileSystem);
+
+      dataStoreRepository.branches.add(const GitBranch(uuid: 'b-uuid-1', name: 'branch 1', directory: 'directory1', origin: 'origin'));
+      dataStoreRepository.branches.add(const GitBranch(uuid: 'b-uuid-2', name: 'branch 2', directory: 'directory2', origin: 'origin'));
+
+      dataStoreRepository.addVariable(const Variable(uuid: 'v-uuid-1', name: 'variable', defaultValue: 'defaultValue'));
+      expect(dataStoreRepository.branchVariableValues.length, equals(2));
+
+      dataStoreRepository.deleteVariable(const Variable(uuid: 'v-uuid-1', name: 'variable', defaultValue: 'defaultValue'));
+
+      expect(dataStoreRepository.branchVariableValues.length, equals(0));
+    });
+
+    test('add branch, adds branch variable values', () {
+      final dataStoreRepository = DataStoreRepository(mockFileSystem);
+
+      dataStoreRepository.variables.add(const Variable(uuid: 'v-uuid-1', name: 'variable 1', defaultValue: 'defaultValue1'));
+      dataStoreRepository.variables.add(const Variable(uuid: 'v-uuid-2', name: 'variable 2', defaultValue: 'defaultValue2'));
+
+      dataStoreRepository.addBranch(const GitBranch(uuid: 'b-uuid-1', name: 'branch 1', directory: 'directory1', origin: 'origin'));
+
+      expect(dataStoreRepository.branchVariableValues.length, equals(2));
+
+      expect(
+        dataStoreRepository.branchVariableValues[0].branchUuid,
+        equals('b-uuid-1'),
+      );
+      expect(
+        dataStoreRepository.branchVariableValues[0].variableUuid,
+        equals('v-uuid-1'),
+      );
+      expect(
+        dataStoreRepository.branchVariableValues[0].value,
+        equals('defaultValue1'),
+      );
+
+      expect(
+        dataStoreRepository.branchVariableValues[1].branchUuid,
+        equals('b-uuid-1'),
+      );
+      expect(
+        dataStoreRepository.branchVariableValues[1].variableUuid,
+        equals('v-uuid-2'),
+      );
+      expect(
+        dataStoreRepository.branchVariableValues[1].value,
+        equals('defaultValue2'),
+      );
+    });
+
+    test('delete branch, removes branch variables values', () {
+      final dataStoreRepository = DataStoreRepository(mockFileSystem);
+
+      dataStoreRepository.variables.add(const Variable(uuid: 'v-uuid-1', name: 'variable 1', defaultValue: 'defaultValue1'));
+      dataStoreRepository.variables.add(const Variable(uuid: 'v-uuid-2', name: 'variable 2', defaultValue: 'defaultValue2'));
+
+      dataStoreRepository.addBranch(const GitBranch(uuid: 'b-uuid-1', name: 'branch 1', directory: 'directory1', origin: 'origin'));
+
+      expect(dataStoreRepository.branchVariableValues.length, equals(2));
+
+      dataStoreRepository.deleteBranch(const GitBranch(uuid: 'b-uuid-1', name: 'branch 1', directory: 'directory1', origin: 'origin'));
+
+      expect(dataStoreRepository.branchVariableValues.length, equals(0));
     });
   });
 }

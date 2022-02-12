@@ -57,13 +57,13 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
             child: MultiBlocProvider(
               providers: [
                 BlocProvider<GitBranchesCubit>(
-                  create: (context) => GitBranchesCubit(),
+                  create: (context) => GitBranchesCubit(dataStoreRepository: context.read<DataStoreRepository>()),
                 ),
                 BlocProvider<VariablesCubit>(
-                  create: (context) => VariablesCubit(),
+                  create: (context) => VariablesCubit(dataStoreRepository: context.read<DataStoreRepository>()),
                 ),
                 BlocProvider<BranchVariableValuesCubit>(
-                  create: (context) => BranchVariableValuesCubit(),
+                  create: (context) => BranchVariableValuesCubit(dataStoreRepository: context.read<DataStoreRepository>()),
                 ),
                 BlocProvider<ThemeCubit>(create: (context) => ThemeCubit()),
               ],

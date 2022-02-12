@@ -12,28 +12,28 @@ import 'package:overscript/repositories/data_store_repository.dart';
 import 'package:overscript/variable/cubit/variable.dart';
 import 'package:overscript/variable/cubit/variables_cubit.dart';
 
-class MockDataStoreRepository extends Mock implements DataStoreRepository {}
+import '../../helpers/helpers.dart';
 
 void main() {
   group('VariablesCubit', () {
     late DataStoreRepository dataStoreRepository;
 
     setUp(() {
-      dataStoreRepository = MockDataStoreRepository();
+      dataStoreRepository = DataStoreRepository(mockDataStoreRepositoryJsonFile());
     });
 
     test(
       'initial state is empty list',
       () {
-        final cubit = VariablesCubit();
-        expect(cubit.state, equals(VariablesState()));
+        final cubit = VariablesCubit(dataStoreRepository: dataStoreRepository);
+        expect(cubit.state, equals(VariablesState(dataStoreRepository: dataStoreRepository)));
         expect(cubit.state.variables, equals(<Variable>[]));
       },
     );
 
     blocTest<VariablesCubit, VariablesState>(
       'add success',
-      build: () => VariablesCubit(),
+      build: () => VariablesCubit(dataStoreRepository: dataStoreRepository),
       act: (cubit) => cubit.add(
         const Variable(
           uuid: 'a-uuid',
@@ -44,12 +44,14 @@ void main() {
       expect: () => [
         equals(
           VariablesState(
+            dataStoreRepository: dataStoreRepository,
             status: VariablesStatus.changing,
             variables: const [],
           ),
         ),
         equals(
           VariablesState(
+            dataStoreRepository: dataStoreRepository,
             status: VariablesStatus.added,
             variables: const [
               Variable(
@@ -65,7 +67,7 @@ void main() {
 
     blocTest<VariablesCubit, VariablesState>(
       'add two',
-      build: () => VariablesCubit(),
+      build: () => VariablesCubit(dataStoreRepository: dataStoreRepository),
       act: (cubit) {
         cubit
           ..add(
@@ -86,12 +88,14 @@ void main() {
       expect: () => [
         equals(
           VariablesState(
+            dataStoreRepository: dataStoreRepository,
             status: VariablesStatus.changing,
             variables: const [],
           ),
         ),
         equals(
           VariablesState(
+            dataStoreRepository: dataStoreRepository,
             status: VariablesStatus.added,
             variables: const [
               Variable(
@@ -104,6 +108,7 @@ void main() {
         ),
         equals(
           VariablesState(
+            dataStoreRepository: dataStoreRepository,
             status: VariablesStatus.changing,
             variables: const [
               Variable(
@@ -116,6 +121,7 @@ void main() {
         ),
         equals(
           VariablesState(
+            dataStoreRepository: dataStoreRepository,
             status: VariablesStatus.added,
             variables: const [
               Variable(
@@ -136,7 +142,7 @@ void main() {
 
     blocTest<VariablesCubit, VariablesState>(
       'add uuid already exists',
-      build: () => VariablesCubit()
+      build: () => VariablesCubit(dataStoreRepository: dataStoreRepository)
         ..add(
           const Variable(
             uuid: 'a-uuid',
@@ -154,6 +160,7 @@ void main() {
       expect: () => [
         equals(
           VariablesState(
+            dataStoreRepository: dataStoreRepository,
             status: VariablesStatus.changing,
             variables: const [
               Variable(
@@ -166,6 +173,7 @@ void main() {
         ),
         equals(
           VariablesState(
+            dataStoreRepository: dataStoreRepository,
             status: VariablesStatus.addFailedUUIDExists,
             variables: const [
               Variable(
@@ -181,7 +189,7 @@ void main() {
 
     blocTest<VariablesCubit, VariablesState>(
       'add name already exists',
-      build: () => VariablesCubit()
+      build: () => VariablesCubit(dataStoreRepository: dataStoreRepository)
         ..add(
           const Variable(
             uuid: 'a-uuid',
@@ -199,6 +207,7 @@ void main() {
       expect: () => [
         equals(
           VariablesState(
+            dataStoreRepository: dataStoreRepository,
             status: VariablesStatus.changing,
             variables: const [
               Variable(
@@ -211,6 +220,7 @@ void main() {
         ),
         equals(
           VariablesState(
+            dataStoreRepository: dataStoreRepository,
             status: VariablesStatus.addFailedNameExists,
             variables: const [
               Variable(
@@ -226,7 +236,7 @@ void main() {
 
     blocTest<VariablesCubit, VariablesState>(
       'delete success',
-      build: () => VariablesCubit()
+      build: () => VariablesCubit(dataStoreRepository: dataStoreRepository)
         ..add(
           const Variable(
             uuid: 'a-uuid',
@@ -244,6 +254,7 @@ void main() {
       expect: () => [
         equals(
           VariablesState(
+            dataStoreRepository: dataStoreRepository,
             status: VariablesStatus.changing,
             variables: const [
               Variable(
@@ -256,6 +267,7 @@ void main() {
         ),
         equals(
           VariablesState(
+            dataStoreRepository: dataStoreRepository,
             status: VariablesStatus.deleted,
             variables: const [],
           ),
@@ -265,7 +277,7 @@ void main() {
 
     blocTest<VariablesCubit, VariablesState>(
       'delete failed not found',
-      build: () => VariablesCubit()
+      build: () => VariablesCubit(dataStoreRepository: dataStoreRepository)
         ..add(
           const Variable(
             uuid: 'a-uuid',
@@ -283,6 +295,7 @@ void main() {
       expect: () => [
         equals(
           VariablesState(
+            dataStoreRepository: dataStoreRepository,
             status: VariablesStatus.changing,
             variables: const [
               Variable(
@@ -295,6 +308,7 @@ void main() {
         ),
         equals(
           VariablesState(
+            dataStoreRepository: dataStoreRepository,
             status: VariablesStatus.deleteFailedNotFound,
             variables: const [
               Variable(
@@ -311,30 +325,21 @@ void main() {
     blocTest<VariablesCubit, VariablesState>(
       'load from datastore',
       setUp: () {
-        when(() => dataStoreRepository.variables).thenReturn(const [
-          Variable(
-            uuid: 'a-uuid',
-            name: 'variable-one',
-            defaultValue: '/some/defaultValue',
-          ),
-          Variable(
-            uuid: 'a-uuid-2',
-            name: 'variable-two',
-            defaultValue: '/some/other/defaultValue',
-          ),
-        ]);
+        dataStoreRepository.load('a-file.json');
       },
-      build: () => VariablesCubit(),
-      act: (cubit) => cubit.load(dataStoreRepository),
+      build: () => VariablesCubit(dataStoreRepository: dataStoreRepository),
+      act: (cubit) => cubit.load(),
       expect: () => [
         equals(
           VariablesState(
+            dataStoreRepository: dataStoreRepository,
             status: VariablesStatus.changing,
             variables: const [],
           ),
         ),
         equals(
           VariablesState(
+            dataStoreRepository: dataStoreRepository,
             status: VariablesStatus.loaded,
             variables: const [
               Variable(
@@ -353,65 +358,8 @@ void main() {
       ],
     );
 
-    blocTest<VariablesCubit, VariablesState>(
-      'save to datastore',
-      setUp: () {},
-      build: () => VariablesCubit()
-        ..add(
-          const Variable(
-            uuid: 'a-uuid',
-            name: 'variable-one',
-            defaultValue: '/some/defaultValue',
-          ),
-        )
-        ..add(
-          const Variable(
-            uuid: 'a-uuid-2',
-            name: 'variable-two',
-            defaultValue: '/some/other/defaultValue',
-          ),
-        ),
-      act: (cubit) => cubit.save(dataStoreRepository),
-      expect: () => [
-        equals(
-          VariablesState(
-            status: VariablesStatus.changing,
-            variables: const [
-              Variable(
-                uuid: 'a-uuid',
-                name: 'variable-one',
-                defaultValue: '/some/defaultValue',
-              ),
-              Variable(
-                uuid: 'a-uuid-2',
-                name: 'variable-two',
-                defaultValue: '/some/other/defaultValue',
-              ),
-            ],
-          ),
-        ),
-        equals(
-          VariablesState(
-            status: VariablesStatus.saved,
-            variables: const [
-              Variable(
-                uuid: 'a-uuid',
-                name: 'variable-one',
-                defaultValue: '/some/defaultValue',
-              ),
-              Variable(
-                uuid: 'a-uuid-2',
-                name: 'variable-two',
-                defaultValue: '/some/other/defaultValue',
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-
     test('test get variable', () {
-      final cubit = VariablesCubit()
+      final cubit = VariablesCubit(dataStoreRepository: dataStoreRepository)
         ..add(
           const Variable(
             uuid: 'a-uuid',

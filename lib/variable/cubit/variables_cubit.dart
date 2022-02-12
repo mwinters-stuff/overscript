@@ -6,7 +6,12 @@ import 'package:overscript/variable/cubit/variable.dart';
 part 'variables_state.dart';
 
 class VariablesCubit extends Cubit<VariablesState> {
-  VariablesCubit() : super(VariablesState());
+  VariablesCubit({required DataStoreRepository dataStoreRepository})
+      : super(
+          VariablesState(
+            dataStoreRepository: dataStoreRepository,
+          ),
+        );
 
   void add(Variable variable) {
     emit(state.changing());
@@ -18,14 +23,9 @@ class VariablesCubit extends Cubit<VariablesState> {
     emit(state.delete(variable));
   }
 
-  void load(DataStoreRepository dataStoreRepository) {
+  void load() {
     emit(state.changing());
-    emit(state.load(dataStoreRepository));
-  }
-
-  void save(DataStoreRepository dataStoreRepository) {
-    emit(state.changing());
-    emit(state.save(dataStoreRepository));
+    emit(state.load());
   }
 
   Variable? getVariable(String uuid) {

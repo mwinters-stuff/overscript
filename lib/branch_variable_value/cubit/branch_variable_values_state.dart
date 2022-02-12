@@ -32,20 +32,25 @@ extension BranchVariableValuesStatusX on BranchVariableValuesStatus {
 
 class BranchVariableValuesState extends Equatable {
   BranchVariableValuesState({
+    required this.dataStoreRepository,
     this.status = BranchVariableValuesStatus.initial,
     List<BranchVariableValue>? branchVariableValues,
-  }) : branchVariableValues = branchVariableValues ?? [];
+  }) {
+    dataStoreRepository.branchVariableValues = branchVariableValues ?? [];
+  }
 
-  final List<BranchVariableValue> branchVariableValues;
   final BranchVariableValuesStatus status;
+  final DataStoreRepository dataStoreRepository;
+  List<BranchVariableValue> get branchVariableValues => dataStoreRepository.branchVariableValues;
 
   BranchVariableValuesState copyWith({
     required BranchVariableValuesStatus status,
     List<BranchVariableValue>? branchVariableValues,
   }) {
     return BranchVariableValuesState(
+      dataStoreRepository: dataStoreRepository,
       status: status,
-      branchVariableValues: branchVariableValues ?? this.branchVariableValues,
+      branchVariableValues: branchVariableValues ?? dataStoreRepository.branchVariableValues,
     );
   }
 
@@ -70,13 +75,8 @@ class BranchVariableValuesState extends Equatable {
   BranchVariableValuesState load(DataStoreRepository dataStoreRepository) {
     return copyWith(
       status: BranchVariableValuesStatus.loaded,
-      branchVariableValues: List.from(dataStoreRepository.branchVariableValues),
+      branchVariableValues: List.from(branchVariableValues),
     );
-  }
-
-  BranchVariableValuesState save(DataStoreRepository dataStoreRepository) {
-    dataStoreRepository.branchVariableValues = branchVariableValues;
-    return copyWith(status: BranchVariableValuesStatus.saved);
   }
 
   BranchVariableValuesState add(BranchVariableValue branchVariableValue) {

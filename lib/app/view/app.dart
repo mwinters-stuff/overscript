@@ -42,7 +42,7 @@ class App extends StatelessWidget {
 
   Widget buildWidget(BuildContext context) {
     context.read<DataStoreRepository>().load('test.json');
-    context.read<GitBranchesCubit>().load(context.read<DataStoreRepository>());
+    // context.read<GitBranchesCubit>().load(context.read<DataStoreRepository>());
     return const MainPage(title: 'Overscript');
   }
 }

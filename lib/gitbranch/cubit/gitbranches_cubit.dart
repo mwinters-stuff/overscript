@@ -6,7 +6,7 @@ import 'package:overscript/repositories/data_store_repository.dart';
 part 'gitbranches_state.dart';
 
 class GitBranchesCubit extends Cubit<GitBranchesState> {
-  GitBranchesCubit() : super(GitBranchesState());
+  GitBranchesCubit({required DataStoreRepository dataStoreRepository}) : super(GitBranchesState(dataStoreRepository: dataStoreRepository));
 
   void add(GitBranch branch) {
     emit(state.changing());
@@ -21,10 +21,6 @@ class GitBranchesCubit extends Cubit<GitBranchesState> {
   void load(DataStoreRepository dataStoreRepository) {
     emit(state.changing());
     emit(state.load(dataStoreRepository));
-  }
-
-  void save(DataStoreRepository dataStoreRepository) {
-    emit(state.save(dataStoreRepository));
   }
 
   GitBranch? getBranch(String uuid) {

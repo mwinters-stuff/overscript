@@ -6,7 +6,10 @@ import 'package:overscript/repositories/data_store_repository.dart';
 part 'branch_variable_values_state.dart';
 
 class BranchVariableValuesCubit extends Cubit<BranchVariableValuesState> {
-  BranchVariableValuesCubit() : super(BranchVariableValuesState());
+  BranchVariableValuesCubit({required DataStoreRepository dataStoreRepository})
+      : super(BranchVariableValuesState(
+          dataStoreRepository: dataStoreRepository,
+        ));
 
   void add(BranchVariableValue branchVariableValue) {
     emit(state.changing());
@@ -21,10 +24,6 @@ class BranchVariableValuesCubit extends Cubit<BranchVariableValuesState> {
   void load(DataStoreRepository dataStoreRepository) {
     emit(state.changing());
     emit(state.load(dataStoreRepository));
-  }
-
-  void save(DataStoreRepository dataStoreRepository) {
-    emit(state.save(dataStoreRepository));
   }
 
   BranchVariableValue? getBranchVariableValue(String uuid) {
