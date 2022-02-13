@@ -21,10 +21,10 @@ class DataStoreRepository {
   List<GitBranch> branches;
   List<BranchVariableValue> branchVariableValues;
 
-  void load(String filename) {
+  Future<bool> load(String filename) async {
     if (fileSystem.isFileSync(filename)) {
       final file = fileSystem.file(filename);
-      final content = file.readAsStringSync();
+      final content = await file.readAsString();
       final jsonStorage = JsonStorage.fromJson(
         const JsonDecoder().convert(content) as Map<String, dynamic>,
       );
@@ -32,13 +32,16 @@ class DataStoreRepository {
       variables = List.from(jsonStorage.variables, growable: true);
       branches = List.from(jsonStorage.branches, growable: true);
       branchVariableValues = List.from(jsonStorage.branchVariableValues, growable: true);
+      return Future.value(true);
     }
+    return Future.value(false);
   }
 
-  void save(String filename) {
+  Future<bool> save(String filename) async {
     final jsonStorage = JsonStorage(scripts: scripts, variables: variables, branches: branches, branchVariableValues: branchVariableValues);
     final output = const JsonEncoder.withIndent('  ').convert(jsonStorage);
-    fileSystem.file(filename).writeAsStringSync(output);
+    await fileSystem.file(filename).writeAsString(output);
+    return Future.value(true);
   }
 
   List<Variable> addVariable(Variable variable) {

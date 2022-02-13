@@ -146,7 +146,7 @@ void main() {
       );
       expect(find.byType(VariableListItem), findsOneWidget);
 
-      await tester.tap(find.byIcon(Icons.delete));
+      await tester.tap(find.byKey(const Key('delete')));
       await tester.pumpAndSettle();
 
       expect(find.text('Delete Variable?'), findsOneWidget);
@@ -179,7 +179,7 @@ void main() {
       );
       expect(find.byType(VariableListItem), findsOneWidget);
 
-      await tester.tap(find.byIcon(Icons.delete));
+      await tester.tap(find.byKey(const Key('delete')));
       await tester.pumpAndSettle();
 
       expect(find.text('Delete Variable?'), findsOneWidget);

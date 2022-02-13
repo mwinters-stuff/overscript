@@ -627,7 +627,7 @@ void main() {
       build: () => BranchVariableValuesCubit(
         dataStoreRepository: dataStoreRepository,
       ),
-      act: (cubit) => cubit.load(dataStoreRepository),
+      act: (cubit) => cubit.load(),
       expect: () => [
         equals(
           BranchVariableValuesState(

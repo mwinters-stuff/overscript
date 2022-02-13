@@ -18,9 +18,9 @@ class GitBranchesCubit extends Cubit<GitBranchesState> {
     emit(state.delete(branch));
   }
 
-  void load(DataStoreRepository dataStoreRepository) {
+  void load() {
     emit(state.changing());
-    emit(state.load(dataStoreRepository));
+    emit(state.load());
   }
 
   GitBranch? getBranch(String uuid) {

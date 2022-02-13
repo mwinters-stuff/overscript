@@ -431,7 +431,7 @@ void main() {
         dataStoreRepository.load('a-file.json');
       },
       build: () => GitBranchesCubit(dataStoreRepository: dataStoreRepository),
-      act: (cubit) => cubit.load(dataStoreRepository),
+      act: (cubit) => cubit.load(),
       expect: () => [
         equals(
           GitBranchesState(

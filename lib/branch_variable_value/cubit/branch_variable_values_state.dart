@@ -72,7 +72,7 @@ class BranchVariableValuesState extends Equatable {
     return null;
   }
 
-  BranchVariableValuesState load(DataStoreRepository dataStoreRepository) {
+  BranchVariableValuesState load() {
     return copyWith(
       status: BranchVariableValuesStatus.loaded,
       branchVariableValues: List.from(branchVariableValues),

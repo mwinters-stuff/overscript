@@ -27,6 +27,9 @@ void main() {
       mockVariablesCubit = MockVariablesCubit();
       mockGitCalls = MockGitCalls();
 
+      when(() => mockDataStoreRepository.save(any())).thenAnswer((_) => Future.value(true));
+      when(() => mockDataStoreRepository.load(any())).thenAnswer((_) => Future.value(true));
+
       mockVariable1 = MockVariable();
       when(() => mockVariable1.uuid).thenReturn('a-uuid-1');
       when(() => mockVariable1.name).thenReturn('variable-1');

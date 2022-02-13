@@ -76,7 +76,7 @@ class GitBranchesState extends Equatable {
     return true;
   }
 
-  GitBranchesState load(DataStoreRepository dataStoreRepository) {
+  GitBranchesState load() {
     return copyWith(
       status: GitBranchesStatus.loaded,
       branches: List.from(dataStoreRepository.branches),

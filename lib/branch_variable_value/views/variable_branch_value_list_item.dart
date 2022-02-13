@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:overscript/branch_variable_value/branch_variable_value.dart';
 import 'package:overscript/l10n/l10n.dart';
 import 'package:overscript/variable/variable.dart';
@@ -33,7 +34,20 @@ class VariableBranchValueListItemState extends State<VariableBranchValueListItem
       child: ListTile(
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [Text(context.read<VariablesCubit>().getVariable(currentValue.variableUuid)!.name), Text(currentValue.value)],
+          children: [
+            Flexible(
+              fit: FlexFit.tight,
+              child: Text(
+                context.read<VariablesCubit>().getVariable(currentValue.variableUuid)!.name,
+                textAlign: TextAlign.start,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
+            Flexible(
+              fit: FlexFit.tight,
+              child: Text(currentValue.value, textAlign: TextAlign.start),
+            ),
+          ],
         ),
         trailing: Wrap(
           spacing: 8,
@@ -53,7 +67,7 @@ class VariableBranchValueListItemState extends State<VariableBranchValueListItem
                   },
                 );
               },
-              icon: const Icon(Icons.edit),
+              icon: const Icon(LineIcons.edit),
             ),
             IconButton(
               key: const Key('selectDirectoryButton'),
@@ -68,7 +82,7 @@ class VariableBranchValueListItemState extends State<VariableBranchValueListItem
                   }),
                 );
               },
-              icon: const Icon(Icons.folder_rounded),
+              icon: const Icon(LineIcons.folder),
             ),
             IconButton(
               key: const Key('selectFileButton'),
@@ -81,7 +95,7 @@ class VariableBranchValueListItemState extends State<VariableBranchValueListItem
                   }
                 });
               },
-              icon: const Icon(Icons.file_present),
+              icon: const Icon(LineIcons.file),
             ),
             IconButton(
               key: const Key('resetToDefaultButton'),
@@ -100,7 +114,7 @@ class VariableBranchValueListItemState extends State<VariableBranchValueListItem
                   },
                 );
               },
-              icon: const Icon(Icons.undo),
+              icon: const Icon(LineIcons.alternateUndo),
             ),
           ],
         ),

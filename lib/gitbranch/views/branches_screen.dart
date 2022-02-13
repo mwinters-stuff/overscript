@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:overscript/branch_variable_value/branch_variable_value.dart';
 import 'package:overscript/gitbranch/gitbranch.dart';
 import 'package:overscript/gitbranch/views/branch_list_item.dart';
@@ -45,7 +46,7 @@ class BranchesScreenState extends State<BranchesScreen> {
                 key: const Key('AddIcon'),
                 tooltip: l10n.addBranch,
                 onPressed: () => addBranch(context),
-                icon: const Icon(Icons.add),
+                icon: const Icon(LineIcons.plusCircle),
               ),
             ],
           ),

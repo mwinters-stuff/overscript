@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:overscript/branch_variable_value/branch_variable_value.dart';
 import 'package:overscript/l10n/l10n.dart';
 import 'package:overscript/variable/variable.dart';
@@ -29,9 +30,25 @@ class VariableListItemState extends State<VariableListItem> {
         margin: const EdgeInsets.fromLTRB(16, 4, 16, 4),
         child: ExpansionTile(
           controlAffinity: ListTileControlAffinity.leading,
-          title: Text(widget.variable.name),
-          subtitle: Text('${l10n.defaultValue}: ${widget.variable.defaultValue}'),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Flexible(
+                fit: FlexFit.tight,
+                child: Text(
+                  widget.variable.name,
+                  textAlign: TextAlign.start,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+              Flexible(
+                fit: FlexFit.tight,
+                child: Text('${l10n.defaultValue}: ${widget.variable.defaultValue}', textAlign: TextAlign.start),
+              ),
+            ],
+          ),
           trailing: IconButton(
+            key: const Key('delete'),
             tooltip: l10n.deleteVariable,
             onPressed: () => showConfirmMessage(
               context: context,
@@ -39,7 +56,7 @@ class VariableListItemState extends State<VariableListItem> {
               message: widget.variable.name,
               onConfirmButton: () => context.read<VariablesCubit>().delete(widget.variable),
             ),
-            icon: const Icon(Icons.delete),
+            icon: const Icon(LineIcons.alternateTrash),
           ),
           children: context.read<BranchVariableValuesCubit>().getVariableListItems(widget.variable.uuid),
         ),

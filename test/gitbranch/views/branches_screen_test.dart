@@ -29,6 +29,9 @@ void main() {
       mockGitBranchesCubit = MockGitBranchesCubit();
       mockGitCalls = MockGitCalls();
 
+      when(() => mockDataStoreRepository.save(any())).thenAnswer((_) => Future.value(true));
+      when(() => mockDataStoreRepository.load(any())).thenAnswer((_) => Future.value(true));
+
       mockGitBranch1 = MockGitBranch();
       when(() => mockGitBranch1.uuid).thenReturn('a-uuid-1');
       when(() => mockGitBranch1.name).thenReturn('master');

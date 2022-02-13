@@ -2,36 +2,71 @@
   "scripts": [],
   "variables": [
     {
-      "uuid": "d8c20190-8c53-11ec-bd65-2717470dc1ea",
-      "name": "a",
-      "defaultValue": "b"
+      "uuid": "c4b1c420-8c66-11ec-81b5-276a65e797f8",
+      "name": "var1",
+      "defaultValue": "d1"
     },
     {
-      "uuid": "f6318f20-8c53-11ec-bd65-2717470dc1ea",
-      "name": "b",
-      "defaultValue": "d"
+      "uuid": "c96a1c10-8c66-11ec-81b5-276a65e797f8",
+      "name": "var2",
+      "defaultValue": "def2"
+    },
+    {
+      "uuid": "cd466be0-8c66-11ec-81b5-276a65e797f8",
+      "name": "var3",
+      "defaultValue": "def3"
     }
   ],
   "branches": [
     {
-      "uuid": "c6304870-8c53-11ec-bd65-2717470dc1ea",
-      "name": "master",
-      "directory": "/home/mathew/src/overscript",
-      "origin": "https://github.com/mwinters-stuff/overscript.git"
+      "uuid": "d8d47d80-8c66-11ec-81b5-276a65e797f8",
+      "name": "main",
+      "directory": "/home/mathew/src-work/ctct_products",
+      "origin": "git@git1.ctct.com:Eng/ctct_products.git"
+    },
+    {
+      "uuid": "dcf613b0-8c66-11ec-81b5-276a65e797f8",
+      "name": "main_darkside_staging_AR-779-B2",
+      "directory": "/home/mathew/src-work/ctct_products_darksidemain",
+      "origin": "git@git1.ctct.com:Eng/ctct_products.git"
     }
   ],
   "branchVariableValues": [
     {
-      "uuid": "d8c228a0-8c53-11ec-bd65-2717470dc1ea",
-      "branchUuid": "c6304870-8c53-11ec-bd65-2717470dc1ea",
-      "variableUuid": "d8c20190-8c53-11ec-bd65-2717470dc1ea",
-      "value": "/home/mathew/src/overscript/analysis_options.yaml"
+      "uuid": "d8d4a490-8c66-11ec-81b5-276a65e797f8",
+      "branchUuid": "d8d47d80-8c66-11ec-81b5-276a65e797f8",
+      "variableUuid": "c4b1c420-8c66-11ec-81b5-276a65e797f8",
+      "value": "/home/mathew/src/overscript/ios"
     },
     {
-      "uuid": "f6318f21-8c53-11ec-bd65-2717470dc1ea",
-      "branchUuid": "c6304870-8c53-11ec-bd65-2717470dc1ea",
-      "variableUuid": "f6318f20-8c53-11ec-bd65-2717470dc1ea",
-      "value": "/home/mathew/src/docker-deluge/Dockerfile"
+      "uuid": "d8d4a491-8c66-11ec-81b5-276a65e797f8",
+      "branchUuid": "d8d47d80-8c66-11ec-81b5-276a65e797f8",
+      "variableUuid": "c96a1c10-8c66-11ec-81b5-276a65e797f8",
+      "value": "/home/mathew/src/overscript/test"
+    },
+    {
+      "uuid": "d8d4a492-8c66-11ec-81b5-276a65e797f8",
+      "branchUuid": "d8d47d80-8c66-11ec-81b5-276a65e797f8",
+      "variableUuid": "cd466be0-8c66-11ec-81b5-276a65e797f8",
+      "value": "/home/mathew/src/overscript/pubspec.lock"
+    },
+    {
+      "uuid": "dcf613b1-8c66-11ec-81b5-276a65e797f8",
+      "branchUuid": "dcf613b0-8c66-11ec-81b5-276a65e797f8",
+      "variableUuid": "c4b1c420-8c66-11ec-81b5-276a65e797f8",
+      "value": "/home/mathew/src/overscript"
+    },
+    {
+      "uuid": "dcf613b2-8c66-11ec-81b5-276a65e797f8",
+      "branchUuid": "dcf613b0-8c66-11ec-81b5-276a65e797f8",
+      "variableUuid": "c96a1c10-8c66-11ec-81b5-276a65e797f8",
+      "value": "/home/mathew/src/overscript"
+    },
+    {
+      "uuid": "dcf613b3-8c66-11ec-81b5-276a65e797f8",
+      "branchUuid": "dcf613b0-8c66-11ec-81b5-276a65e797f8",
+      "variableUuid": "cd466be0-8c66-11ec-81b5-276a65e797f8",
+      "value": "/home/mathew/src/overscript/analysis_options.yaml"
     }
   ]
 }

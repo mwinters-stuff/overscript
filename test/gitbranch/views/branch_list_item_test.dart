@@ -96,7 +96,7 @@ void main() {
 
       expect(find.byType(BranchListItem), findsOneWidget);
 
-      await tester.tap(find.byIcon(Icons.delete));
+      await tester.tap(find.byKey(const Key('delete')));
       await tester.pumpAndSettle();
 
       expect(find.text('Delete Branch?'), findsOneWidget);
@@ -133,7 +133,7 @@ void main() {
 
       expect(find.byType(BranchListItem), findsOneWidget);
 
-      await tester.tap(find.byIcon(Icons.delete));
+      await tester.tap(find.byKey(const Key('delete')));
       await tester.pumpAndSettle();
 
       expect(find.text('Delete Branch?'), findsOneWidget);

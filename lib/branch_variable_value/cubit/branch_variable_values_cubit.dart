@@ -21,9 +21,9 @@ class BranchVariableValuesCubit extends Cubit<BranchVariableValuesState> {
     emit(state.delete(branchVariableValue));
   }
 
-  void load(DataStoreRepository dataStoreRepository) {
+  void load() {
     emit(state.changing());
-    emit(state.load(dataStoreRepository));
+    emit(state.load());
   }
 
   BranchVariableValue? getBranchVariableValue(String uuid) {

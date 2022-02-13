@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:overscript/branch_variable_value/branch_variable_value.dart';
 import 'package:overscript/gitbranch/gitbranch.dart';
 import 'package:overscript/l10n/l10n.dart';
@@ -29,13 +30,25 @@ class BranchListItemState extends State<BranchListItem> {
         margin: const EdgeInsets.fromLTRB(16, 4, 16, 4),
         child: ExpansionTile(
           controlAffinity: ListTileControlAffinity.leading,
-          // title: Row(
-          //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          //   children: [Text(widget.gitBranch.name), Text(widget.gitBranch.directory)],
-          // ),
-          title: Text(widget.gitBranch.name),
-          subtitle: Text(widget.gitBranch.directory),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Flexible(
+                fit: FlexFit.tight,
+                child: Text(
+                  widget.gitBranch.name,
+                  textAlign: TextAlign.start,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+              Flexible(
+                fit: FlexFit.tight,
+                child: Text(widget.gitBranch.directory, textAlign: TextAlign.start),
+              ),
+            ],
+          ),
           trailing: IconButton(
+            key: const Key('delete'),
             tooltip: l10n.deleteBranch,
             onPressed: () => showConfirmMessage(
               context: context,
@@ -43,7 +56,7 @@ class BranchListItemState extends State<BranchListItem> {
               message: widget.gitBranch.name,
               onConfirmButton: () => context.read<GitBranchesCubit>().delete(widget.gitBranch),
             ),
-            icon: const Icon(Icons.delete),
+            icon: const Icon(LineIcons.alternateTrash),
           ),
           children: context.read<BranchVariableValuesCubit>().getBranchListItems(widget.gitBranch.uuid),
         ),

@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:overscript/branch_variable_value/branch_variable_value.dart';
@@ -12,11 +13,11 @@ void main() {
     final mockFileSystem = MockFileSystem();
     final mockFile = MockFile();
 
-    test('load Success', () {
+    test('load Success', () async {
       final dataStoreRepository = DataStoreRepository(mockDataStoreRepositoryJsonFile());
 
       // ignore: cascade_invocations
-      dataStoreRepository.load('a-file.json');
+      expect(await dataStoreRepository.load('a-file.json'), isTrue);
 
       expect(dataStoreRepository.branches.length, equals(1));
       expect(dataStoreRepository.scripts.length, equals(0));
@@ -24,14 +25,14 @@ void main() {
       expect(dataStoreRepository.branchVariableValues.length, equals(1));
     });
 
-    test('load file doesnt exist', () {
+    test('load file doesnt exist', () async {
       when(() => mockFileSystem.isFileSync('a-file.json')).thenReturn(false);
       when(() => mockFileSystem.file('a-file.json')).thenReturn(mockFile);
 
       final dataStoreRepository = DataStoreRepository(mockFileSystem);
 
       // ignore: cascade_invocations
-      dataStoreRepository.load('a-file.json');
+      expect(await dataStoreRepository.load('a-file.json'), isFalse);
 
       expect(dataStoreRepository.branches.length, equals(0));
       expect(dataStoreRepository.scripts.length, equals(0));
@@ -39,8 +40,9 @@ void main() {
       expect(dataStoreRepository.branchVariableValues.length, equals(0));
     });
 
-    test('save Success', () {
+    test('save Success', () async {
       when(() => mockFileSystem.file('a-file.json')).thenReturn(mockFile);
+      when(() => mockFile.writeAsString(any())).thenAnswer((_) => Future.value(mockFile));
 
       final dataStoreRepository = DataStoreRepository(mockFileSystem);
       dataStoreRepository.branches.add(const GitBranch(uuid: 'uuid', name: 'name', directory: 'directory', origin: 'origin'));
@@ -48,9 +50,9 @@ void main() {
       dataStoreRepository.branchVariableValues.add(const BranchVariableValue(uuid: 'uuid', branchUuid: 'branchUuid', variableUuid: 'variableUuid', value: 'value'));
 
       // ignore: cascade_invocations
-      dataStoreRepository.save('a-file.json');
+      expect(await dataStoreRepository.save('a-file.json'), isTrue);
 
-      final captured = verify(() => mockFile.writeAsStringSync(captureAny<String>())).captured;
+      final captured = verify(() => mockFile.writeAsString(captureAny<String>())).captured;
       expect(captured.length, equals(1));
       expect(
         captured.last as String,

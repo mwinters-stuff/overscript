@@ -58,7 +58,7 @@ class VariablesState extends Equatable {
   VariablesState load() {
     return copyWith(
       status: VariablesStatus.loaded,
-      variables: List.from(variables),
+      variables: List.from(dataStoreRepository.variables),
     );
   }
 

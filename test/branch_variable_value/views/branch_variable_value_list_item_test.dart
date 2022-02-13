@@ -112,10 +112,10 @@ void main() {
       expect(find.byType(BranchVariableValueListItem), findsOneWidget);
       expect(find.text('master'), findsOneWidget);
       expect(find.text('start value 1'), findsOneWidget);
-      expect(find.byIcon(Icons.undo), findsOneWidget);
-      expect(find.byIcon(Icons.folder_rounded), findsOneWidget);
-      expect(find.byIcon(Icons.file_present), findsOneWidget);
-      expect(find.byIcon(Icons.edit), findsOneWidget);
+      expect(find.byKey(const Key('resetToDefaultButton')), findsOneWidget);
+      expect(find.byKey(const Key('selectFileButton')), findsOneWidget);
+      expect(find.byKey(const Key('selectDirectoryButton')), findsOneWidget);
+      expect(find.byKey(const Key('editValueButton')), findsOneWidget);
     });
 
     testWidgets('reset to default button, cancel', (tester) async {
@@ -123,7 +123,7 @@ void main() {
 
       expect(find.byType(BranchVariableValueListItem), findsOneWidget);
 
-      await tester.tap(find.byIcon(Icons.undo));
+      await tester.tap(find.byKey(const Key('resetToDefaultButton')));
       await tester.pumpAndSettle(const Duration(milliseconds: 500));
 
       expect(find.text('Reset to the default value?'), findsOneWidget);
@@ -143,7 +143,7 @@ void main() {
 
       expect(find.byType(BranchVariableValueListItem), findsOneWidget);
 
-      await tester.tap(find.byIcon(Icons.undo));
+      await tester.tap(find.byKey(const Key('resetToDefaultButton')));
       await tester.pumpAndSettle(const Duration(milliseconds: 500));
 
       expect(find.text('Reset to the default value?'), findsOneWidget);
