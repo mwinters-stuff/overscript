@@ -7,4 +7,5 @@
 
 export 'extras.dart';
 export 'fake_file_selector.dart';
+export 'mocks.dart';
 export 'pump_app.dart';

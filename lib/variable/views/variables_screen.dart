@@ -45,21 +45,22 @@ class VariablesScreenState extends State<VariablesScreen> {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     return BlocBuilder<VariablesCubit, VariablesState>(
-      builder: (context, state) => Scaffold(
-        appBar: AppBar(
-          title: Text(l10n.variables),
-          actions: [
-            IconButton(
-              key: const Key('AddIcon'),
-              tooltip: l10n.addVariable,
-              onPressed: () => addVariable(context),
-              icon: const Icon(Icons.add),
-            ),
-          ],
+      builder: (context, state) => BlocBuilder<BranchVariableValuesCubit, BranchVariableValuesState>(
+        builder: (context, _) => Scaffold(
+          appBar: AppBar(
+            title: Text(l10n.variables),
+            actions: [
+              IconButton(
+                key: const Key('AddIcon'),
+                tooltip: l10n.addVariable,
+                onPressed: () => addVariable(context),
+                icon: const Icon(Icons.add),
+              ),
+            ],
+          ),
+          body: _listView(state.variables),
         ),
-        body: _listView(state.variables),
       ),
-      // ),
     );
   }
 
@@ -113,7 +114,11 @@ class VariablesScreenState extends State<VariablesScreen> {
         if (_formKey.currentState?.saveAndValidate() ?? false)
           {
             context.read<VariablesCubit>().add(
-                  Variable(uuid: const Uuid().v1(), name: _formKey.currentState?.value['name'] as String, defaultValue: _formKey.currentState?.value['defaultValue'] as String),
+                  Variable(
+                    uuid: const Uuid().v1(),
+                    name: _formKey.currentState?.value['name'] as String,
+                    defaultValue: _formKey.currentState?.value['defaultValue'] as String,
+                  ),
                 ),
           }
       },

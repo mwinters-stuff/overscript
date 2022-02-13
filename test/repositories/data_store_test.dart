@@ -1,6 +1,3 @@
-import 'dart:math';
-
-import 'package:file/file.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:overscript/branch_variable_value/branch_variable_value.dart';
@@ -9,10 +6,6 @@ import 'package:overscript/repositories/repositories.dart';
 import 'package:overscript/variable/variable.dart';
 
 import '../helpers/helpers.dart';
-
-class MockFileSystem extends Mock implements FileSystem {}
-
-class MockFile extends Mock implements File {}
 
 void main() {
   group('DataStoreRepository', () {

@@ -1,4 +1,3 @@
-import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -9,14 +8,6 @@ import 'package:overscript/gitbranch/views/branch_list_item.dart';
 import 'package:overscript/variable/variable.dart';
 
 import '../../helpers/helpers.dart';
-
-class MockGitBranchesCubit extends MockCubit<GitBranchesState> implements GitBranchesCubit {}
-
-class MockGitBranch extends Mock implements GitBranch {}
-
-class MockBranchVariableValuesCubit extends MockCubit<BranchVariableValuesState> implements BranchVariableValuesCubit {}
-
-class MockVariablesCubit extends MockCubit<VariablesState> implements VariablesCubit {}
 
 void main() {
   group('BranchListItem', () {

@@ -100,7 +100,10 @@ class GitBranchesState extends Equatable {
       return copyWith(status: GitBranchesStatus.addFailedOriginMismatch);
     }
 
-    return copyWith(status: GitBranchesStatus.added, branches: List.from(branches)..add(branch));
+    return copyWith(
+      status: GitBranchesStatus.added,
+      branches: dataStoreRepository.addBranch(branch),
+    );
   }
 
   GitBranchesState delete(GitBranch branch) {
@@ -110,7 +113,7 @@ class GitBranchesState extends Equatable {
 
     return copyWith(
       status: GitBranchesStatus.deleted,
-      branches: List.from(branches)..removeWhere((element) => element.uuid == branch.uuid),
+      branches: dataStoreRepository.deleteBranch(branch),
     );
   }
 

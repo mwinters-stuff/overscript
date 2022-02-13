@@ -1,4 +1,3 @@
-import 'package:bloc_test/bloc_test.dart';
 import 'package:file_selector_platform_interface/file_selector_platform_interface.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,24 +11,6 @@ import 'package:overscript/repositories/repositories.dart';
 
 import '../../helpers/helpers.dart';
 
-class MockDataStoreRepository extends Mock implements DataStoreRepository {}
-
-class MockGitBranchesCubit extends MockCubit<GitBranchesState> implements GitBranchesCubit {}
-
-class MockGitBranchesState extends Mock implements GitBranchesState {}
-
-class MockGitBranch extends Mock implements GitBranch {}
-
-class MockGitCalls extends Mock implements GitCalls {}
-
-class MockBranchVariableValuesCubit extends MockCubit<BranchVariableValuesState> implements BranchVariableValuesCubit {}
-
-abstract class ResultTest {
-  void onResult(String value);
-}
-
-class MockResultTest extends Mock implements ResultTest {}
-
 void main() {
   group('BranchesScreen', () {
     late MockGitBranch mockGitBranch1;
@@ -40,6 +21,7 @@ void main() {
     late MockGitCalls mockGitCalls;
     late FakeFileSelector fakeFileSelectorImplementation;
     late MockBranchVariableValuesCubit mockBranchVariableValuesCubit;
+    late MockBranchVariableValuesState mockBranchVariableValuesState;
 
     setUp(() {
       mockDataStoreRepository = MockDataStoreRepository();
@@ -67,6 +49,10 @@ void main() {
       mockBranchVariableValuesCubit = MockBranchVariableValuesCubit();
       when(() => mockBranchVariableValuesCubit.getVariableListItems(any())).thenReturn(const []);
       when(() => mockBranchVariableValuesCubit.getBranchListItems(any())).thenReturn(const []);
+
+      mockBranchVariableValuesState = MockBranchVariableValuesState();
+      when(() => mockBranchVariableValuesState.status).thenReturn(BranchVariableValuesStatus.loaded);
+      when(() => mockBranchVariableValuesCubit.state).thenReturn(mockBranchVariableValuesState);
 
       registerFallbackValue(const GitBranch.empty());
 

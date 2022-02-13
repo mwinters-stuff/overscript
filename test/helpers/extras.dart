@@ -1,9 +1,7 @@
 import 'package:file/file.dart';
 import 'package:mocktail/mocktail.dart';
 
-class MockFileSystem extends Mock implements FileSystem {}
-
-class MockFile extends Mock implements File {}
+import 'mocks.dart';
 
 FileSystem mockDataStoreRepositoryJsonFile() {
   final mockFileSystem = MockFileSystem();

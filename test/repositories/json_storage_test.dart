@@ -3,8 +3,6 @@ import 'package:overscript/branch_variable_value/branch_variable_value.dart';
 import 'package:overscript/gitbranch/gitbranch.dart';
 import 'package:overscript/repositories/json_storage.dart';
 import 'package:overscript/variable/variable.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:mocktail/mocktail.dart';
 
 void main() {
   group('JsonStorage', () {

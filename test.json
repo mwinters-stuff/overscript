@@ -1,14 +1,37 @@
 {
   "scripts": [],
   "variables": [
+    {
+      "uuid": "d8c20190-8c53-11ec-bd65-2717470dc1ea",
+      "name": "a",
+      "defaultValue": "b"
+    },
+    {
+      "uuid": "f6318f20-8c53-11ec-bd65-2717470dc1ea",
+      "name": "b",
+      "defaultValue": "d"
+    }
   ],
   "branches": [
     {
-      "uuid": "4405db30-8bc7-11ec-adf4-ffdcde624e34",
+      "uuid": "c6304870-8c53-11ec-bd65-2717470dc1ea",
       "name": "master",
       "directory": "/home/mathew/src/overscript",
       "origin": "https://github.com/mwinters-stuff/overscript.git"
     }
   ],
-  "branchVariableValues": []
+  "branchVariableValues": [
+    {
+      "uuid": "d8c228a0-8c53-11ec-bd65-2717470dc1ea",
+      "branchUuid": "c6304870-8c53-11ec-bd65-2717470dc1ea",
+      "variableUuid": "d8c20190-8c53-11ec-bd65-2717470dc1ea",
+      "value": "/home/mathew/src/overscript/analysis_options.yaml"
+    },
+    {
+      "uuid": "f6318f21-8c53-11ec-bd65-2717470dc1ea",
+      "branchUuid": "c6304870-8c53-11ec-bd65-2717470dc1ea",
+      "variableUuid": "f6318f20-8c53-11ec-bd65-2717470dc1ea",
+      "value": "/home/mathew/src/docker-deluge/Dockerfile"
+    }
+  ]
 }

@@ -1,14 +1,8 @@
-import 'dart:io';
-
-import 'package:flutter_test/flutter_test.dart';
-import 'package:overscript/repositories/repositories.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:process/process.dart';
+import 'package:overscript/repositories/repositories.dart';
 
-class MockProcessManager extends Mock implements ProcessManager {}
-
-class MockProcessResult extends Mock implements ProcessResult {}
+import '../helpers/helpers.dart';
 
 void main() {
   group('GitCalls', () {

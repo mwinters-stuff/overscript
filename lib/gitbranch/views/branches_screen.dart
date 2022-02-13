@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:overscript/branch_variable_value/branch_variable_value.dart';
 import 'package:overscript/gitbranch/gitbranch.dart';
 import 'package:overscript/gitbranch/views/branch_list_item.dart';
 import 'package:overscript/l10n/l10n.dart';
@@ -35,19 +36,21 @@ class BranchesScreenState extends State<BranchesScreen> {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     return BlocBuilder<GitBranchesCubit, GitBranchesState>(
-      builder: (context, state) => Scaffold(
-        appBar: AppBar(
-          title: Text(l10n.branches),
-          actions: [
-            IconButton(
-              key: const Key('AddIcon'),
-              tooltip: l10n.addBranch,
-              onPressed: () => addBranch(context),
-              icon: const Icon(Icons.add),
-            ),
-          ],
+      builder: (context, state) => BlocBuilder<BranchVariableValuesCubit, BranchVariableValuesState>(
+        builder: (context, _) => Scaffold(
+          appBar: AppBar(
+            title: Text(l10n.branches),
+            actions: [
+              IconButton(
+                key: const Key('AddIcon'),
+                tooltip: l10n.addBranch,
+                onPressed: () => addBranch(context),
+                icon: const Icon(Icons.add),
+              ),
+            ],
+          ),
+          body: _listView(state.branches),
         ),
-        body: _listView(state.branches),
       ),
     );
   }

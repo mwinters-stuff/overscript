@@ -1,6 +1,3 @@
-import 'dart:ui';
-
-import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -13,18 +10,6 @@ import 'package:overscript/variable/variable.dart';
 
 import '../../helpers/helpers.dart';
 
-class MockDataStoreRepository extends Mock implements DataStoreRepository {}
-
-class MockVariablesCubit extends MockCubit<VariablesState> implements VariablesCubit {}
-
-class MockVariablesState extends Mock implements VariablesState {}
-
-class MockVariable extends Mock implements Variable {}
-
-class MockGitCalls extends Mock implements GitCalls {}
-
-class MockBranchVariableValuesCubit extends MockCubit<BranchVariableValuesState> implements BranchVariableValuesCubit {}
-
 void main() {
   group('VariablesScreen', () {
     late MockVariable mockVariable1;
@@ -34,6 +19,7 @@ void main() {
     late MockVariablesState mockVariablesState;
     late MockGitCalls mockGitCalls;
     late MockBranchVariableValuesCubit mockBranchVariableValuesCubit;
+    late MockBranchVariableValuesState mockBranchVariableValuesState;
 
     setUp(() {
       mockDataStoreRepository = MockDataStoreRepository();
@@ -58,6 +44,10 @@ void main() {
 
       mockBranchVariableValuesCubit = MockBranchVariableValuesCubit();
       when(() => mockBranchVariableValuesCubit.getVariableListItems(any())).thenReturn([]);
+
+      mockBranchVariableValuesState = MockBranchVariableValuesState();
+      when(() => mockBranchVariableValuesState.status).thenReturn(BranchVariableValuesStatus.loaded);
+      when(() => mockBranchVariableValuesCubit.state).thenReturn(mockBranchVariableValuesState);
 
       registerFallbackValue(const Variable.empty());
     });

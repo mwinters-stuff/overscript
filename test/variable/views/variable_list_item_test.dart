@@ -9,20 +9,12 @@ import 'package:overscript/variable/variable.dart';
 
 import '../../helpers/helpers.dart';
 
-class MockBranchVariableValuesCubit extends MockCubit<BranchVariableValuesState> implements BranchVariableValuesCubit {}
-
-class MockVariablesCubit extends MockCubit<VariablesState> implements VariablesCubit {}
-
-class MockGitBranchCubit extends MockCubit<GitBranchesState> implements GitBranchesCubit {}
-
-class MockVariable extends Mock implements Variable {}
-
 void main() {
   group('VariableListItem', () {
     late MockVariable mockVariable;
     late MockVariablesCubit mockVariablesCubit;
     late MockBranchVariableValuesCubit mockBranchVariableValuesCubit;
-    late MockGitBranchCubit mockGitBranchCubit;
+    late MockGitBranchesCubit mockGitBranchesCubit;
 
     setUp(() {
       mockVariable = MockVariable();
@@ -50,8 +42,8 @@ void main() {
         ),
       ]);
 
-      mockGitBranchCubit = MockGitBranchCubit();
-      when(() => mockGitBranchCubit.getBranch('branch-1')).thenReturn(
+      mockGitBranchesCubit = MockGitBranchesCubit();
+      when(() => mockGitBranchesCubit.getBranch('branch-1')).thenReturn(
         const GitBranch(
           uuid: 'branch-1',
           name: 'Branch 1',
@@ -60,7 +52,7 @@ void main() {
         ),
       );
 
-      when(() => mockGitBranchCubit.getBranch('branch-2')).thenReturn(
+      when(() => mockGitBranchesCubit.getBranch('branch-2')).thenReturn(
         const GitBranch(
           uuid: 'branch-2',
           name: 'Branch 2',
@@ -77,7 +69,7 @@ void main() {
         MultiBlocProvider(
           providers: [
             BlocProvider<GitBranchesCubit>(
-              create: (context) => mockGitBranchCubit,
+              create: (context) => mockGitBranchesCubit,
             ),
             BlocProvider<VariablesCubit>(
               create: (context) => mockVariablesCubit,
@@ -102,7 +94,7 @@ void main() {
         MultiBlocProvider(
           providers: [
             BlocProvider<GitBranchesCubit>(
-              create: (context) => mockGitBranchCubit,
+              create: (context) => mockGitBranchesCubit,
             ),
             BlocProvider<VariablesCubit>(
               create: (context) => mockVariablesCubit,

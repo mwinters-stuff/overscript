@@ -10,22 +10,6 @@ import 'package:overscript/variable/variable.dart';
 
 import '../../helpers/helpers.dart';
 
-class MockBranchVariableValuesCubit extends MockCubit<BranchVariableValuesState> implements BranchVariableValuesCubit {}
-
-class MockBranchVariableValueState extends Mock implements BranchVariableValuesState {}
-
-class MockGitBranch extends Mock implements GitBranch {}
-
-class MockVariable extends Mock implements Variable {}
-
-class MockBranchVariableValue extends Mock implements BranchVariableValue {}
-
-class MockGitBranchesCubit extends MockCubit<GitBranchesState> implements GitBranchesCubit {}
-
-class MockGitBranchesState extends Mock implements GitBranchesState {}
-
-class MockVariablesCubit extends MockCubit<VariablesState> implements VariablesCubit {}
-
 void main() {
   group('VariableBranchValueListItem', () {
     late MockGitBranch mockGitBranch1;
