@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2022-02-11 22:09:15</td>
+            <td class="headerValue">2022-02-13 02:38:42</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">0</td>
@@ -82,7 +82,7 @@
 <a name="11"><span class="lineNum">      11 </span>                :            :   disallowUnrecognizedKeys: true,</a>
 <a name="12"><span class="lineNum">      12 </span>                :            : )</a>
 <a name="13"><span class="lineNum">      13 </span>                :            : class GitBranch extends Equatable {</a>
-<a name="14"><span class="lineNum">      14 </span>                :<span class="lineCov">          9 :   const GitBranch({</span></a>
+<a name="14"><span class="lineNum">      14 </span>                :<span class="lineCov">         12 :   const GitBranch({</span></a>
 <a name="15"><span class="lineNum">      15 </span>                :            :     required this.uuid,</a>
 <a name="16"><span class="lineNum">      16 </span>                :            :     required this.name,</a>
 <a name="17"><span class="lineNum">      17 </span>                :            :     required this.directory,</a>
@@ -95,7 +95,7 @@
 <a name="24"><span class="lineNum">      24 </span>                :            :         directory = '',</a>
 <a name="25"><span class="lineNum">      25 </span>                :            :         origin = '';</a>
 <a name="26"><span class="lineNum">      26 </span>                :            : </a>
-<a name="27"><span class="lineNum">      27 </span>                :<span class="lineCov">          6 :   factory GitBranch.fromJson(Map json) =&gt; _$GitBranchFromJson(json);</span></a>
+<a name="27"><span class="lineNum">      27 </span>                :<span class="lineCov">         12 :   factory GitBranch.fromJson(Map json) =&gt; _$GitBranchFromJson(json);</span></a>
 <a name="28"><span class="lineNum">      28 </span>                :            : </a>
 <a name="29"><span class="lineNum">      29 </span>                :            :   @JsonKey(required: true)</a>
 <a name="30"><span class="lineNum">      30 </span>                :            :   final String uuid;</a>
