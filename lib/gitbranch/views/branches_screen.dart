@@ -12,6 +12,7 @@ import 'package:uuid/uuid.dart';
 class BranchesScreen extends StatefulWidget {
   const BranchesScreen({Key? key}) : super(key: key);
 
+  static const actionIcon = LineIcons.git;
   static const routeName = '/branches';
   static MaterialPageRoute pageRoute(BuildContext context) => MaterialPageRoute(
         builder: (BuildContext context) => const BranchesScreen(),

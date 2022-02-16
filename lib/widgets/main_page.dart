@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:overscript/gitbranch/gitbranch.dart';
+import 'package:overscript/l10n/l10n.dart';
 import 'package:overscript/theme/cubit/theme_cubit.dart';
 import 'package:overscript/variable/variable.dart';
+import 'package:overscript/views/configuration_view.dart';
 import 'package:overscript/widgets/widgets.dart';
 
 class MainPage extends StatefulWidget {
@@ -35,6 +38,7 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
     // if (state.terminals.isNotEmpty) {
     //   _tabController.animateTo(state.terminals.length - 1);
     // }
+    final l10n = context.l10n;
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -90,20 +94,9 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
             icon: const Icon(Icons.subscript_sharp),
           ),
           IconButton(
-            tooltip: 'Branches',
-            onPressed: () => Navigator.of(context).pushNamed(BranchesScreen.routeName),
-            icon: const Icon(Icons.texture_rounded),
-          ),
-          IconButton(
-            tooltip: 'Variables',
-            onPressed: () => Navigator.of(context).pushNamed(VariablesScreen.routeName),
-            icon: const Icon(Icons.vertical_distribute),
-          ),
-          IconButton(
-            icon: Icon(
-              context.read<ThemeCubit>().state.status.isLight ? Icons.dark_mode : Icons.light_mode,
-            ),
-            onPressed: () => context.read<ThemeCubit>().toggle(),
+            tooltip: l10n.configuration,
+            onPressed: () => Navigator.of(context).pushNamed(ConfigurationView.routeName),
+            icon: const Icon(ConfigurationView.actionIcon),
           ),
           IconButton(
             tooltip: 'Settings',

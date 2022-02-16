@@ -13,6 +13,7 @@ import 'package:uuid/uuid.dart';
 class VariablesScreen extends StatefulWidget {
   const VariablesScreen({Key? key}) : super(key: key);
 
+  static const actionIcon = LineIcons.list;
   static const routeName = '/variables';
   static MaterialPageRoute pageRoute(BuildContext context) => MaterialPageRoute(
         builder: (BuildContext context) => const VariablesScreen(),
