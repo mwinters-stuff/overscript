@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:overscript/branch_variable/branch_variable.dart';
 import 'package:overscript/branch_variable_value/branch_variable_value.dart';
 import 'package:overscript/gitbranch/cubit/gitbranch.dart';
-import 'package:overscript/variable/variable.dart';
 
 part 'json_storage.g.dart';
 
@@ -14,7 +14,7 @@ part 'json_storage.g.dart';
 class JsonStorage extends Equatable {
   const JsonStorage({
     required this.scripts,
-    required this.variables,
+    required this.branchVariables,
     required this.branches,
     required this.branchVariableValues,
   });
@@ -23,14 +23,14 @@ class JsonStorage extends Equatable {
 
   const JsonStorage.empty()
       : scripts = const [],
-        variables = const [],
+        branchVariables = const [],
         branches = const [],
         branchVariableValues = const [];
 
   @JsonKey(required: true)
   final List<dynamic> scripts;
   @JsonKey(required: true)
-  final List<Variable> variables;
+  final List<BranchVariable> branchVariables;
   @JsonKey(required: true)
   final List<GitBranch> branches;
   @JsonKey(required: true)
@@ -44,7 +44,7 @@ class JsonStorage extends Equatable {
   @override
   List<Object?> get props => [
         scripts,
-        variables,
+        branchVariables,
         branches,
         branchVariableValues,
       ];

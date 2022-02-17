@@ -1,10 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:overscript/variable/cubit/variable.dart';
+import 'package:overscript/branch_variable/branch_variable.dart';
 
 void main() {
   group('Variable', () {
     test('Create', () {
-      const value = Variable(uuid: 'uuid', name: 'name', defaultValue: 'default');
+      const value = BranchVariable(uuid: 'uuid', name: 'name', defaultValue: 'default');
 
       expect(value.uuid, equals('uuid'));
       expect(value.name, equals('name'));
@@ -14,7 +14,7 @@ void main() {
     });
 
     test('Create Empty', () {
-      const value = Variable.empty();
+      const value = BranchVariable.empty();
 
       expect(value.uuid, equals(''));
       expect(value.name, equals(''));
@@ -23,7 +23,7 @@ void main() {
     });
 
     test('to Json', () {
-      const value = Variable(
+      const value = BranchVariable(
         uuid: 'uuid',
         name: 'name',
         defaultValue: 'default',
@@ -40,7 +40,7 @@ void main() {
     });
 
     test('to String', () {
-      const value = Variable(
+      const value = BranchVariable(
         uuid: 'uuid',
         name: 'name',
         defaultValue: 'default',
@@ -55,7 +55,7 @@ void main() {
     });
 
     test('From Json', () {
-      final value = Variable.fromJson(const {
+      final value = BranchVariable.fromJson(const {
         'uuid': 'uuid',
         'name': 'name',
         'defaultValue': 'default',
@@ -64,7 +64,7 @@ void main() {
       expect(
         value,
         equals(
-          const Variable(
+          const BranchVariable(
             uuid: 'uuid',
             name: 'name',
             defaultValue: 'default',

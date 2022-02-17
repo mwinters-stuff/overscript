@@ -14,23 +14,23 @@ JsonStorage _$JsonStorageFromJson(Map json) => $checkedCreate(
           json,
           allowedKeys: const [
             'scripts',
-            'variables',
+            'branchVariables',
             'branches',
             'branchVariableValues'
           ],
           requiredKeys: const [
             'scripts',
-            'variables',
+            'branchVariables',
             'branches',
             'branchVariableValues'
           ],
         );
         final val = JsonStorage(
           scripts: $checkedConvert('scripts', (v) => v as List<dynamic>),
-          variables: $checkedConvert(
-              'variables',
+          branchVariables: $checkedConvert(
+              'branchVariables',
               (v) => (v as List<dynamic>)
-                  .map((e) => Variable.fromJson(e as Map))
+                  .map((e) => BranchVariable.fromJson(e as Map))
                   .toList()),
           branches: $checkedConvert(
               'branches',
@@ -50,7 +50,7 @@ JsonStorage _$JsonStorageFromJson(Map json) => $checkedCreate(
 Map<String, dynamic> _$JsonStorageToJson(JsonStorage instance) =>
     <String, dynamic>{
       'scripts': instance.scripts,
-      'variables': instance.variables,
+      'branchVariables': instance.branchVariables,
       'branches': instance.branches,
       'branchVariableValues': instance.branchVariableValues,
     };

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:overscript/branch_variable_value/branch_variable_value.dart';
 import 'package:overscript/l10n/l10n.dart';
-import 'package:overscript/variable/variable.dart';
+import 'package:overscript/branch_variable/branch_variable.dart';
 
 import 'package:overscript/widgets/widgets.dart';
 
@@ -38,7 +38,7 @@ class VariableBranchValueListItemState extends State<VariableBranchValueListItem
             Flexible(
               fit: FlexFit.tight,
               child: Text(
-                context.read<VariablesCubit>().getVariable(currentValue.variableUuid)!.name,
+                context.read<BranchVariablesCubit>().getVariable(currentValue.variableUuid)!.name,
                 textAlign: TextAlign.start,
                 style: const TextStyle(fontWeight: FontWeight.bold),
               ),
@@ -101,7 +101,7 @@ class VariableBranchValueListItemState extends State<VariableBranchValueListItem
               key: const Key('resetToDefaultButton'),
               tooltip: l10n.resetDefault,
               onPressed: () {
-                final variable = context.read<VariablesCubit>().getVariable(currentValue.variableUuid);
+                final variable = context.read<BranchVariablesCubit>().getVariable(currentValue.variableUuid);
                 showConfirmMessage(
                   context: context,
                   title: l10n.resetDefaultValueQuestion,

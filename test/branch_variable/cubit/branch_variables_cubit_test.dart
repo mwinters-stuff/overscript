@@ -7,14 +7,13 @@
 
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:overscript/branch_variable/branch_variable.dart';
 import 'package:overscript/repositories/data_store_repository.dart';
-import 'package:overscript/variable/cubit/variable.dart';
-import 'package:overscript/variable/cubit/variables_cubit.dart';
 
 import '../../helpers/helpers.dart';
 
 void main() {
-  group('VariablesCubit', () {
+  group('BranchVariablesCubit', () {
     late DataStoreRepository dataStoreRepository;
 
     setUp(() {
@@ -24,17 +23,17 @@ void main() {
     test(
       'initial state is empty list',
       () {
-        final cubit = VariablesCubit(dataStoreRepository: dataStoreRepository);
-        expect(cubit.state, equals(VariablesState(dataStoreRepository: dataStoreRepository)));
-        expect(cubit.state.variables, equals(<Variable>[]));
+        final cubit = BranchVariablesCubit(dataStoreRepository: dataStoreRepository);
+        expect(cubit.state, equals(BranchVariablesState(dataStoreRepository: dataStoreRepository)));
+        expect(cubit.state.variables, equals(<BranchVariable>[]));
       },
     );
 
-    blocTest<VariablesCubit, VariablesState>(
+    blocTest<BranchVariablesCubit, BranchVariablesState>(
       'add success',
-      build: () => VariablesCubit(dataStoreRepository: dataStoreRepository),
+      build: () => BranchVariablesCubit(dataStoreRepository: dataStoreRepository),
       act: (cubit) => cubit.add(
-        const Variable(
+        const BranchVariable(
           uuid: 'a-uuid',
           name: 'variable-one',
           defaultValue: '/some/defaultValue',
@@ -42,18 +41,18 @@ void main() {
       ),
       expect: () => [
         equals(
-          VariablesState(
+          BranchVariablesState(
             dataStoreRepository: dataStoreRepository,
             status: VariablesStatus.changing,
             variables: const [],
           ),
         ),
         equals(
-          VariablesState(
+          BranchVariablesState(
             dataStoreRepository: dataStoreRepository,
             status: VariablesStatus.added,
             variables: const [
-              Variable(
+              BranchVariable(
                 uuid: 'a-uuid',
                 name: 'variable-one',
                 defaultValue: '/some/defaultValue',
@@ -64,20 +63,20 @@ void main() {
       ],
     );
 
-    blocTest<VariablesCubit, VariablesState>(
+    blocTest<BranchVariablesCubit, BranchVariablesState>(
       'add two',
-      build: () => VariablesCubit(dataStoreRepository: dataStoreRepository),
+      build: () => BranchVariablesCubit(dataStoreRepository: dataStoreRepository),
       act: (cubit) {
         cubit
           ..add(
-            const Variable(
+            const BranchVariable(
               uuid: 'a-uuid',
               name: 'variable-one',
               defaultValue: '/some/defaultValue',
             ),
           )
           ..add(
-            const Variable(
+            const BranchVariable(
               uuid: 'a-uuid-2',
               name: 'variable-two',
               defaultValue: '/some/other/defaultValue',
@@ -86,18 +85,18 @@ void main() {
       },
       expect: () => [
         equals(
-          VariablesState(
+          BranchVariablesState(
             dataStoreRepository: dataStoreRepository,
             status: VariablesStatus.changing,
             variables: const [],
           ),
         ),
         equals(
-          VariablesState(
+          BranchVariablesState(
             dataStoreRepository: dataStoreRepository,
             status: VariablesStatus.added,
             variables: const [
-              Variable(
+              BranchVariable(
                 uuid: 'a-uuid',
                 name: 'variable-one',
                 defaultValue: '/some/defaultValue',
@@ -106,11 +105,11 @@ void main() {
           ),
         ),
         equals(
-          VariablesState(
+          BranchVariablesState(
             dataStoreRepository: dataStoreRepository,
             status: VariablesStatus.changing,
             variables: const [
-              Variable(
+              BranchVariable(
                 uuid: 'a-uuid',
                 name: 'variable-one',
                 defaultValue: '/some/defaultValue',
@@ -119,16 +118,16 @@ void main() {
           ),
         ),
         equals(
-          VariablesState(
+          BranchVariablesState(
             dataStoreRepository: dataStoreRepository,
             status: VariablesStatus.added,
             variables: const [
-              Variable(
+              BranchVariable(
                 uuid: 'a-uuid',
                 name: 'variable-one',
                 defaultValue: '/some/defaultValue',
               ),
-              Variable(
+              BranchVariable(
                 uuid: 'a-uuid-2',
                 name: 'variable-two',
                 defaultValue: '/some/other/defaultValue',
@@ -139,18 +138,18 @@ void main() {
       ],
     );
 
-    blocTest<VariablesCubit, VariablesState>(
+    blocTest<BranchVariablesCubit, BranchVariablesState>(
       'add uuid already exists',
-      build: () => VariablesCubit(dataStoreRepository: dataStoreRepository)
+      build: () => BranchVariablesCubit(dataStoreRepository: dataStoreRepository)
         ..add(
-          const Variable(
+          const BranchVariable(
             uuid: 'a-uuid',
             name: 'variable-one',
             defaultValue: '/some/defaultValue',
           ),
         ),
       act: (cubit) => cubit.add(
-        const Variable(
+        const BranchVariable(
           uuid: 'a-uuid',
           name: 'variable-two',
           defaultValue: '/some/other/defaultValue',
@@ -158,11 +157,11 @@ void main() {
       ),
       expect: () => [
         equals(
-          VariablesState(
+          BranchVariablesState(
             dataStoreRepository: dataStoreRepository,
             status: VariablesStatus.changing,
             variables: const [
-              Variable(
+              BranchVariable(
                 uuid: 'a-uuid',
                 name: 'variable-one',
                 defaultValue: '/some/defaultValue',
@@ -171,11 +170,11 @@ void main() {
           ),
         ),
         equals(
-          VariablesState(
+          BranchVariablesState(
             dataStoreRepository: dataStoreRepository,
             status: VariablesStatus.addFailedUUIDExists,
             variables: const [
-              Variable(
+              BranchVariable(
                 uuid: 'a-uuid',
                 name: 'variable-one',
                 defaultValue: '/some/defaultValue',
@@ -186,18 +185,18 @@ void main() {
       ],
     );
 
-    blocTest<VariablesCubit, VariablesState>(
+    blocTest<BranchVariablesCubit, BranchVariablesState>(
       'add name already exists',
-      build: () => VariablesCubit(dataStoreRepository: dataStoreRepository)
+      build: () => BranchVariablesCubit(dataStoreRepository: dataStoreRepository)
         ..add(
-          const Variable(
+          const BranchVariable(
             uuid: 'a-uuid',
             name: 'variable-one',
             defaultValue: '/some/defaultValue',
           ),
         ),
       act: (cubit) => cubit.add(
-        const Variable(
+        const BranchVariable(
           uuid: 'a-uuid-2',
           name: 'variable-one',
           defaultValue: '/some/other/defaultValue',
@@ -205,11 +204,11 @@ void main() {
       ),
       expect: () => [
         equals(
-          VariablesState(
+          BranchVariablesState(
             dataStoreRepository: dataStoreRepository,
             status: VariablesStatus.changing,
             variables: const [
-              Variable(
+              BranchVariable(
                 uuid: 'a-uuid',
                 name: 'variable-one',
                 defaultValue: '/some/defaultValue',
@@ -218,11 +217,11 @@ void main() {
           ),
         ),
         equals(
-          VariablesState(
+          BranchVariablesState(
             dataStoreRepository: dataStoreRepository,
             status: VariablesStatus.addFailedNameExists,
             variables: const [
-              Variable(
+              BranchVariable(
                 uuid: 'a-uuid',
                 name: 'variable-one',
                 defaultValue: '/some/defaultValue',
@@ -233,18 +232,18 @@ void main() {
       ],
     );
 
-    blocTest<VariablesCubit, VariablesState>(
+    blocTest<BranchVariablesCubit, BranchVariablesState>(
       'delete success',
-      build: () => VariablesCubit(dataStoreRepository: dataStoreRepository)
+      build: () => BranchVariablesCubit(dataStoreRepository: dataStoreRepository)
         ..add(
-          const Variable(
+          const BranchVariable(
             uuid: 'a-uuid',
             name: 'variable-one',
             defaultValue: '/some/defaultValue',
           ),
         ),
       act: (cubit) => cubit.delete(
-        const Variable(
+        const BranchVariable(
           uuid: 'a-uuid',
           name: 'variable-one',
           defaultValue: '/some/defaultValue',
@@ -252,11 +251,11 @@ void main() {
       ),
       expect: () => [
         equals(
-          VariablesState(
+          BranchVariablesState(
             dataStoreRepository: dataStoreRepository,
             status: VariablesStatus.changing,
             variables: const [
-              Variable(
+              BranchVariable(
                 uuid: 'a-uuid',
                 name: 'variable-one',
                 defaultValue: '/some/defaultValue',
@@ -265,7 +264,7 @@ void main() {
           ),
         ),
         equals(
-          VariablesState(
+          BranchVariablesState(
             dataStoreRepository: dataStoreRepository,
             status: VariablesStatus.deleted,
             variables: const [],
@@ -274,18 +273,18 @@ void main() {
       ],
     );
 
-    blocTest<VariablesCubit, VariablesState>(
+    blocTest<BranchVariablesCubit, BranchVariablesState>(
       'delete failed not found',
-      build: () => VariablesCubit(dataStoreRepository: dataStoreRepository)
+      build: () => BranchVariablesCubit(dataStoreRepository: dataStoreRepository)
         ..add(
-          const Variable(
+          const BranchVariable(
             uuid: 'a-uuid',
             name: 'variable-one',
             defaultValue: '/some/defaultValue',
           ),
         ),
       act: (cubit) => cubit.delete(
-        const Variable(
+        const BranchVariable(
           uuid: 'a-uuid-2',
           name: 'variable-one',
           defaultValue: '/some/defaultValue',
@@ -293,11 +292,11 @@ void main() {
       ),
       expect: () => [
         equals(
-          VariablesState(
+          BranchVariablesState(
             dataStoreRepository: dataStoreRepository,
             status: VariablesStatus.changing,
             variables: const [
-              Variable(
+              BranchVariable(
                 uuid: 'a-uuid',
                 name: 'variable-one',
                 defaultValue: '/some/defaultValue',
@@ -306,11 +305,11 @@ void main() {
           ),
         ),
         equals(
-          VariablesState(
+          BranchVariablesState(
             dataStoreRepository: dataStoreRepository,
             status: VariablesStatus.deleteFailedNotFound,
             variables: const [
-              Variable(
+              BranchVariable(
                 uuid: 'a-uuid',
                 name: 'variable-one',
                 defaultValue: '/some/defaultValue',
@@ -321,32 +320,32 @@ void main() {
       ],
     );
 
-    blocTest<VariablesCubit, VariablesState>(
+    blocTest<BranchVariablesCubit, BranchVariablesState>(
       'load from datastore',
       setUp: () {
         dataStoreRepository.load('a-file.json');
       },
-      build: () => VariablesCubit(dataStoreRepository: dataStoreRepository),
+      build: () => BranchVariablesCubit(dataStoreRepository: dataStoreRepository),
       act: (cubit) => cubit.load(),
       expect: () => [
         equals(
-          VariablesState(
+          BranchVariablesState(
             dataStoreRepository: dataStoreRepository,
             status: VariablesStatus.changing,
             variables: const [],
           ),
         ),
         equals(
-          VariablesState(
+          BranchVariablesState(
             dataStoreRepository: dataStoreRepository,
             status: VariablesStatus.loaded,
             variables: const [
-              Variable(
+              BranchVariable(
                 uuid: 'a-uuid',
                 name: 'variable-one',
                 defaultValue: '/some/defaultValue',
               ),
-              Variable(
+              BranchVariable(
                 uuid: 'a-uuid-2',
                 name: 'variable-two',
                 defaultValue: '/some/other/defaultValue',
@@ -358,16 +357,16 @@ void main() {
     );
 
     test('test get variable', () {
-      final cubit = VariablesCubit(dataStoreRepository: dataStoreRepository)
+      final cubit = BranchVariablesCubit(dataStoreRepository: dataStoreRepository)
         ..add(
-          const Variable(
+          const BranchVariable(
             uuid: 'a-uuid',
             name: 'variable-one',
             defaultValue: '/some/defaultValue',
           ),
         )
         ..add(
-          const Variable(
+          const BranchVariable(
             uuid: 'a-uuid-2',
             name: 'variable-two',
             defaultValue: '/some/other/defaultValue',
@@ -378,7 +377,7 @@ void main() {
       expect(
         cubit.getVariable('a-uuid-2'),
         equals(
-          const Variable(
+          const BranchVariable(
             uuid: 'a-uuid-2',
             name: 'variable-two',
             defaultValue: '/some/other/defaultValue',
@@ -388,7 +387,7 @@ void main() {
       expect(
         cubit.getVariable('a-uuid'),
         equals(
-          const Variable(
+          const BranchVariable(
             uuid: 'a-uuid',
             name: 'variable-one',
             defaultValue: '/some/defaultValue',

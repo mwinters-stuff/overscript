@@ -14,7 +14,7 @@ import 'package:overscript/gitbranch/gitbranch.dart';
 import 'package:overscript/l10n/l10n.dart';
 import 'package:overscript/repositories/repositories.dart';
 import 'package:overscript/theme/theme.dart';
-import 'package:overscript/variable/variable.dart';
+import 'package:overscript/branch_variable/branch_variable.dart';
 import 'package:overscript/views/views.dart';
 import 'package:overscript/widgets/main_page.dart';
 

@@ -1,15 +1,15 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:overscript/branch_variable/branch_variable.dart';
 import 'package:overscript/branch_variable_value/branch_variable_value.dart';
 import 'package:overscript/gitbranch/gitbranch.dart';
 import 'package:overscript/repositories/json_storage.dart';
-import 'package:overscript/variable/variable.dart';
 
 void main() {
   group('JsonStorage', () {
     late GitBranch mockGitBranch1;
     late GitBranch mockGitBranch2;
-    late Variable mockVariable1;
-    late Variable mockVariable2;
+    late BranchVariable mockVariable1;
+    late BranchVariable mockVariable2;
     late BranchVariableValue mockBranchVariableValue1;
     late BranchVariableValue mockBranchVariableValue2;
 
@@ -28,13 +28,13 @@ void main() {
         origin: 'git:someplace/bob',
       );
 
-      mockVariable1 = const Variable(
+      mockVariable1 = const BranchVariable(
         uuid: 'v-uuid-1',
         name: 'variable1',
         defaultValue: 'default1',
       );
 
-      mockVariable2 = const Variable(
+      mockVariable2 = const BranchVariable(
         uuid: 'v-uuid-2',
         name: 'variable2',
         defaultValue: 'default2',
@@ -58,7 +58,7 @@ void main() {
     test('empty', () {
       const value = JsonStorage.empty();
       expect(value.scripts, equals([]));
-      expect(value.variables, equals([]));
+      expect(value.branchVariables, equals([]));
       expect(value.branches, equals([]));
       expect(value.branchVariableValues, equals([]));
     });
@@ -73,7 +73,7 @@ void main() {
           mockGitBranch1,
           mockGitBranch2,
         ],
-        variables: [
+        branchVariables: [
           mockVariable1,
           mockVariable2,
         ],
@@ -87,7 +87,7 @@ void main() {
       );
 
       expect(
-        value.variables,
+        value.branchVariables,
         equals(
           [
             mockVariable1,
@@ -148,7 +148,7 @@ void main() {
           mockGitBranch1,
           mockGitBranch2,
         ],
-        variables: [
+        branchVariables: [
           mockVariable1,
           mockVariable2,
         ],
@@ -162,7 +162,7 @@ void main() {
         ),
       );
       expect(
-        jsonValues['variables'],
+        jsonValues['branchVariables'],
         equals(
           [
             mockVariable1,
@@ -193,7 +193,7 @@ void main() {
     test('fromJson', () {
       final jsonValues = <String, dynamic>{};
       jsonValues['scripts'] = [];
-      jsonValues['variables'] = [
+      jsonValues['branchVariables'] = [
         mockVariable1.toJson(),
         mockVariable2.toJson(),
       ];
@@ -239,7 +239,7 @@ void main() {
           mockGitBranch1,
           mockGitBranch2,
         ],
-        variables: [
+        branchVariables: [
           mockVariable1,
           mockVariable2,
         ],
@@ -249,7 +249,7 @@ void main() {
       expect(
           jsonString,
           equals(
-              '{scripts: [], variables: [{uuid: v-uuid-1, name: variable1, defaultValue: default1}, {uuid: v-uuid-2, name: variable2, defaultValue: default2}], branches: [{uuid: a-uuid-1, name: master, directory: /home/user/src/project, origin: git:someplace/bob}, {uuid: a-uuid-2, name: branch-one, directory: /home/user/src/banch1, origin: git:someplace/bob}], branchVariableValues: [{uuid: bvv-uuid-1, branchUuid: a-uuid-1, variableUuid: v-uuid-1, value: start value 1}, {uuid: bvv-uuid-2, branchUuid: a-uuid-2, variableUuid: v-uuid-1, value: start value 2}]}'));
+              '{scripts: [], branchVariables: [{uuid: v-uuid-1, name: variable1, defaultValue: default1}, {uuid: v-uuid-2, name: variable2, defaultValue: default2}], branches: [{uuid: a-uuid-1, name: master, directory: /home/user/src/project, origin: git:someplace/bob}, {uuid: a-uuid-2, name: branch-one, directory: /home/user/src/banch1, origin: git:someplace/bob}], branchVariableValues: [{uuid: bvv-uuid-1, branchUuid: a-uuid-1, variableUuid: v-uuid-1, value: start value 1}, {uuid: bvv-uuid-2, branchUuid: a-uuid-2, variableUuid: v-uuid-1, value: start value 2}]}'));
     });
   });
 }

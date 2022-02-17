@@ -5,7 +5,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:overscript/branch_variable_value/branch_variable_value.dart';
 import 'package:overscript/gitbranch/gitbranch.dart';
 import 'package:overscript/gitbranch/views/branch_list_item.dart';
-import 'package:overscript/variable/variable.dart';
+import 'package:overscript/branch_variable/branch_variable.dart';
 
 import '../../helpers/helpers.dart';
 
@@ -14,7 +14,7 @@ void main() {
     late MockGitBranch mockGitBranch;
     late MockGitBranchesCubit mockGitBranchesCubit;
     late MockBranchVariableValuesCubit mockBranchVariableValuesCubit;
-    late MockVariablesCubit mockVariablesCubit;
+    late MockBranchVariablesCubit mockBranchVariablesCubit;
 
     setUp(() {
       mockGitBranch = MockGitBranch();
@@ -45,16 +45,16 @@ void main() {
         ),
       ]);
 
-      mockVariablesCubit = MockVariablesCubit();
-      when(() => mockVariablesCubit.getVariable('a-uuid-1')).thenReturn(
-        const Variable(
+      mockBranchVariablesCubit = MockBranchVariablesCubit();
+      when(() => mockBranchVariablesCubit.getVariable('a-uuid-1')).thenReturn(
+        const BranchVariable(
           uuid: 'a-uuid-1',
           name: 'Variable 1',
           defaultValue: 'default1',
         ),
       );
-      when(() => mockVariablesCubit.getVariable('a-uuid-2')).thenReturn(
-        const Variable(
+      when(() => mockBranchVariablesCubit.getVariable('a-uuid-2')).thenReturn(
+        const BranchVariable(
           uuid: 'a-uuid-2',
           name: 'Variable 2',
           defaultValue: 'default2',
@@ -81,8 +81,8 @@ void main() {
             BlocProvider<GitBranchesCubit>(
               create: (context) => mockGitBranchesCubit,
             ),
-            BlocProvider<VariablesCubit>(
-              create: (context) => mockVariablesCubit,
+            BlocProvider<BranchVariablesCubit>(
+              create: (context) => mockBranchVariablesCubit,
             ),
             BlocProvider<BranchVariableValuesCubit>(
               create: (context) => mockBranchVariableValuesCubit,
@@ -118,8 +118,8 @@ void main() {
             BlocProvider<GitBranchesCubit>(
               create: (context) => mockGitBranchesCubit,
             ),
-            BlocProvider<VariablesCubit>(
-              create: (context) => mockVariablesCubit,
+            BlocProvider<BranchVariablesCubit>(
+              create: (context) => mockBranchVariablesCubit,
             ),
             BlocProvider<BranchVariableValuesCubit>(
               create: (context) => mockBranchVariableValuesCubit,
@@ -155,8 +155,8 @@ void main() {
             BlocProvider<GitBranchesCubit>(
               create: (context) => mockGitBranchesCubit,
             ),
-            BlocProvider<VariablesCubit>(
-              create: (context) => mockVariablesCubit,
+            BlocProvider<BranchVariablesCubit>(
+              create: (context) => mockBranchVariablesCubit,
             ),
             BlocProvider<BranchVariableValuesCubit>(
               create: (context) => mockBranchVariableValuesCubit,

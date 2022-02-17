@@ -3,19 +3,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:overscript/branch_variable_value/branch_variable_value.dart';
 import 'package:overscript/l10n/l10n.dart';
-import 'package:overscript/variable/variable.dart';
+import 'package:overscript/branch_variable/branch_variable.dart';
 import 'package:overscript/widgets/widgets.dart';
 
-class VariableListItem extends StatefulWidget {
-  const VariableListItem({Key? key, required this.variable}) : super(key: key);
+class BranchVariableListItem extends StatefulWidget {
+  const BranchVariableListItem({Key? key, required this.variable}) : super(key: key);
 
-  final Variable variable;
+  final BranchVariable variable;
 
   @override
-  VariableListItemState createState() => VariableListItemState();
+  BranchVariableListItemState createState() => BranchVariableListItemState();
 }
 
-class VariableListItemState extends State<VariableListItem> {
+class BranchVariableListItemState extends State<BranchVariableListItem> {
   @override
   void initState() {
     super.initState();
@@ -54,7 +54,7 @@ class VariableListItemState extends State<VariableListItem> {
               context: context,
               title: l10n.deleteVariableQuestion,
               message: widget.variable.name,
-              onConfirmButton: () => context.read<VariablesCubit>().delete(widget.variable),
+              onConfirmButton: () => context.read<BranchVariablesCubit>().delete(widget.variable),
             ),
             icon: const Icon(LineIcons.alternateTrash),
           ),

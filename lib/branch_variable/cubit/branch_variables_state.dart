@@ -1,4 +1,4 @@
-part of 'variables_cubit.dart';
+part of 'branch_variables_cubit.dart';
 
 enum VariablesStatus { initial, loaded, changing, saved, added, addFailedUUIDExists, addFailedNameExists, deleted, deleteFailedNotFound, failure }
 
@@ -15,29 +15,29 @@ extension VariablesStatusX on VariablesStatus {
   bool get isFailure => this == VariablesStatus.failure;
 }
 
-class VariablesState extends Equatable {
-  VariablesState({
+class BranchVariablesState extends Equatable {
+  BranchVariablesState({
     required this.dataStoreRepository,
     this.status = VariablesStatus.initial,
-    List<Variable>? variables,
+    List<BranchVariable>? variables,
   }) {
-    dataStoreRepository.variables = variables ?? [];
+    dataStoreRepository.branchVariables = variables ?? [];
   }
 
   final VariablesStatus status;
   final DataStoreRepository dataStoreRepository;
 
-  List<Variable> get variables => dataStoreRepository.variables;
+  List<BranchVariable> get variables => dataStoreRepository.branchVariables;
 
-  VariablesState copyWith({required VariablesStatus status, List<Variable>? variables}) {
-    return VariablesState(
+  BranchVariablesState copyWith({required VariablesStatus status, List<BranchVariable>? variables}) {
+    return BranchVariablesState(
       dataStoreRepository: dataStoreRepository,
       status: status,
-      variables: variables ?? dataStoreRepository.variables,
+      variables: variables ?? dataStoreRepository.branchVariables,
     );
   }
 
-  Variable? _findVariableUUID(String uuid) {
+  BranchVariable? _findVariableUUID(String uuid) {
     for (final variable in variables) {
       if (uuid == variable.uuid) {
         return variable;
@@ -46,7 +46,7 @@ class VariablesState extends Equatable {
     return null;
   }
 
-  Variable? _findVariableName(String name) {
+  BranchVariable? _findVariableName(String name) {
     for (final variable in variables) {
       if (name == variable.name) {
         return variable;
@@ -55,14 +55,14 @@ class VariablesState extends Equatable {
     return null;
   }
 
-  VariablesState load() {
+  BranchVariablesState load() {
     return copyWith(
       status: VariablesStatus.loaded,
-      variables: List.from(dataStoreRepository.variables),
+      variables: List.from(dataStoreRepository.branchVariables),
     );
   }
 
-  VariablesState add(Variable variable) {
+  BranchVariablesState add(BranchVariable variable) {
     if (_findVariableUUID(variable.uuid) != null) {
       return copyWith(status: VariablesStatus.addFailedUUIDExists);
     }
@@ -77,7 +77,7 @@ class VariablesState extends Equatable {
     );
   }
 
-  VariablesState delete(Variable variable) {
+  BranchVariablesState delete(BranchVariable variable) {
     if (_findVariableUUID(variable.uuid) != variable) {
       return copyWith(status: VariablesStatus.deleteFailedNotFound);
     }
@@ -91,7 +91,7 @@ class VariablesState extends Equatable {
   @override
   List<Object?> get props => [status, variables];
 
-  Variable? getVariable(String uuid) {
+  BranchVariable? getVariable(String uuid) {
     for (final variable in variables) {
       if (uuid == variable.uuid) {
         return variable;
@@ -100,7 +100,7 @@ class VariablesState extends Equatable {
     return null;
   }
 
-  VariablesState changing() {
+  BranchVariablesState changing() {
     return copyWith(status: VariablesStatus.changing);
   }
 }

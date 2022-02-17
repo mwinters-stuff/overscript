@@ -1,24 +1,24 @@
 import 'package:equatable/equatable.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:overscript/repositories/data_store_repository.dart';
-import 'package:overscript/variable/cubit/variable.dart';
+import 'package:overscript/branch_variable/cubit/branch_variable.dart';
 
-part 'variables_state.dart';
+part 'branch_variables_state.dart';
 
-class VariablesCubit extends Cubit<VariablesState> {
-  VariablesCubit({required DataStoreRepository dataStoreRepository})
+class BranchVariablesCubit extends Cubit<BranchVariablesState> {
+  BranchVariablesCubit({required DataStoreRepository dataStoreRepository})
       : super(
-          VariablesState(
+          BranchVariablesState(
             dataStoreRepository: dataStoreRepository,
           ),
         );
 
-  void add(Variable variable) {
+  void add(BranchVariable variable) {
     emit(state.changing());
     emit(state.add(variable));
   }
 
-  void delete(Variable variable) {
+  void delete(BranchVariable variable) {
     emit(state.changing());
     emit(state.delete(variable));
   }
@@ -28,7 +28,7 @@ class VariablesCubit extends Cubit<VariablesState> {
     emit(state.load());
   }
 
-  Variable? getVariable(String uuid) {
+  BranchVariable? getVariable(String uuid) {
     return state.getVariable(uuid);
   }
 }

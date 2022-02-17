@@ -5,19 +5,19 @@ import 'package:file/file.dart';
 import 'package:overscript/branch_variable_value/branch_variable_value.dart';
 import 'package:overscript/gitbranch/cubit/gitbranch.dart';
 import 'package:overscript/repositories/json_storage.dart';
-import 'package:overscript/variable/variable.dart';
+import 'package:overscript/branch_variable/branch_variable.dart';
 import 'package:uuid/uuid.dart';
 
 class DataStoreRepository {
   DataStoreRepository(this.fileSystem)
       : branches = [],
         scripts = [],
-        variables = [],
+        branchVariables = [],
         branchVariableValues = [];
 
   final FileSystem fileSystem;
   List<dynamic> scripts;
-  List<Variable> variables;
+  List<BranchVariable> branchVariables;
   List<GitBranch> branches;
   List<BranchVariableValue> branchVariableValues;
 
@@ -29,7 +29,7 @@ class DataStoreRepository {
         const JsonDecoder().convert(content) as Map<String, dynamic>,
       );
       scripts = List.from(jsonStorage.scripts, growable: true);
-      variables = List.from(jsonStorage.variables, growable: true);
+      branchVariables = List.from(jsonStorage.branchVariables, growable: true);
       branches = List.from(jsonStorage.branches, growable: true);
       branchVariableValues = List.from(jsonStorage.branchVariableValues, growable: true);
       return Future.value(true);
@@ -38,13 +38,13 @@ class DataStoreRepository {
   }
 
   Future<bool> save(String filename) async {
-    final jsonStorage = JsonStorage(scripts: scripts, variables: variables, branches: branches, branchVariableValues: branchVariableValues);
+    final jsonStorage = JsonStorage(scripts: scripts, branchVariables: branchVariables, branches: branches, branchVariableValues: branchVariableValues);
     final output = const JsonEncoder.withIndent('  ').convert(jsonStorage);
     await fileSystem.file(filename).writeAsString(output);
     return Future.value(true);
   }
 
-  List<Variable> addVariable(Variable variable) {
+  List<BranchVariable> addVariable(BranchVariable variable) {
     // add variable values for each branch.
     for (final branch in branches) {
       branchVariableValues.add(
@@ -57,18 +57,18 @@ class DataStoreRepository {
       );
     }
 
-    return List.from(variables)..add(variable);
+    return List.from(branchVariables)..add(variable);
   }
 
-  List<Variable> deleteVariable(Variable variable) {
+  List<BranchVariable> deleteVariable(BranchVariable variable) {
     // delete branch values
     branchVariableValues.removeWhere((element) => element.variableUuid == variable.uuid);
-    return List.from(variables)..removeWhere((element) => element.uuid == variable.uuid);
+    return List.from(branchVariables)..removeWhere((element) => element.uuid == variable.uuid);
   }
 
   List<GitBranch> addBranch(GitBranch branch) {
     // add variable values for each branch.
-    for (final variable in variables) {
+    for (final variable in branchVariables) {
       branchVariableValues.add(
         BranchVariableValue(
           uuid: const Uuid().v1(),

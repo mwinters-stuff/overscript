@@ -2,21 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:overscript/branch_variable/branch_variable.dart';
 import 'package:overscript/branch_variable_value/branch_variable_value.dart';
 import 'package:overscript/gitbranch/gitbranch.dart';
-import 'package:overscript/variable/variable.dart';
 
 import '../../helpers/helpers.dart';
 
 void main() {
-  group('VariableListItem', () {
-    late MockVariable mockVariable;
-    late MockVariablesCubit mockVariablesCubit;
+  group('BranchVariableListItem', () {
+    late MockBranchVariable mockVariable;
+    late MockBranchVariablesCubit mockBranchVariablesCubit;
     late MockBranchVariableValuesCubit mockBranchVariableValuesCubit;
     late MockGitBranchesCubit mockGitBranchesCubit;
 
     setUp(() {
-      mockVariable = MockVariable();
+      mockVariable = MockBranchVariable();
       when(() => mockVariable.uuid).thenReturn('a-uuid');
       when(() => mockVariable.name).thenReturn('var1');
       when(() => mockVariable.defaultValue).thenReturn('/home/user/src/project');
@@ -60,30 +60,30 @@ void main() {
         ),
       );
 
-      mockVariablesCubit = MockVariablesCubit();
+      mockBranchVariablesCubit = MockBranchVariablesCubit();
     });
 
-    testWidgets('renders VariableListItem', (tester) async {
+    testWidgets('renders BranchVariableListItem', (tester) async {
       await tester.pumpApp(
         MultiBlocProvider(
           providers: [
             BlocProvider<GitBranchesCubit>(
               create: (context) => mockGitBranchesCubit,
             ),
-            BlocProvider<VariablesCubit>(
-              create: (context) => mockVariablesCubit,
+            BlocProvider<BranchVariablesCubit>(
+              create: (context) => mockBranchVariablesCubit,
             ),
             BlocProvider<BranchVariableValuesCubit>(
               create: (context) => mockBranchVariableValuesCubit,
             ),
           ],
-          child: VariableListItem(
+          child: BranchVariableListItem(
             variable: mockVariable,
           ),
         ),
       );
 
-      expect(find.byType(VariableListItem), findsOneWidget);
+      expect(find.byType(BranchVariableListItem), findsOneWidget);
       expect(find.text('var1'), findsOneWidget);
       expect(find.text('Default Value: /home/user/src/project'), findsOneWidget);
     });
@@ -95,14 +95,14 @@ void main() {
             BlocProvider<GitBranchesCubit>(
               create: (context) => mockGitBranchesCubit,
             ),
-            BlocProvider<VariablesCubit>(
-              create: (context) => mockVariablesCubit,
+            BlocProvider<BranchVariablesCubit>(
+              create: (context) => mockBranchVariablesCubit,
             ),
             BlocProvider<BranchVariableValuesCubit>(
               create: (context) => mockBranchVariableValuesCubit,
             ),
           ],
-          child: VariableListItem(
+          child: BranchVariableListItem(
             variable: mockVariable,
           ),
         ),
@@ -131,19 +131,19 @@ void main() {
       await tester.pumpApp(
         MultiBlocProvider(
           providers: [
-            BlocProvider<VariablesCubit>(
-              create: (context) => mockVariablesCubit,
+            BlocProvider<BranchVariablesCubit>(
+              create: (context) => mockBranchVariablesCubit,
             ),
             BlocProvider<BranchVariableValuesCubit>(
               create: (context) => mockBranchVariableValuesCubit,
             ),
           ],
-          child: VariableListItem(
+          child: BranchVariableListItem(
             variable: mockVariable,
           ),
         ),
       );
-      expect(find.byType(VariableListItem), findsOneWidget);
+      expect(find.byType(BranchVariableListItem), findsOneWidget);
 
       await tester.tap(find.byKey(const Key('delete')));
       await tester.pumpAndSettle();
@@ -157,26 +157,26 @@ void main() {
 
       await tester.pump();
 
-      verifyNever(() => mockVariablesCubit.delete(mockVariable));
+      verifyNever(() => mockBranchVariablesCubit.delete(mockVariable));
     });
 
     testWidgets('delete button, ok', (tester) async {
       await tester.pumpApp(
         MultiBlocProvider(
           providers: [
-            BlocProvider<VariablesCubit>(
-              create: (context) => mockVariablesCubit,
+            BlocProvider<BranchVariablesCubit>(
+              create: (context) => mockBranchVariablesCubit,
             ),
             BlocProvider<BranchVariableValuesCubit>(
               create: (context) => mockBranchVariableValuesCubit,
             ),
           ],
-          child: VariableListItem(
+          child: BranchVariableListItem(
             variable: mockVariable,
           ),
         ),
       );
-      expect(find.byType(VariableListItem), findsOneWidget);
+      expect(find.byType(BranchVariableListItem), findsOneWidget);
 
       await tester.tap(find.byKey(const Key('delete')));
       await tester.pumpAndSettle();
@@ -190,7 +190,7 @@ void main() {
 
       await tester.pump();
 
-      verify(() => mockVariablesCubit.delete(mockVariable)).called(1);
+      verify(() => mockBranchVariablesCubit.delete(mockVariable)).called(1);
     });
   });
 }

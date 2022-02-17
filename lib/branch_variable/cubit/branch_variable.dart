@@ -3,26 +3,26 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'variable.g.dart';
+part 'branch_variable.g.dart';
 
 @JsonSerializable(
   anyMap: true,
   checked: true,
   disallowUnrecognizedKeys: true,
 )
-class Variable extends Equatable {
-  const Variable({
+class BranchVariable extends Equatable {
+  const BranchVariable({
     required this.uuid,
     required this.name,
     required this.defaultValue,
   });
 
-  const Variable.empty()
+  const BranchVariable.empty()
       : uuid = '',
         name = '',
         defaultValue = '';
 
-  factory Variable.fromJson(Map json) => _$VariableFromJson(json);
+  factory BranchVariable.fromJson(Map json) => _$BranchVariableFromJson(json);
 
   @JsonKey(required: true)
   final String uuid;
@@ -31,7 +31,7 @@ class Variable extends Equatable {
   @JsonKey(required: true)
   final String defaultValue;
 
-  Map<String, dynamic> toJson() => _$VariableToJson(this);
+  Map<String, dynamic> toJson() => _$BranchVariableToJson(this);
   @override
   String toString() => '${toJson()}';
 

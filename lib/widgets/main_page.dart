@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:line_icons/line_icons.dart';
-import 'package:overscript/gitbranch/gitbranch.dart';
 import 'package:overscript/l10n/l10n.dart';
-import 'package:overscript/theme/cubit/theme_cubit.dart';
-import 'package:overscript/variable/variable.dart';
 import 'package:overscript/views/configuration_view.dart';
 import 'package:overscript/widgets/widgets.dart';
 

@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:overscript/branch_variable/branch_variable.dart';
 import 'package:overscript/branch_variable_value/branch_variable_value.dart';
 import 'package:overscript/gitbranch/gitbranch.dart';
-import 'package:overscript/variable/variable.dart';
 
 import '../../helpers/helpers.dart';
 
@@ -13,7 +13,7 @@ void main() {
   group('BranchVariableValueListItem', () {
     late MockGitBranch mockGitBranch1;
     late MockGitBranch mockGitBranch2;
-    late MockVariable mockVariable;
+    late MockBranchVariable mockVariable;
     late MockBranchVariableValue mockBranchVariableValue1;
     late MockBranchVariableValue mockBranchVariableValue2;
 
@@ -24,7 +24,7 @@ void main() {
     late MockGitBranchesState mockGitBranchesState;
     late FakeFileSelector fakeFileSelectorImplementation;
 
-    late MockVariablesCubit mockVariablesCubit;
+    late MockBranchVariablesCubit mockBranchVariablesCubit;
 
     setUp(() {
       mockGitBranch1 = MockGitBranch();
@@ -39,13 +39,13 @@ void main() {
       when(() => mockGitBranch2.directory).thenReturn('/home/user/src/banch1');
       when(() => mockGitBranch2.origin).thenReturn('git:someplace/bob');
 
-      mockVariable = MockVariable();
+      mockVariable = MockBranchVariable();
       when(() => mockVariable.uuid).thenReturn('v-uuid-1');
       when(() => mockVariable.name).thenReturn('variable');
       when(() => mockVariable.defaultValue).thenReturn('default');
 
-      mockVariablesCubit = MockVariablesCubit();
-      when(() => mockVariablesCubit.getVariable('v-uuid-1')).thenReturn(mockVariable);
+      mockBranchVariablesCubit = MockBranchVariablesCubit();
+      when(() => mockBranchVariablesCubit.getVariable('v-uuid-1')).thenReturn(mockVariable);
 
       mockBranchVariableValue1 = MockBranchVariableValue();
       when(() => mockBranchVariableValue1.uuid).thenReturn('bvv-uuid-1');
@@ -94,8 +94,8 @@ void main() {
             BlocProvider<GitBranchesCubit>(
               create: (context) => mockGitBranchesCubit,
             ),
-            BlocProvider<VariablesCubit>(
-              create: (context) => mockVariablesCubit,
+            BlocProvider<BranchVariablesCubit>(
+              create: (context) => mockBranchVariablesCubit,
             ),
           ],
           child: Card(
