@@ -320,6 +320,7 @@ class TestApp extends StatelessWidget {
           case BranchesScreen.routeName:
             return BranchesScreen.pageRoute(context);
         }
+        return null;
       },
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,

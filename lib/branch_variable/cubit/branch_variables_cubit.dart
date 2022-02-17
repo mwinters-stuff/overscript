@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:overscript/repositories/data_store_repository.dart';
 import 'package:overscript/branch_variable/cubit/branch_variable.dart';
+import 'package:overscript/repositories/data_store_repository.dart';
 
 part 'branch_variables_state.dart';
 

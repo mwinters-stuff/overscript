@@ -3,10 +3,10 @@ import 'dart:io';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:file/file.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:overscript/branch_variable/branch_variable.dart';
 import 'package:overscript/branch_variable_value/branch_variable_value.dart';
 import 'package:overscript/gitbranch/gitbranch.dart';
 import 'package:overscript/repositories/repositories.dart';
-import 'package:overscript/branch_variable/branch_variable.dart';
 import 'package:process/process.dart';
 
 class MockDataStoreRepository extends Mock implements DataStoreRepository {}

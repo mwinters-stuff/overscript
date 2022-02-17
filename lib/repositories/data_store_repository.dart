@@ -1,11 +1,10 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:file/file.dart';
+import 'package:overscript/branch_variable/branch_variable.dart';
 import 'package:overscript/branch_variable_value/branch_variable_value.dart';
 import 'package:overscript/gitbranch/cubit/gitbranch.dart';
 import 'package:overscript/repositories/json_storage.dart';
-import 'package:overscript/branch_variable/branch_variable.dart';
 import 'package:uuid/uuid.dart';
 
 class DataStoreRepository {

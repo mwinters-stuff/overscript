@@ -7,9 +7,11 @@ part 'branch_variable_values_state.dart';
 
 class BranchVariableValuesCubit extends Cubit<BranchVariableValuesState> {
   BranchVariableValuesCubit({required DataStoreRepository dataStoreRepository})
-      : super(BranchVariableValuesState(
-          dataStoreRepository: dataStoreRepository,
-        ));
+      : super(
+          BranchVariableValuesState(
+            dataStoreRepository: dataStoreRepository,
+          ),
+        );
 
   void add(BranchVariableValue branchVariableValue) {
     emit(state.changing());

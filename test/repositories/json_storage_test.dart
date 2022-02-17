@@ -247,9 +247,11 @@ void main() {
       );
       final jsonString = value.toString();
       expect(
-          jsonString,
-          equals(
-              '{scripts: [], branchVariables: [{uuid: v-uuid-1, name: variable1, defaultValue: default1}, {uuid: v-uuid-2, name: variable2, defaultValue: default2}], branches: [{uuid: a-uuid-1, name: master, directory: /home/user/src/project, origin: git:someplace/bob}, {uuid: a-uuid-2, name: branch-one, directory: /home/user/src/banch1, origin: git:someplace/bob}], branchVariableValues: [{uuid: bvv-uuid-1, branchUuid: a-uuid-1, variableUuid: v-uuid-1, value: start value 1}, {uuid: bvv-uuid-2, branchUuid: a-uuid-2, variableUuid: v-uuid-1, value: start value 2}]}'));
+        jsonString,
+        equals(
+          '{scripts: [], branchVariables: [{uuid: v-uuid-1, name: variable1, defaultValue: default1}, {uuid: v-uuid-2, name: variable2, defaultValue: default2}], branches: [{uuid: a-uuid-1, name: master, directory: /home/user/src/project, origin: git:someplace/bob}, {uuid: a-uuid-2, name: branch-one, directory: /home/user/src/banch1, origin: git:someplace/bob}], branchVariableValues: [{uuid: bvv-uuid-1, branchUuid: a-uuid-1, variableUuid: v-uuid-1, value: start value 1}, {uuid: bvv-uuid-2, branchUuid: a-uuid-2, variableUuid: v-uuid-1, value: start value 2}]}',
+        ),
+      );
     });
   });
 }
