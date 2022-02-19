@@ -3,6 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:overscript/branch_variable/branch_variable.dart';
 import 'package:overscript/branch_variable_value/branch_variable_value.dart';
 import 'package:overscript/gitbranch/cubit/gitbranch.dart';
+import 'package:overscript/global_variable/global_variable.dart';
 
 part 'json_storage.g.dart';
 
@@ -17,6 +18,7 @@ class JsonStorage extends Equatable {
     required this.branchVariables,
     required this.branches,
     required this.branchVariableValues,
+    required this.globalVariables,
   });
 
   factory JsonStorage.fromJson(Map<String, dynamic> json) => _$JsonStorageFromJson(json);
@@ -25,7 +27,8 @@ class JsonStorage extends Equatable {
       : scripts = const [],
         branchVariables = const [],
         branches = const [],
-        branchVariableValues = const [];
+        branchVariableValues = const [],
+        globalVariables = const [];
 
   @JsonKey(required: true)
   final List<dynamic> scripts;
@@ -35,6 +38,8 @@ class JsonStorage extends Equatable {
   final List<GitBranch> branches;
   @JsonKey(required: true)
   final List<BranchVariableValue> branchVariableValues;
+  @JsonKey(required: true)
+  final List<GlobalVariable> globalVariables;
 
   Map<String, dynamic> toJson() => _$JsonStorageToJson(this);
 
@@ -47,5 +52,6 @@ class JsonStorage extends Equatable {
         branchVariables,
         branches,
         branchVariableValues,
+        globalVariables,
       ];
 }

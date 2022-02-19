@@ -6,6 +6,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:overscript/branch_variable/branch_variable.dart';
 import 'package:overscript/branch_variable_value/branch_variable_value.dart';
 import 'package:overscript/gitbranch/gitbranch.dart';
+import 'package:overscript/global_variable/global_variable.dart';
 import 'package:overscript/repositories/repositories.dart';
 import 'package:process/process.dart';
 
@@ -32,6 +33,12 @@ class MockBranchVariable extends Mock implements BranchVariable {}
 class MockBranchVariablesCubit extends MockCubit<BranchVariablesState> implements BranchVariablesCubit {}
 
 class MockBranchVariablesState extends Mock implements BranchVariablesState {}
+
+class MockGlobalVariable extends Mock implements GlobalVariable {}
+
+class MockGlobalVariablesCubit extends MockCubit<GlobalVariablesState> implements GlobalVariablesCubit {}
+
+class MockGlobalVariablesState extends Mock implements GlobalVariablesState {}
 
 class MockFileSystem extends Mock implements FileSystem {}
 

@@ -1,35 +1,37 @@
 part of 'branch_variables_cubit.dart';
 
-enum VariablesStatus { initial, loaded, changing, saved, added, addFailedUUIDExists, addFailedNameExists, deleted, deleteFailedNotFound, failure }
+enum BranchVariablesStatus { initial, loaded, changing, saved, added, addFailedUUIDExists, addFailedNameExists, deleted, deleteFailedNotFound, failure }
 
-extension VariablesStatusX on VariablesStatus {
-  bool get isInitial => this == VariablesStatus.initial;
-  bool get isChanging => this == VariablesStatus.changing;
-  bool get isSaved => this == VariablesStatus.saved;
-  bool get isLoaded => this == VariablesStatus.loaded;
-  bool get isAdded => this == VariablesStatus.added;
-  bool get isAddFailedUUIDExists => this == VariablesStatus.addFailedUUIDExists;
-  bool get isAddFailedNameExists => this == VariablesStatus.addFailedNameExists;
-  bool get isDeleted => this == VariablesStatus.deleted;
-  bool get isDeleteFailedNotFound => this == VariablesStatus.deleteFailedNotFound;
-  bool get isFailure => this == VariablesStatus.failure;
+extension VariablesStatusX on BranchVariablesStatus {
+  bool get isInitial => this == BranchVariablesStatus.initial;
+  bool get isChanging => this == BranchVariablesStatus.changing;
+  bool get isSaved => this == BranchVariablesStatus.saved;
+  bool get isLoaded => this == BranchVariablesStatus.loaded;
+  bool get isAdded => this == BranchVariablesStatus.added;
+  bool get isAddFailedUUIDExists => this == BranchVariablesStatus.addFailedUUIDExists;
+  bool get isAddFailedNameExists => this == BranchVariablesStatus.addFailedNameExists;
+  bool get isDeleted => this == BranchVariablesStatus.deleted;
+  bool get isDeleteFailedNotFound => this == BranchVariablesStatus.deleteFailedNotFound;
+  bool get isFailure => this == BranchVariablesStatus.failure;
 }
 
 class BranchVariablesState extends Equatable {
   BranchVariablesState({
     required this.dataStoreRepository,
-    this.status = VariablesStatus.initial,
+    this.status = BranchVariablesStatus.initial,
     List<BranchVariable>? variables,
   }) {
-    dataStoreRepository.branchVariables = variables ?? [];
+    if (variables != null) {
+      dataStoreRepository.branchVariables = variables;
+    }
   }
 
-  final VariablesStatus status;
+  final BranchVariablesStatus status;
   final DataStoreRepository dataStoreRepository;
 
   List<BranchVariable> get variables => dataStoreRepository.branchVariables;
 
-  BranchVariablesState copyWith({required VariablesStatus status, List<BranchVariable>? variables}) {
+  BranchVariablesState copyWith({required BranchVariablesStatus status, List<BranchVariable>? variables}) {
     return BranchVariablesState(
       dataStoreRepository: dataStoreRepository,
       status: status,
@@ -57,34 +59,34 @@ class BranchVariablesState extends Equatable {
 
   BranchVariablesState load() {
     return copyWith(
-      status: VariablesStatus.loaded,
+      status: BranchVariablesStatus.loaded,
       variables: List.from(dataStoreRepository.branchVariables),
     );
   }
 
   BranchVariablesState add(BranchVariable variable) {
     if (_findVariableUUID(variable.uuid) != null) {
-      return copyWith(status: VariablesStatus.addFailedUUIDExists);
+      return copyWith(status: BranchVariablesStatus.addFailedUUIDExists);
     }
 
     if (_findVariableName(variable.name) != null) {
-      return copyWith(status: VariablesStatus.addFailedNameExists);
+      return copyWith(status: BranchVariablesStatus.addFailedNameExists);
     }
 
     return copyWith(
-      status: VariablesStatus.added,
-      variables: dataStoreRepository.addVariable(variable),
+      status: BranchVariablesStatus.added,
+      variables: dataStoreRepository.addBranchVariable(variable),
     );
   }
 
   BranchVariablesState delete(BranchVariable variable) {
     if (_findVariableUUID(variable.uuid) != variable) {
-      return copyWith(status: VariablesStatus.deleteFailedNotFound);
+      return copyWith(status: BranchVariablesStatus.deleteFailedNotFound);
     }
 
     return copyWith(
-      status: VariablesStatus.deleted,
-      variables: dataStoreRepository.deleteVariable(variable),
+      status: BranchVariablesStatus.deleted,
+      variables: dataStoreRepository.deleteBranchVariable(variable),
     );
   }
 
@@ -101,6 +103,6 @@ class BranchVariablesState extends Equatable {
   }
 
   BranchVariablesState changing() {
-    return copyWith(status: VariablesStatus.changing);
+    return copyWith(status: BranchVariablesStatus.changing);
   }
 }

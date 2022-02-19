@@ -80,7 +80,8 @@ void main() {
           '      "variableUuid": "variableUuid",\n'
           '      "value": "value"\n'
           '    }\n'
-          '  ]\n'
+          '  ],\n'
+          '  "globalVariables": []\n'
           '}',
         ),
       );
@@ -92,7 +93,7 @@ void main() {
       dataStoreRepository.branches.add(const GitBranch(uuid: 'b-uuid-1', name: 'branch 1', directory: 'directory1', origin: 'origin'));
       dataStoreRepository.branches.add(const GitBranch(uuid: 'b-uuid-2', name: 'branch 2', directory: 'directory2', origin: 'origin'));
 
-      dataStoreRepository.addVariable(const BranchVariable(uuid: 'v-uuid-1', name: 'variable', defaultValue: 'defaultValue'));
+      dataStoreRepository.addBranchVariable(const BranchVariable(uuid: 'v-uuid-1', name: 'variable', defaultValue: 'defaultValue'));
 
       expect(dataStoreRepository.branchVariableValues.length, equals(2));
 
@@ -129,10 +130,10 @@ void main() {
       dataStoreRepository.branches.add(const GitBranch(uuid: 'b-uuid-1', name: 'branch 1', directory: 'directory1', origin: 'origin'));
       dataStoreRepository.branches.add(const GitBranch(uuid: 'b-uuid-2', name: 'branch 2', directory: 'directory2', origin: 'origin'));
 
-      dataStoreRepository.addVariable(const BranchVariable(uuid: 'v-uuid-1', name: 'variable', defaultValue: 'defaultValue'));
+      dataStoreRepository.addBranchVariable(const BranchVariable(uuid: 'v-uuid-1', name: 'variable', defaultValue: 'defaultValue'));
       expect(dataStoreRepository.branchVariableValues.length, equals(2));
 
-      dataStoreRepository.deleteVariable(const BranchVariable(uuid: 'v-uuid-1', name: 'variable', defaultValue: 'defaultValue'));
+      dataStoreRepository.deleteBranchVariable(const BranchVariable(uuid: 'v-uuid-1', name: 'variable', defaultValue: 'defaultValue'));
 
       expect(dataStoreRepository.branchVariableValues.length, equals(0));
     });

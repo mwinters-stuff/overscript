@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:overscript/branch_variable/branch_variable.dart';
 import 'package:overscript/gitbranch/gitbranch.dart';
+import 'package:overscript/global_variable/global_variable.dart';
 import 'package:overscript/l10n/l10n.dart';
 import 'package:overscript/views/views.dart';
 
@@ -11,7 +12,7 @@ import '../helpers/helpers.dart';
 Map<String, WidgetBuilder> routes() {
   return <String, WidgetBuilder>{
     '/': (BuildContext context) => const ConfigurationView(),
-    '/globalVariables': (BuildContext context) => const Text('GlobalVariablesScreen'),
+    GlobalVariablesScreen.routeName: (BuildContext context) => const Text('GlobalVariablesScreen'),
     BranchesScreen.routeName: (BuildContext context) => const Text('BranchesScreen'),
     BranchVariablesScreen.routeName: (BuildContext context) => const Text('BranchVariablesScreen'),
     '/scripts': (BuildContext context) => const Text('ScriptsScreen'),

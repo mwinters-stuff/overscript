@@ -807,7 +807,7 @@ void main() {
       ],
     );
 
-    test('x test', () {
+    test('status test', () {
       var value = BranchVariableValuesStatus.initial;
       expect(value.isInitial, isTrue);
       value = BranchVariableValuesStatus.loaded;

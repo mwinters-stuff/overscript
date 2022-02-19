@@ -3,56 +3,44 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:form_builder_validators/localization/l10n.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:overscript/branch_variable/branch_variable.dart';
-import 'package:overscript/branch_variable_value/branch_variable_value.dart';
+import 'package:overscript/global_variable/global_variable.dart';
 import 'package:overscript/l10n/l10n.dart';
 import 'package:overscript/repositories/repositories.dart';
 
 import '../../helpers/helpers.dart';
 
 void main() {
-  group('BranchVariablesScreen', () {
-    late MockBranchVariable mockVariable1;
-    late MockBranchVariable mockVariable2;
-    late MockBranchVariablesCubit mockVariablesCubit;
-    late MockBranchVariablesState mockVariablesState;
+  group('GlobalVariablesScreen', () {
+    late MockGlobalVariable mockVariable1;
+    late MockGlobalVariable mockVariable2;
+    late MockGlobalVariablesCubit mockVariablesCubit;
+    late MockGlobalVariablesState mockVariablesState;
     late MockDataStoreRepository mockDataStoreRepository;
-    late MockGitCalls mockGitCalls;
-    late MockBranchVariableValuesCubit mockBranchVariableValuesCubit;
-    late MockBranchVariableValuesState mockBranchVariableValuesState;
 
     setUp(() {
       mockDataStoreRepository = MockDataStoreRepository();
-      mockVariablesState = MockBranchVariablesState();
-      mockVariablesCubit = MockBranchVariablesCubit();
-      mockGitCalls = MockGitCalls();
+      mockVariablesState = MockGlobalVariablesState();
+      mockVariablesCubit = MockGlobalVariablesCubit();
 
       when(() => mockDataStoreRepository.save(any())).thenAnswer((_) => Future.value(true));
       when(() => mockDataStoreRepository.load(any())).thenAnswer((_) => Future.value(true));
 
-      mockVariable1 = MockBranchVariable();
+      mockVariable1 = MockGlobalVariable();
       when(() => mockVariable1.uuid).thenReturn('a-uuid-1');
       when(() => mockVariable1.name).thenReturn('variable-1');
-      when(() => mockVariable1.defaultValue).thenReturn('/home/user/src/project');
+      when(() => mockVariable1.value).thenReturn('/home/user/src/project');
 
-      mockVariable2 = MockBranchVariable();
+      mockVariable2 = MockGlobalVariable();
       when(() => mockVariable2.uuid).thenReturn('a-uuid-2');
       when(() => mockVariable2.name).thenReturn('variable-2');
-      when(() => mockVariable2.defaultValue).thenReturn('/home/user/src/project-branch-a');
+      when(() => mockVariable2.value).thenReturn('/home/user/src/project-branch-a');
 
-      when(() => mockVariablesState.status).thenReturn(BranchVariablesStatus.loaded);
+      when(() => mockVariablesState.status).thenReturn(GlobalVariablesStatus.loaded);
       when(() => mockVariablesState.variables).thenReturn([mockVariable1, mockVariable2]);
 
       when(() => mockVariablesCubit.state).thenReturn(mockVariablesState);
 
-      mockBranchVariableValuesCubit = MockBranchVariableValuesCubit();
-      when(() => mockBranchVariableValuesCubit.getVariableListItems(any())).thenReturn([]);
-
-      mockBranchVariableValuesState = MockBranchVariableValuesState();
-      when(() => mockBranchVariableValuesState.status).thenReturn(BranchVariableValuesStatus.loaded);
-      when(() => mockBranchVariableValuesCubit.state).thenReturn(mockBranchVariableValuesState);
-
-      registerFallbackValue(const BranchVariable.empty());
+      registerFallbackValue(const GlobalVariable.empty());
     });
 
     testWidgets('create and show variables', (tester) async {
@@ -62,34 +50,28 @@ void main() {
             RepositoryProvider<DataStoreRepository>(
               create: (context) => mockDataStoreRepository,
             ),
-            RepositoryProvider<GitCalls>(
-              create: (context) => mockGitCalls,
-            ),
           ],
           child: MultiBlocProvider(
             providers: [
-              BlocProvider<BranchVariablesCubit>(
+              BlocProvider<GlobalVariablesCubit>(
                 create: (context) => mockVariablesCubit,
               ),
-              BlocProvider<BranchVariableValuesCubit>(
-                create: (context) => mockBranchVariableValuesCubit,
-              ),
             ],
-            child: const BranchVariablesScreen(),
+            child: const GlobalVariablesScreen(),
           ),
         ),
       );
 
-      expect(find.byType(BranchVariablesScreen), findsOneWidget);
-      expect(find.byType(BranchVariableListItem), findsNWidgets(2));
+      expect(find.byType(GlobalVariablesScreen), findsOneWidget);
+      expect(find.byType(GlobalVariableListItem), findsNWidgets(2));
 
-      expect(find.text('Branch Variables'), findsOneWidget);
+      expect(find.text('Global Variables'), findsOneWidget);
 
       expect(find.text('variable-1'), findsOneWidget);
-      expect(find.text('Default Value: /home/user/src/project'), findsOneWidget);
+      expect(find.text('/home/user/src/project'), findsOneWidget);
 
       expect(find.text('variable-2'), findsOneWidget);
-      expect(find.text('Default Value: /home/user/src/project-branch-a'), findsOneWidget);
+      expect(find.text('/home/user/src/project-branch-a'), findsOneWidget);
     });
 
     testWidgets('add "cancel clicked"!', (tester) async {
@@ -99,17 +81,11 @@ void main() {
             RepositoryProvider<DataStoreRepository>(
               create: (context) => mockDataStoreRepository,
             ),
-            RepositoryProvider<GitCalls>(
-              create: (context) => mockGitCalls,
-            ),
           ],
           child: MultiBlocProvider(
             providers: [
-              BlocProvider<BranchVariablesCubit>(
+              BlocProvider<GlobalVariablesCubit>(
                 create: (context) => mockVariablesCubit,
-              ),
-              BlocProvider<BranchVariableValuesCubit>(
-                create: (context) => mockBranchVariableValuesCubit,
               ),
             ],
             child: MaterialApp(
@@ -117,7 +93,7 @@ void main() {
                 AppLocalizations.localizationsDelegates,
               )..add(FormBuilderLocalizations.delegate),
               supportedLocales: AppLocalizations.supportedLocales,
-              builder: (context, child) => const BranchVariablesScreen(),
+              builder: (context, child) => const GlobalVariablesScreen(),
             ),
           ),
         ),
@@ -131,7 +107,7 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.byKey(const Key('nameInput')), findsOneWidget);
-      expect(find.byKey(const Key('defaultValueInput')), findsOneWidget);
+      expect(find.byKey(const Key('valueInput')), findsOneWidget);
 
       expect(find.text('Cancel'), findsOneWidget);
       expect(find.text('Ok'), findsOneWidget);
@@ -139,7 +115,7 @@ void main() {
       await tester.tap(find.text('Cancel'));
       await tester.pumpAndSettle();
 
-      verifyNever(() => mockVariablesCubit.add(any<BranchVariable>()));
+      verifyNever(() => mockVariablesCubit.add(any<GlobalVariable>()));
     });
 
     testWidgets('add "ok clicked", "All OK', (tester) async {
@@ -149,17 +125,11 @@ void main() {
             RepositoryProvider<DataStoreRepository>(
               create: (context) => mockDataStoreRepository,
             ),
-            RepositoryProvider<GitCalls>(
-              create: (context) => mockGitCalls,
-            ),
           ],
           child: MultiBlocProvider(
             providers: [
-              BlocProvider<BranchVariablesCubit>(
+              BlocProvider<GlobalVariablesCubit>(
                 create: (context) => mockVariablesCubit,
-              ),
-              BlocProvider<BranchVariableValuesCubit>(
-                create: (context) => mockBranchVariableValuesCubit,
               ),
             ],
             child: MaterialApp(
@@ -167,7 +137,7 @@ void main() {
                 AppLocalizations.localizationsDelegates,
               )..add(FormBuilderLocalizations.delegate),
               supportedLocales: AppLocalizations.supportedLocales,
-              builder: (context, child) => const BranchVariablesScreen(),
+              builder: (context, child) => const GlobalVariablesScreen(),
             ),
           ),
         ),
@@ -181,25 +151,25 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.byKey(const Key('nameInput')), findsOneWidget);
-      expect(find.byKey(const Key('defaultValueInput')), findsOneWidget);
+      expect(find.byKey(const Key('valueInput')), findsOneWidget);
 
       expect(find.text('Cancel'), findsOneWidget);
       expect(find.text('Ok'), findsOneWidget);
 
       await tester.enterText(find.byKey(const Key('nameInput')), 'peaches');
       await tester.pumpAndSettle();
-      await tester.enterText(find.byKey(const Key('defaultValueInput')), 'pears');
+      await tester.enterText(find.byKey(const Key('valueInput')), 'pears');
       await tester.pumpAndSettle();
 
       await tester.tap(find.text('Ok'));
       await tester.pumpAndSettle();
 
-      final captured = verify(() => mockVariablesCubit.add(captureAny<BranchVariable>())).captured;
-      final variable = captured.last as BranchVariable;
+      final captured = verify(() => mockVariablesCubit.add(captureAny<GlobalVariable>())).captured;
+      final variable = captured.last as GlobalVariable;
 
       expect(variable.uuid, isNotEmpty);
       expect(variable.name, equals('peaches'));
-      expect(variable.defaultValue, equals('pears'));
+      expect(variable.value, equals('pears'));
     });
 
     testWidgets('test page route', (tester) async {
@@ -209,17 +179,11 @@ void main() {
             RepositoryProvider<DataStoreRepository>(
               create: (context) => mockDataStoreRepository,
             ),
-            RepositoryProvider<GitCalls>(
-              create: (context) => mockGitCalls,
-            ),
           ],
           child: MultiBlocProvider(
             providers: [
-              BlocProvider<BranchVariablesCubit>(
+              BlocProvider<GlobalVariablesCubit>(
                 create: (context) => mockVariablesCubit,
-              ),
-              BlocProvider<BranchVariableValuesCubit>(
-                create: (context) => mockBranchVariableValuesCubit,
               ),
             ],
             child: const TestApp(),
@@ -227,13 +191,13 @@ void main() {
         ),
       );
 
-      expect(find.byType(BranchVariablesScreen), findsNothing);
+      expect(find.byType(GlobalVariablesScreen), findsNothing);
 
       await tester.tap(find.text('ClickMe'));
       await tester.pumpAndSettle();
 
-      expect(find.byType(BranchVariablesScreen), findsOneWidget);
-      expect(find.byType(BranchVariableListItem), findsNWidgets(2));
+      expect(find.byType(GlobalVariablesScreen), findsOneWidget);
+      expect(find.byType(GlobalVariableListItem), findsNWidgets(2));
     });
   });
 }
@@ -246,8 +210,8 @@ class TestApp extends StatelessWidget {
     return MaterialApp(
       onGenerateRoute: (settings) {
         switch (settings.name) {
-          case BranchVariablesScreen.routeName:
-            return BranchVariablesScreen.pageRoute(context);
+          case GlobalVariablesScreen.routeName:
+            return GlobalVariablesScreen.pageRoute(context);
         }
         return null;
       },
@@ -263,7 +227,7 @@ class DummyHomeRoute extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => MaterialButton(
-        onPressed: () => Navigator.of(context).pushNamed(BranchVariablesScreen.routeName),
+        onPressed: () => Navigator.of(context).pushNamed(GlobalVariablesScreen.routeName),
         child: const Text('ClickMe'),
       );
 }

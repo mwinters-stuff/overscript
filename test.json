@@ -1,6 +1,6 @@
 {
   "scripts": [],
-  "variables": [
+  "branchVariables": [
     {
       "uuid": "c4b1c420-8c66-11ec-81b5-276a65e797f8",
       "name": "var1",
@@ -67,6 +67,18 @@
       "branchUuid": "dcf613b0-8c66-11ec-81b5-276a65e797f8",
       "variableUuid": "cd466be0-8c66-11ec-81b5-276a65e797f8",
       "value": "/home/mathew/src/overscript/analysis_options.yaml"
+    }
+  ],
+  "globalVariables": [
+    {
+      "uuid": "d36186f0-912e-11ec-81a1-974e1d316906",
+      "name": "var",
+      "value": "abc"
+    },
+    {
+      "uuid": "d7d9c8a0-912e-11ec-81a1-974e1d316906",
+      "name": "var2",
+      "value": "abc"
     }
   ]
 }

@@ -23,7 +23,9 @@ class GitBranchesState extends Equatable {
     this.status = GitBranchesStatus.initial,
     List<GitBranch>? branches,
   }) {
-    dataStoreRepository.branches = branches ?? [];
+    if (branches != null) {
+      dataStoreRepository.branches = branches;
+    }
   }
 
   final GitBranchesStatus status;

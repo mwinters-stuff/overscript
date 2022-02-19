@@ -11,6 +11,7 @@ import 'package:form_builder_validators/localization/l10n.dart';
 import 'package:overscript/branch_variable/branch_variable.dart';
 import 'package:overscript/branch_variable_value/branch_variable_value.dart';
 import 'package:overscript/gitbranch/gitbranch.dart';
+import 'package:overscript/global_variable/global_variable.dart';
 import 'package:overscript/l10n/l10n.dart';
 import 'package:overscript/repositories/repositories.dart';
 import 'package:overscript/theme/theme.dart';
@@ -36,6 +37,8 @@ class App extends StatelessWidget {
               return BranchVariablesScreen.pageRoute(context);
             case ConfigurationView.routeName:
               return ConfigurationView.pageRoute(context);
+            case GlobalVariablesScreen.routeName:
+              return GlobalVariablesScreen.pageRoute(context);
           }
           return null;
         },
@@ -53,6 +56,7 @@ class App extends StatelessWidget {
           context.read<GitBranchesCubit>().load();
           context.read<BranchVariablesCubit>().load();
           context.read<BranchVariableValuesCubit>().load();
+          context.read<GlobalVariablesCubit>().load();
         }
       },
     );

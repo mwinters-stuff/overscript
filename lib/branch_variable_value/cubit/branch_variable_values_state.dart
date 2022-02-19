@@ -36,7 +36,9 @@ class BranchVariableValuesState extends Equatable {
     this.status = BranchVariableValuesStatus.initial,
     List<BranchVariableValue>? branchVariableValues,
   }) {
-    dataStoreRepository.branchVariableValues = branchVariableValues ?? [];
+    if (branchVariableValues != null) {
+      dataStoreRepository.branchVariableValues = branchVariableValues;
+    }
   }
 
   final BranchVariableValuesStatus status;

@@ -43,14 +43,14 @@ void main() {
         equals(
           BranchVariablesState(
             dataStoreRepository: dataStoreRepository,
-            status: VariablesStatus.changing,
+            status: BranchVariablesStatus.changing,
             variables: const [],
           ),
         ),
         equals(
           BranchVariablesState(
             dataStoreRepository: dataStoreRepository,
-            status: VariablesStatus.added,
+            status: BranchVariablesStatus.added,
             variables: const [
               BranchVariable(
                 uuid: 'a-uuid',
@@ -87,14 +87,14 @@ void main() {
         equals(
           BranchVariablesState(
             dataStoreRepository: dataStoreRepository,
-            status: VariablesStatus.changing,
+            status: BranchVariablesStatus.changing,
             variables: const [],
           ),
         ),
         equals(
           BranchVariablesState(
             dataStoreRepository: dataStoreRepository,
-            status: VariablesStatus.added,
+            status: BranchVariablesStatus.added,
             variables: const [
               BranchVariable(
                 uuid: 'a-uuid',
@@ -107,7 +107,7 @@ void main() {
         equals(
           BranchVariablesState(
             dataStoreRepository: dataStoreRepository,
-            status: VariablesStatus.changing,
+            status: BranchVariablesStatus.changing,
             variables: const [
               BranchVariable(
                 uuid: 'a-uuid',
@@ -120,7 +120,7 @@ void main() {
         equals(
           BranchVariablesState(
             dataStoreRepository: dataStoreRepository,
-            status: VariablesStatus.added,
+            status: BranchVariablesStatus.added,
             variables: const [
               BranchVariable(
                 uuid: 'a-uuid',
@@ -159,7 +159,7 @@ void main() {
         equals(
           BranchVariablesState(
             dataStoreRepository: dataStoreRepository,
-            status: VariablesStatus.changing,
+            status: BranchVariablesStatus.changing,
             variables: const [
               BranchVariable(
                 uuid: 'a-uuid',
@@ -172,7 +172,7 @@ void main() {
         equals(
           BranchVariablesState(
             dataStoreRepository: dataStoreRepository,
-            status: VariablesStatus.addFailedUUIDExists,
+            status: BranchVariablesStatus.addFailedUUIDExists,
             variables: const [
               BranchVariable(
                 uuid: 'a-uuid',
@@ -206,7 +206,7 @@ void main() {
         equals(
           BranchVariablesState(
             dataStoreRepository: dataStoreRepository,
-            status: VariablesStatus.changing,
+            status: BranchVariablesStatus.changing,
             variables: const [
               BranchVariable(
                 uuid: 'a-uuid',
@@ -219,7 +219,7 @@ void main() {
         equals(
           BranchVariablesState(
             dataStoreRepository: dataStoreRepository,
-            status: VariablesStatus.addFailedNameExists,
+            status: BranchVariablesStatus.addFailedNameExists,
             variables: const [
               BranchVariable(
                 uuid: 'a-uuid',
@@ -253,7 +253,7 @@ void main() {
         equals(
           BranchVariablesState(
             dataStoreRepository: dataStoreRepository,
-            status: VariablesStatus.changing,
+            status: BranchVariablesStatus.changing,
             variables: const [
               BranchVariable(
                 uuid: 'a-uuid',
@@ -266,7 +266,7 @@ void main() {
         equals(
           BranchVariablesState(
             dataStoreRepository: dataStoreRepository,
-            status: VariablesStatus.deleted,
+            status: BranchVariablesStatus.deleted,
             variables: const [],
           ),
         )
@@ -294,7 +294,7 @@ void main() {
         equals(
           BranchVariablesState(
             dataStoreRepository: dataStoreRepository,
-            status: VariablesStatus.changing,
+            status: BranchVariablesStatus.changing,
             variables: const [
               BranchVariable(
                 uuid: 'a-uuid',
@@ -307,7 +307,7 @@ void main() {
         equals(
           BranchVariablesState(
             dataStoreRepository: dataStoreRepository,
-            status: VariablesStatus.deleteFailedNotFound,
+            status: BranchVariablesStatus.deleteFailedNotFound,
             variables: const [
               BranchVariable(
                 uuid: 'a-uuid',
@@ -331,14 +331,14 @@ void main() {
         equals(
           BranchVariablesState(
             dataStoreRepository: dataStoreRepository,
-            status: VariablesStatus.changing,
+            status: BranchVariablesStatus.changing,
             variables: const [],
           ),
         ),
         equals(
           BranchVariablesState(
             dataStoreRepository: dataStoreRepository,
-            status: VariablesStatus.loaded,
+            status: BranchVariablesStatus.loaded,
             variables: const [
               BranchVariable(
                 uuid: 'a-uuid',
@@ -397,32 +397,32 @@ void main() {
     });
 
     test('x test', () {
-      var value = VariablesStatus.initial;
+      var value = BranchVariablesStatus.initial;
       expect(value.isInitial, isTrue);
-      value = VariablesStatus.loaded;
+      value = BranchVariablesStatus.loaded;
       expect(value.isInitial, isFalse);
       expect(value.isLoaded, isTrue);
 
-      value = VariablesStatus.saved;
+      value = BranchVariablesStatus.saved;
       expect(value.isSaved, isTrue);
-      value = VariablesStatus.changing;
+      value = BranchVariablesStatus.changing;
       expect(value.isChanging, isTrue);
-      value = VariablesStatus.added;
+      value = BranchVariablesStatus.added;
       expect(value.isAdded, isTrue);
 
-      value = VariablesStatus.addFailedUUIDExists;
+      value = BranchVariablesStatus.addFailedUUIDExists;
       expect(value.isAddFailedUUIDExists, isTrue);
 
-      value = VariablesStatus.addFailedNameExists;
+      value = BranchVariablesStatus.addFailedNameExists;
       expect(value.isAddFailedNameExists, isTrue);
 
-      value = VariablesStatus.deleted;
+      value = BranchVariablesStatus.deleted;
       expect(value.isDeleted, isTrue);
 
-      value = VariablesStatus.deleteFailedNotFound;
+      value = BranchVariablesStatus.deleteFailedNotFound;
       expect(value.isDeleteFailedNotFound, isTrue);
 
-      value = VariablesStatus.failure;
+      value = BranchVariablesStatus.failure;
       expect(value.isFailure, isTrue);
     });
   });

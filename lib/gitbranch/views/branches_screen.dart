@@ -41,7 +41,7 @@ class BranchesScreenState extends State<BranchesScreen> {
       builder: (context, state) => BlocBuilder<BranchVariableValuesCubit, BranchVariableValuesState>(
         builder: (context, _) => Scaffold(
           appBar: AppBar(
-            title: Text(l10n.branches),
+            title: Text(l10n.gitBranches),
             actions: [
               IconButton(
                 key: const Key('AddIcon'),

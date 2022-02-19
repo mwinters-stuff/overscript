@@ -3,27 +3,26 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:overscript/branch_variable/branch_variable.dart';
-import 'package:overscript/branch_variable_value/branch_variable_value.dart';
+import 'package:overscript/global_variable/global_variable.dart';
 import 'package:overscript/l10n/l10n.dart';
 import 'package:overscript/repositories/repositories.dart';
 import 'package:overscript/widgets/widgets.dart';
 import 'package:uuid/uuid.dart';
 
-class BranchVariablesScreen extends StatefulWidget {
-  const BranchVariablesScreen({Key? key}) : super(key: key);
+class GlobalVariablesScreen extends StatefulWidget {
+  const GlobalVariablesScreen({Key? key}) : super(key: key);
 
-  static const actionIcon = LineIcons.list;
-  static const routeName = '/variables';
+  static const actionIcon = LineIcons.alternateList;
+  static const routeName = '/globalVariables';
   static MaterialPageRoute pageRoute(BuildContext context) => MaterialPageRoute(
-        builder: (BuildContext context) => const BranchVariablesScreen(),
+        builder: (BuildContext context) => const GlobalVariablesScreen(),
       );
 
   @override
-  BranchVariablesScreenState createState() => BranchVariablesScreenState();
+  GlobalVariablesScreenState createState() => GlobalVariablesScreenState();
 }
 
-class BranchVariablesScreenState extends State<BranchVariablesScreen> {
+class GlobalVariablesScreenState extends State<GlobalVariablesScreen> {
   final _formKey = GlobalKey<FormBuilderState>();
 
   @override
@@ -46,11 +45,11 @@ class BranchVariablesScreenState extends State<BranchVariablesScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    return BlocBuilder<BranchVariablesCubit, BranchVariablesState>(
-      builder: (context, state) => BlocBuilder<BranchVariableValuesCubit, BranchVariableValuesState>(
+    return BlocBuilder<GlobalVariablesCubit, GlobalVariablesState>(
+      builder: (context, state) => BlocBuilder<GlobalVariablesCubit, GlobalVariablesState>(
         builder: (context, _) => Scaffold(
           appBar: AppBar(
-            title: Text(l10n.branchVariables),
+            title: Text(l10n.globalVariables),
             actions: [
               IconButton(
                 key: const Key('AddIcon'),
@@ -78,7 +77,7 @@ class BranchVariablesScreenState extends State<BranchVariablesScreen> {
         autovalidateMode: AutovalidateMode.disabled,
         initialValue: const {
           'name': '',
-          'defaultValue': '',
+          'value': '',
         },
         skipDisabled: true,
         child: Column(
@@ -97,11 +96,11 @@ class BranchVariablesScreenState extends State<BranchVariablesScreen> {
               textInputAction: TextInputAction.next,
             ),
             FormBuilderTextField(
-              key: const Key('defaultValueInput'),
+              key: const Key('valueInput'),
               autovalidateMode: AutovalidateMode.always,
-              name: 'defaultValue',
+              name: 'value',
               decoration: InputDecoration(
-                labelText: l10n.defaultValue,
+                labelText: l10n.value,
               ),
               validator: FormBuilderValidators.compose([
                 FormBuilderValidators.required(context),
@@ -115,11 +114,11 @@ class BranchVariablesScreenState extends State<BranchVariablesScreen> {
       onConfirmButton: () => {
         if (_formKey.currentState?.saveAndValidate() ?? false)
           {
-            context.read<BranchVariablesCubit>().add(
-                  BranchVariable(
+            context.read<GlobalVariablesCubit>().add(
+                  GlobalVariable(
                     uuid: const Uuid().v1(),
                     name: _formKey.currentState?.value['name'] as String,
-                    defaultValue: _formKey.currentState?.value['defaultValue'] as String,
+                    value: _formKey.currentState?.value['value'] as String,
                   ),
                 ),
           }
@@ -127,11 +126,11 @@ class BranchVariablesScreenState extends State<BranchVariablesScreen> {
     );
   }
 
-  Widget _listView(List<BranchVariable> branches) {
+  Widget _listView(List<GlobalVariable> variables) {
     return ListView.builder(
-      itemCount: branches.length,
-      itemBuilder: (context, index) => BranchVariableListItem(
-        variable: branches[index],
+      itemCount: variables.length,
+      itemBuilder: (context, index) => GlobalVariableListItem(
+        variable: variables[index],
       ),
     );
   }

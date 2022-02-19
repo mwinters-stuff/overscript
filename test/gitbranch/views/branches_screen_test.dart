@@ -89,6 +89,8 @@ void main() {
       expect(find.byType(BranchesScreen), findsOneWidget);
       expect(find.byType(BranchListItem), findsNWidgets(2));
 
+      expect(find.text('GIT Branches'), findsOneWidget);
+
       expect(find.text('master'), findsOneWidget);
       expect(find.text('/home/user/src/project'), findsOneWidget);
 
