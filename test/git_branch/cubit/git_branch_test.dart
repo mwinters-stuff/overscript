@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:overscript/gitbranch/cubit/gitbranch.dart';
+import 'package:overscript/git_branch/git_branch.dart';
 
 void main() {
   group('GitBranch', () {

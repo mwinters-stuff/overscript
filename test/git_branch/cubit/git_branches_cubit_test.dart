@@ -7,9 +7,7 @@
 
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:overscript/gitbranch/cubit/gitbranch.dart';
-
-import 'package:overscript/gitbranch/cubit/gitbranches_cubit.dart';
+import 'package:overscript/git_branch/git_branch.dart';
 import 'package:overscript/repositories/data_store_repository.dart';
 
 import '../../helpers/helpers.dart';

@@ -1,9 +1,9 @@
 import 'package:equatable/equatable.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:overscript/gitbranch/cubit/gitbranch.dart';
+import 'package:overscript/git_branch/git_branch.dart';
 import 'package:overscript/repositories/data_store_repository.dart';
 
-part 'gitbranches_state.dart';
+part 'git_branches_state.dart';
 
 class GitBranchesCubit extends Cubit<GitBranchesState> {
   GitBranchesCubit({required DataStoreRepository dataStoreRepository}) : super(GitBranchesState(dataStoreRepository: dataStoreRepository));

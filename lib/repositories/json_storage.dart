@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:overscript/branch_variable/branch_variable.dart';
 import 'package:overscript/branch_variable_value/branch_variable_value.dart';
-import 'package:overscript/gitbranch/cubit/gitbranch.dart';
+import 'package:overscript/git_branch/git_branch.dart';
 import 'package:overscript/global_variable/global_variable.dart';
 
 part 'json_storage.g.dart';

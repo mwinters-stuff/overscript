@@ -1,4 +1,4 @@
-part of 'gitbranches_cubit.dart';
+part of 'git_branches_cubit.dart';
 
 enum GitBranchesStatus { initial, changing, loaded, saved, added, addFailedUUIDExists, addFailedNameExists, addFailedDirectoryExists, addFailedOriginMismatch, deleted, deleteFailedNotFound, failure }
 

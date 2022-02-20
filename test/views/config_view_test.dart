@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:overscript/branch_variable/branch_variable.dart';
-import 'package:overscript/gitbranch/gitbranch.dart';
+import 'package:overscript/git_branch/git_branch.dart';
 import 'package:overscript/global_variable/global_variable.dart';
 import 'package:overscript/l10n/l10n.dart';
 import 'package:overscript/views/views.dart';

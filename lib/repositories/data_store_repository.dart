@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:file/file.dart';
 import 'package:overscript/branch_variable/branch_variable.dart';
 import 'package:overscript/branch_variable_value/branch_variable_value.dart';
-import 'package:overscript/gitbranch/cubit/gitbranch.dart';
+import 'package:overscript/git_branch/git_branch.dart';
 import 'package:overscript/global_variable/global_variable.dart';
 import 'package:overscript/repositories/json_storage.dart';
 import 'package:uuid/uuid.dart';

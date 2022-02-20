@@ -15,7 +15,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:overscript/branch_variable/branch_variable.dart';
 import 'package:overscript/branch_variable_value/cubit/branch_variable_values_cubit.dart';
-import 'package:overscript/gitbranch/gitbranch.dart';
+import 'package:overscript/git_branch/git_branch.dart';
 import 'package:overscript/global_variable/global_variable.dart';
 import 'package:overscript/repositories/repositories.dart';
 import 'package:overscript/theme/theme.dart';

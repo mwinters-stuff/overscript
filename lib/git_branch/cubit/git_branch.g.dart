@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'gitbranch.dart';
+part of 'git_branch.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
