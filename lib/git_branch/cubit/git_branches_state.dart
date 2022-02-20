@@ -24,14 +24,14 @@ class GitBranchesState extends Equatable {
     List<GitBranch>? branches,
   }) {
     if (branches != null) {
-      dataStoreRepository.branches = branches;
+      dataStoreRepository.gitBranches = branches;
     }
   }
 
   final GitBranchesStatus status;
   final DataStoreRepository dataStoreRepository;
 
-  List<GitBranch> get branches => dataStoreRepository.branches;
+  List<GitBranch> get branches => dataStoreRepository.gitBranches;
 
   GitBranchesState copyWith({
     required GitBranchesStatus status,
@@ -81,7 +81,7 @@ class GitBranchesState extends Equatable {
   GitBranchesState load() {
     return copyWith(
       status: GitBranchesStatus.loaded,
-      branches: List.from(dataStoreRepository.branches),
+      branches: List.from(dataStoreRepository.gitBranches),
     );
   }
 
@@ -104,7 +104,7 @@ class GitBranchesState extends Equatable {
 
     return copyWith(
       status: GitBranchesStatus.added,
-      branches: dataStoreRepository.addBranch(branch),
+      branches: dataStoreRepository.addGitBranch(branch),
     );
   }
 
@@ -115,7 +115,7 @@ class GitBranchesState extends Equatable {
 
     return copyWith(
       status: GitBranchesStatus.deleted,
-      branches: dataStoreRepository.deleteBranch(branch),
+      branches: dataStoreRepository.deleteGitBranch(branch),
     );
   }
 

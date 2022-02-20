@@ -54,7 +54,12 @@ void main() {
       expect(
         value.toString(),
         equals(
-          '{uuid: uuid, name: name, directory: directory, origin: origin}',
+          '{\n'
+          '  "uuid": "uuid",\n'
+          '  "name": "name",\n'
+          '  "directory": "directory",\n'
+          '  "origin": "origin"\n'
+          '}',
         ),
       );
     });

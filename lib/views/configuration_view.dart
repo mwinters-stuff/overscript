@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:overscript/branch_variable/branch_variable.dart';
 import 'package:overscript/git_branch/git_branch.dart';
+import 'package:overscript/global_environment_variable/global_environment_variable.dart';
 import 'package:overscript/global_variable/global_variable.dart';
 import 'package:overscript/l10n/l10n.dart';
 import 'package:overscript/widgets/action_button.dart';
@@ -41,6 +42,11 @@ class ConfigurationView extends StatelessWidget {
             caption: l10n.globalVariables,
             icon: GlobalVariablesScreen.actionIcon,
             onPressed: () => Navigator.of(context).pushNamed(GlobalVariablesScreen.routeName),
+          ),
+          ActionButton(
+            caption: l10n.globalEnvironmentVariables,
+            icon: GlobalEnvironmentVariablesScreen.actionIcon,
+            onPressed: () => Navigator.of(context).pushNamed(GlobalEnvironmentVariablesScreen.routeName),
           ),
           ActionButton(
             caption: l10n.scripts,

@@ -17,7 +17,7 @@
       "defaultValue": "def3"
     }
   ],
-  "branches": [
+  "gitBranches": [
     {
       "uuid": "d8d47d80-8c66-11ec-81b5-276a65e797f8",
       "name": "main",
@@ -84,6 +84,28 @@
       "uuid": "8a3bf880-9150-11ec-b05c-6582715a29ba",
       "name": "bob",
       "value": "/home/mathew/VirtualBox VMs/vmware/win11vb"
+    }
+  ],
+  "globalEnvironmentVariables": [
+    {
+      "uuid": "d36186f0-912e-11ec-81a1-974e1d316906",
+      "name": "var",
+      "value": "abc"
+    },
+    {
+      "uuid": "d7d9c8a0-912e-11ec-81a1-974e1d316906",
+      "name": "var2",
+      "value": "abc"
+    },
+    {
+      "uuid": "8a3bf880-9150-11ec-b05c-6582715a29ba",
+      "name": "bob",
+      "value": "/home/mathew/VirtualBox VMs/vmware/win11vb"
+    },
+    {
+      "uuid": "c23ada30-9218-11ec-aac1-fdb42415a5fb",
+      "name": "sdasd",
+      "value": "asdasdasdasd"
     }
   ]
 }

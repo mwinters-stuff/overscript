@@ -48,9 +48,11 @@ void main() {
 
       expect(
         value.toString(),
-        equals(
-          '{uuid: uuid, name: name, defaultValue: default}',
-        ),
+        equals('{\n'
+            '  "uuid": "uuid",\n'
+            '  "name": "name",\n'
+            '  "defaultValue": "default"\n'
+            '}'),
       );
     });
 

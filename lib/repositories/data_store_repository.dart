@@ -4,24 +4,27 @@ import 'package:file/file.dart';
 import 'package:overscript/branch_variable/branch_variable.dart';
 import 'package:overscript/branch_variable_value/branch_variable_value.dart';
 import 'package:overscript/git_branch/git_branch.dart';
+import 'package:overscript/global_environment_variable/global_environment_variable.dart';
 import 'package:overscript/global_variable/global_variable.dart';
 import 'package:overscript/repositories/json_storage.dart';
 import 'package:uuid/uuid.dart';
 
 class DataStoreRepository {
   DataStoreRepository(this.fileSystem)
-      : branches = [],
+      : gitBranches = [],
         scripts = [],
         branchVariables = [],
         branchVariableValues = [],
-        globalVariables = [];
+        globalVariables = [],
+        globalEnvironmentVariables = [];
 
   final FileSystem fileSystem;
   List<dynamic> scripts;
   List<BranchVariable> branchVariables;
-  List<GitBranch> branches;
+  List<GitBranch> gitBranches;
   List<BranchVariableValue> branchVariableValues;
   List<GlobalVariable> globalVariables;
+  List<GlobalEnvironmentVariable> globalEnvironmentVariables;
 
   Future<bool> load(String filename) async {
     if (fileSystem.isFileSync(filename)) {
@@ -32,16 +35,24 @@ class DataStoreRepository {
       );
       scripts = List.from(jsonStorage.scripts, growable: true);
       branchVariables = List.from(jsonStorage.branchVariables, growable: true);
-      branches = List.from(jsonStorage.branches, growable: true);
+      gitBranches = List.from(jsonStorage.gitBranches, growable: true);
       branchVariableValues = List.from(jsonStorage.branchVariableValues, growable: true);
       globalVariables = List.from(jsonStorage.globalVariables, growable: true);
+      globalEnvironmentVariables = List.from(jsonStorage.globalEnvironmentVariables, growable: true);
       return Future.value(true);
     }
     return Future.value(false);
   }
 
   Future<bool> save(String filename) async {
-    final jsonStorage = JsonStorage(scripts: scripts, branchVariables: branchVariables, branches: branches, branchVariableValues: branchVariableValues, globalVariables: globalVariables);
+    final jsonStorage = JsonStorage(
+      scripts: scripts,
+      branchVariables: branchVariables,
+      gitBranches: gitBranches,
+      branchVariableValues: branchVariableValues,
+      globalVariables: globalVariables,
+      globalEnvironmentVariables: globalEnvironmentVariables,
+    );
     final output = const JsonEncoder.withIndent('  ').convert(jsonStorage);
     await fileSystem.file(filename).writeAsString(output);
     return Future.value(true);
@@ -49,7 +60,7 @@ class DataStoreRepository {
 
   List<BranchVariable> addBranchVariable(BranchVariable variable) {
     // add variable values for each branch.
-    for (final branch in branches) {
+    for (final branch in gitBranches) {
       branchVariableValues.add(
         BranchVariableValue(
           uuid: const Uuid().v1(),
@@ -69,16 +80,7 @@ class DataStoreRepository {
     return List.from(branchVariables)..removeWhere((element) => element.uuid == variable.uuid);
   }
 
-  List<GlobalVariable> addGlobalVariable(GlobalVariable variable) {
-    return List.from(globalVariables)..add(variable);
-  }
-
-  List<GlobalVariable> deleteGlobalVariable(GlobalVariable variable) {
-    // delete branch values
-    return List.from(globalVariables)..removeWhere((element) => element.uuid == variable.uuid);
-  }
-
-  List<GitBranch> addBranch(GitBranch branch) {
+  List<GitBranch> addGitBranch(GitBranch branch) {
     // add variable values for each branch.
     for (final variable in branchVariables) {
       branchVariableValues.add(
@@ -91,12 +93,30 @@ class DataStoreRepository {
       );
     }
 
-    return List.from(branches)..add(branch);
+    return List.from(gitBranches)..add(branch);
   }
 
-  List<GitBranch> deleteBranch(GitBranch branch) {
+  List<GitBranch> deleteGitBranch(GitBranch branch) {
     // delete branch values
     branchVariableValues.removeWhere((element) => element.branchUuid == branch.uuid);
-    return List.from(branches)..removeWhere((element) => element.uuid == branch.uuid);
+    return List.from(gitBranches)..removeWhere((element) => element.uuid == branch.uuid);
+  }
+
+  List<GlobalVariable> addGlobalVariable(GlobalVariable variable) {
+    return List.from(globalVariables)..add(variable);
+  }
+
+  List<GlobalVariable> deleteGlobalVariable(GlobalVariable variable) {
+    // delete branch values
+    return List.from(globalVariables)..removeWhere((element) => element.uuid == variable.uuid);
+  }
+
+  List<GlobalEnvironmentVariable> addGlobalEnvironmentVariable(GlobalEnvironmentVariable variable) {
+    return List.from(globalEnvironmentVariables)..add(variable);
+  }
+
+  List<GlobalEnvironmentVariable> deleteGlobalEnvironmentVariable(GlobalEnvironmentVariable variable) {
+    // delete branch values
+    return List.from(globalEnvironmentVariables)..removeWhere((element) => element.uuid == variable.uuid);
   }
 }

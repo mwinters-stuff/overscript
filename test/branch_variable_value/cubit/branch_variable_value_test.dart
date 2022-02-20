@@ -60,7 +60,12 @@ void main() {
       expect(
         value.toString(),
         equals(
-          '{uuid: uuid, branchUuid: branch-uuid, variableUuid: variable-uuid, value: value}',
+          '{\n'
+          '  "uuid": "uuid",\n'
+          '  "branchUuid": "branch-uuid",\n'
+          '  "variableUuid": "variable-uuid",\n'
+          '  "value": "value"\n'
+          '}',
         ),
       );
     });

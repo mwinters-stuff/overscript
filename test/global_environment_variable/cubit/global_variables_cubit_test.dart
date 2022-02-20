@@ -1,12 +1,12 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:overscript/global_variable/global_variable.dart';
+import 'package:overscript/global_environment_variable/global_environment_variable.dart';
 import 'package:overscript/repositories/data_store_repository.dart';
 
 import '../../helpers/helpers.dart';
 
 void main() {
-  group('GlobalVariablesCubit', () {
+  group('GlobalEnvironmentVariablesCubit', () {
     late DataStoreRepository dataStoreRepository;
 
     setUp(() {
@@ -16,17 +16,17 @@ void main() {
     test(
       'initial state is empty list',
       () {
-        final cubit = GlobalVariablesCubit(dataStoreRepository: dataStoreRepository);
-        expect(cubit.state, equals(GlobalVariablesState(dataStoreRepository: dataStoreRepository)));
-        expect(cubit.state.variables, equals(<GlobalVariable>[]));
+        final cubit = GlobalEnvironmentVariablesCubit(dataStoreRepository: dataStoreRepository);
+        expect(cubit.state, equals(GlobalEnvironmentVariablesState(dataStoreRepository: dataStoreRepository)));
+        expect(cubit.state.variables, equals(<GlobalEnvironmentVariable>[]));
       },
     );
 
-    blocTest<GlobalVariablesCubit, GlobalVariablesState>(
+    blocTest<GlobalEnvironmentVariablesCubit, GlobalEnvironmentVariablesState>(
       'add success',
-      build: () => GlobalVariablesCubit(dataStoreRepository: dataStoreRepository),
+      build: () => GlobalEnvironmentVariablesCubit(dataStoreRepository: dataStoreRepository),
       act: (cubit) => cubit.add(
-        const GlobalVariable(
+        const GlobalEnvironmentVariable(
           uuid: 'a-uuid',
           name: 'variable-one',
           value: '/some/value',
@@ -34,18 +34,18 @@ void main() {
       ),
       expect: () => [
         equals(
-          GlobalVariablesState(
+          GlobalEnvironmentVariablesState(
             dataStoreRepository: dataStoreRepository,
-            status: GlobalVariablesStatus.changing,
+            status: GlobalEnvironmentVariablesStatus.changing,
             variables: const [],
           ),
         ),
         equals(
-          GlobalVariablesState(
+          GlobalEnvironmentVariablesState(
             dataStoreRepository: dataStoreRepository,
-            status: GlobalVariablesStatus.added,
+            status: GlobalEnvironmentVariablesStatus.added,
             variables: const [
-              GlobalVariable(
+              GlobalEnvironmentVariable(
                 uuid: 'a-uuid',
                 name: 'variable-one',
                 value: '/some/value',
@@ -56,20 +56,20 @@ void main() {
       ],
     );
 
-    blocTest<GlobalVariablesCubit, GlobalVariablesState>(
+    blocTest<GlobalEnvironmentVariablesCubit, GlobalEnvironmentVariablesState>(
       'add two',
-      build: () => GlobalVariablesCubit(dataStoreRepository: dataStoreRepository),
+      build: () => GlobalEnvironmentVariablesCubit(dataStoreRepository: dataStoreRepository),
       act: (cubit) {
         cubit
           ..add(
-            const GlobalVariable(
+            const GlobalEnvironmentVariable(
               uuid: 'a-uuid',
               name: 'variable-one',
               value: '/some/value',
             ),
           )
           ..add(
-            const GlobalVariable(
+            const GlobalEnvironmentVariable(
               uuid: 'a-uuid-2',
               name: 'variable-two',
               value: '/some/other/value',
@@ -78,18 +78,18 @@ void main() {
       },
       expect: () => [
         equals(
-          GlobalVariablesState(
+          GlobalEnvironmentVariablesState(
             dataStoreRepository: dataStoreRepository,
-            status: GlobalVariablesStatus.changing,
+            status: GlobalEnvironmentVariablesStatus.changing,
             variables: const [],
           ),
         ),
         equals(
-          GlobalVariablesState(
+          GlobalEnvironmentVariablesState(
             dataStoreRepository: dataStoreRepository,
-            status: GlobalVariablesStatus.added,
+            status: GlobalEnvironmentVariablesStatus.added,
             variables: const [
-              GlobalVariable(
+              GlobalEnvironmentVariable(
                 uuid: 'a-uuid',
                 name: 'variable-one',
                 value: '/some/value',
@@ -98,11 +98,11 @@ void main() {
           ),
         ),
         equals(
-          GlobalVariablesState(
+          GlobalEnvironmentVariablesState(
             dataStoreRepository: dataStoreRepository,
-            status: GlobalVariablesStatus.changing,
+            status: GlobalEnvironmentVariablesStatus.changing,
             variables: const [
-              GlobalVariable(
+              GlobalEnvironmentVariable(
                 uuid: 'a-uuid',
                 name: 'variable-one',
                 value: '/some/value',
@@ -111,16 +111,16 @@ void main() {
           ),
         ),
         equals(
-          GlobalVariablesState(
+          GlobalEnvironmentVariablesState(
             dataStoreRepository: dataStoreRepository,
-            status: GlobalVariablesStatus.added,
+            status: GlobalEnvironmentVariablesStatus.added,
             variables: const [
-              GlobalVariable(
+              GlobalEnvironmentVariable(
                 uuid: 'a-uuid',
                 name: 'variable-one',
                 value: '/some/value',
               ),
-              GlobalVariable(
+              GlobalEnvironmentVariable(
                 uuid: 'a-uuid-2',
                 name: 'variable-two',
                 value: '/some/other/value',
@@ -131,18 +131,18 @@ void main() {
       ],
     );
 
-    blocTest<GlobalVariablesCubit, GlobalVariablesState>(
+    blocTest<GlobalEnvironmentVariablesCubit, GlobalEnvironmentVariablesState>(
       'add uuid already exists',
-      build: () => GlobalVariablesCubit(dataStoreRepository: dataStoreRepository)
+      build: () => GlobalEnvironmentVariablesCubit(dataStoreRepository: dataStoreRepository)
         ..add(
-          const GlobalVariable(
+          const GlobalEnvironmentVariable(
             uuid: 'a-uuid',
             name: 'variable-one',
             value: '/some/value',
           ),
         ),
       act: (cubit) => cubit.add(
-        const GlobalVariable(
+        const GlobalEnvironmentVariable(
           uuid: 'a-uuid',
           name: 'variable-two',
           value: '/some/other/value',
@@ -150,11 +150,11 @@ void main() {
       ),
       expect: () => [
         equals(
-          GlobalVariablesState(
+          GlobalEnvironmentVariablesState(
             dataStoreRepository: dataStoreRepository,
-            status: GlobalVariablesStatus.changing,
+            status: GlobalEnvironmentVariablesStatus.changing,
             variables: const [
-              GlobalVariable(
+              GlobalEnvironmentVariable(
                 uuid: 'a-uuid',
                 name: 'variable-one',
                 value: '/some/value',
@@ -163,11 +163,11 @@ void main() {
           ),
         ),
         equals(
-          GlobalVariablesState(
+          GlobalEnvironmentVariablesState(
             dataStoreRepository: dataStoreRepository,
-            status: GlobalVariablesStatus.addFailedUUIDExists,
+            status: GlobalEnvironmentVariablesStatus.addFailedUUIDExists,
             variables: const [
-              GlobalVariable(
+              GlobalEnvironmentVariable(
                 uuid: 'a-uuid',
                 name: 'variable-one',
                 value: '/some/value',
@@ -178,18 +178,18 @@ void main() {
       ],
     );
 
-    blocTest<GlobalVariablesCubit, GlobalVariablesState>(
+    blocTest<GlobalEnvironmentVariablesCubit, GlobalEnvironmentVariablesState>(
       'add name already exists',
-      build: () => GlobalVariablesCubit(dataStoreRepository: dataStoreRepository)
+      build: () => GlobalEnvironmentVariablesCubit(dataStoreRepository: dataStoreRepository)
         ..add(
-          const GlobalVariable(
+          const GlobalEnvironmentVariable(
             uuid: 'a-uuid',
             name: 'variable-one',
             value: '/some/value',
           ),
         ),
       act: (cubit) => cubit.add(
-        const GlobalVariable(
+        const GlobalEnvironmentVariable(
           uuid: 'a-uuid-2',
           name: 'variable-one',
           value: '/some/other/value',
@@ -197,11 +197,11 @@ void main() {
       ),
       expect: () => [
         equals(
-          GlobalVariablesState(
+          GlobalEnvironmentVariablesState(
             dataStoreRepository: dataStoreRepository,
-            status: GlobalVariablesStatus.changing,
+            status: GlobalEnvironmentVariablesStatus.changing,
             variables: const [
-              GlobalVariable(
+              GlobalEnvironmentVariable(
                 uuid: 'a-uuid',
                 name: 'variable-one',
                 value: '/some/value',
@@ -210,11 +210,11 @@ void main() {
           ),
         ),
         equals(
-          GlobalVariablesState(
+          GlobalEnvironmentVariablesState(
             dataStoreRepository: dataStoreRepository,
-            status: GlobalVariablesStatus.addFailedNameExists,
+            status: GlobalEnvironmentVariablesStatus.addFailedNameExists,
             variables: const [
-              GlobalVariable(
+              GlobalEnvironmentVariable(
                 uuid: 'a-uuid',
                 name: 'variable-one',
                 value: '/some/value',
@@ -225,18 +225,18 @@ void main() {
       ],
     );
 
-    blocTest<GlobalVariablesCubit, GlobalVariablesState>(
+    blocTest<GlobalEnvironmentVariablesCubit, GlobalEnvironmentVariablesState>(
       'delete success',
-      build: () => GlobalVariablesCubit(dataStoreRepository: dataStoreRepository)
+      build: () => GlobalEnvironmentVariablesCubit(dataStoreRepository: dataStoreRepository)
         ..add(
-          const GlobalVariable(
+          const GlobalEnvironmentVariable(
             uuid: 'a-uuid',
             name: 'variable-one',
             value: '/some/value',
           ),
         ),
       act: (cubit) => cubit.delete(
-        const GlobalVariable(
+        const GlobalEnvironmentVariable(
           uuid: 'a-uuid',
           name: 'variable-one',
           value: '/some/value',
@@ -244,11 +244,11 @@ void main() {
       ),
       expect: () => [
         equals(
-          GlobalVariablesState(
+          GlobalEnvironmentVariablesState(
             dataStoreRepository: dataStoreRepository,
-            status: GlobalVariablesStatus.changing,
+            status: GlobalEnvironmentVariablesStatus.changing,
             variables: const [
-              GlobalVariable(
+              GlobalEnvironmentVariable(
                 uuid: 'a-uuid',
                 name: 'variable-one',
                 value: '/some/value',
@@ -257,27 +257,27 @@ void main() {
           ),
         ),
         equals(
-          GlobalVariablesState(
+          GlobalEnvironmentVariablesState(
             dataStoreRepository: dataStoreRepository,
-            status: GlobalVariablesStatus.deleted,
+            status: GlobalEnvironmentVariablesStatus.deleted,
             variables: const [],
           ),
         )
       ],
     );
 
-    blocTest<GlobalVariablesCubit, GlobalVariablesState>(
+    blocTest<GlobalEnvironmentVariablesCubit, GlobalEnvironmentVariablesState>(
       'delete failed not found',
-      build: () => GlobalVariablesCubit(dataStoreRepository: dataStoreRepository)
+      build: () => GlobalEnvironmentVariablesCubit(dataStoreRepository: dataStoreRepository)
         ..add(
-          const GlobalVariable(
+          const GlobalEnvironmentVariable(
             uuid: 'a-uuid',
             name: 'variable-one',
             value: '/some/value',
           ),
         ),
       act: (cubit) => cubit.delete(
-        const GlobalVariable(
+        const GlobalEnvironmentVariable(
           uuid: 'a-uuid-2',
           name: 'variable-one',
           value: '/some/value',
@@ -285,11 +285,11 @@ void main() {
       ),
       expect: () => [
         equals(
-          GlobalVariablesState(
+          GlobalEnvironmentVariablesState(
             dataStoreRepository: dataStoreRepository,
-            status: GlobalVariablesStatus.changing,
+            status: GlobalEnvironmentVariablesStatus.changing,
             variables: const [
-              GlobalVariable(
+              GlobalEnvironmentVariable(
                 uuid: 'a-uuid',
                 name: 'variable-one',
                 value: '/some/value',
@@ -298,11 +298,11 @@ void main() {
           ),
         ),
         equals(
-          GlobalVariablesState(
+          GlobalEnvironmentVariablesState(
             dataStoreRepository: dataStoreRepository,
-            status: GlobalVariablesStatus.deleteFailedNotFound,
+            status: GlobalEnvironmentVariablesStatus.deleteFailedNotFound,
             variables: const [
-              GlobalVariable(
+              GlobalEnvironmentVariable(
                 uuid: 'a-uuid',
                 name: 'variable-one',
                 value: '/some/value',
@@ -313,32 +313,32 @@ void main() {
       ],
     );
 
-    blocTest<GlobalVariablesCubit, GlobalVariablesState>(
+    blocTest<GlobalEnvironmentVariablesCubit, GlobalEnvironmentVariablesState>(
       'load from datastore',
       setUp: () {
         dataStoreRepository.load('a-file.json');
       },
-      build: () => GlobalVariablesCubit(dataStoreRepository: dataStoreRepository),
+      build: () => GlobalEnvironmentVariablesCubit(dataStoreRepository: dataStoreRepository),
       act: (cubit) => cubit.load(),
       expect: () => [
         equals(
-          GlobalVariablesState(
+          GlobalEnvironmentVariablesState(
             dataStoreRepository: dataStoreRepository,
-            status: GlobalVariablesStatus.changing,
+            status: GlobalEnvironmentVariablesStatus.changing,
             variables: const [],
           ),
         ),
         equals(
-          GlobalVariablesState(
+          GlobalEnvironmentVariablesState(
             dataStoreRepository: dataStoreRepository,
-            status: GlobalVariablesStatus.loaded,
+            status: GlobalEnvironmentVariablesStatus.loaded,
             variables: const [
-              GlobalVariable(
+              GlobalEnvironmentVariable(
                 uuid: 'g-uuid-1',
                 name: 'global-variable-1',
                 value: '/global/variable/value/1',
               ),
-              GlobalVariable(
+              GlobalEnvironmentVariable(
                 uuid: 'a-uuid-2',
                 name: 'global-variable-2',
                 value: '/global/variable/value/2',
@@ -350,16 +350,16 @@ void main() {
     );
 
     test('test get variable', () {
-      final cubit = GlobalVariablesCubit(dataStoreRepository: dataStoreRepository)
+      final cubit = GlobalEnvironmentVariablesCubit(dataStoreRepository: dataStoreRepository)
         ..add(
-          const GlobalVariable(
+          const GlobalEnvironmentVariable(
             uuid: 'a-uuid',
             name: 'variable-one',
             value: '/some/value',
           ),
         )
         ..add(
-          const GlobalVariable(
+          const GlobalEnvironmentVariable(
             uuid: 'a-uuid-2',
             name: 'variable-two',
             value: '/some/other/value',
@@ -370,7 +370,7 @@ void main() {
       expect(
         cubit.getVariable('a-uuid-2'),
         equals(
-          const GlobalVariable(
+          const GlobalEnvironmentVariable(
             uuid: 'a-uuid-2',
             name: 'variable-two',
             value: '/some/other/value',
@@ -380,7 +380,7 @@ void main() {
       expect(
         cubit.getVariable('a-uuid'),
         equals(
-          const GlobalVariable(
+          const GlobalEnvironmentVariable(
             uuid: 'a-uuid',
             name: 'variable-one',
             value: '/some/value',
@@ -389,19 +389,19 @@ void main() {
       );
     });
 
-    blocTest<GlobalVariablesCubit, GlobalVariablesState>(
+    blocTest<GlobalEnvironmentVariablesCubit, GlobalEnvironmentVariablesState>(
       'update success',
-      build: () => GlobalVariablesCubit(
+      build: () => GlobalEnvironmentVariablesCubit(
         dataStoreRepository: dataStoreRepository,
       )..add(
-          const GlobalVariable(
+          const GlobalEnvironmentVariable(
             uuid: 'a-uuid',
             name: 'variable-one',
             value: '/some/value',
           ),
         ),
       act: (cubit) => cubit.updateValue(
-        const GlobalVariable(
+        const GlobalEnvironmentVariable(
           uuid: 'a-uuid',
           name: 'variable-one',
           value: 'updated value',
@@ -409,11 +409,11 @@ void main() {
       ),
       expect: () => [
         equals(
-          GlobalVariablesState(
+          GlobalEnvironmentVariablesState(
             dataStoreRepository: dataStoreRepository,
-            status: GlobalVariablesStatus.changing,
+            status: GlobalEnvironmentVariablesStatus.changing,
             variables: const [
-              GlobalVariable(
+              GlobalEnvironmentVariable(
                 uuid: 'a-uuid',
                 name: 'variable-one',
                 value: '/some/value',
@@ -422,11 +422,11 @@ void main() {
           ),
         ),
         equals(
-          GlobalVariablesState(
+          GlobalEnvironmentVariablesState(
             dataStoreRepository: dataStoreRepository,
-            status: GlobalVariablesStatus.updated,
+            status: GlobalEnvironmentVariablesStatus.updated,
             variables: const [
-              GlobalVariable(
+              GlobalEnvironmentVariable(
                 uuid: 'a-uuid',
                 name: 'variable-one',
                 value: 'updated value',
@@ -437,30 +437,30 @@ void main() {
       ],
     );
 
-    blocTest<GlobalVariablesCubit, GlobalVariablesState>(
+    blocTest<GlobalEnvironmentVariablesCubit, GlobalEnvironmentVariablesState>(
       'update failed uuid not found',
-      build: () => GlobalVariablesCubit(
+      build: () => GlobalEnvironmentVariablesCubit(
         dataStoreRepository: dataStoreRepository,
       )..add(
-          const GlobalVariable(
+          const GlobalEnvironmentVariable(
             uuid: 'a-uuid',
             name: 'variable-one',
             value: '/some/value',
           ),
         ),
       act: (cubit) => cubit.updateValue(
-        const GlobalVariable(
+        const GlobalEnvironmentVariable(
           uuid: 'a-uuid-bad',
           name: 'variable-one',
           value: 'updated value',
         ),
       ),
       expect: () => [
-        GlobalVariablesState(
+        GlobalEnvironmentVariablesState(
           dataStoreRepository: dataStoreRepository,
-          status: GlobalVariablesStatus.changing,
+          status: GlobalEnvironmentVariablesStatus.changing,
           variables: const [
-            GlobalVariable(
+            GlobalEnvironmentVariable(
               uuid: 'a-uuid',
               name: 'variable-one',
               value: '/some/value',
@@ -468,11 +468,11 @@ void main() {
           ],
         ),
         equals(
-          GlobalVariablesState(
+          GlobalEnvironmentVariablesState(
             dataStoreRepository: dataStoreRepository,
-            status: GlobalVariablesStatus.updateFailedUUIDNotFound,
+            status: GlobalEnvironmentVariablesStatus.updateFailedUUIDNotFound,
             variables: const [
-              GlobalVariable(
+              GlobalEnvironmentVariable(
                 uuid: 'a-uuid',
                 name: 'variable-one',
                 value: '/some/value',
@@ -483,38 +483,38 @@ void main() {
       ],
     );
     test('status test', () {
-      var value = GlobalVariablesStatus.initial;
+      var value = GlobalEnvironmentVariablesStatus.initial;
       expect(value.isInitial, isTrue);
-      value = GlobalVariablesStatus.loaded;
+      value = GlobalEnvironmentVariablesStatus.loaded;
       expect(value.isInitial, isFalse);
       expect(value.isLoaded, isTrue);
 
-      value = GlobalVariablesStatus.saved;
+      value = GlobalEnvironmentVariablesStatus.saved;
       expect(value.isSaved, isTrue);
-      value = GlobalVariablesStatus.changing;
+      value = GlobalEnvironmentVariablesStatus.changing;
       expect(value.isChanging, isTrue);
-      value = GlobalVariablesStatus.added;
+      value = GlobalEnvironmentVariablesStatus.added;
       expect(value.isAdded, isTrue);
 
-      value = GlobalVariablesStatus.addFailedUUIDExists;
+      value = GlobalEnvironmentVariablesStatus.addFailedUUIDExists;
       expect(value.isAddFailedUUIDExists, isTrue);
 
-      value = GlobalVariablesStatus.addFailedNameExists;
+      value = GlobalEnvironmentVariablesStatus.addFailedNameExists;
       expect(value.isAddFailedNameExists, isTrue);
 
-      value = GlobalVariablesStatus.deleted;
+      value = GlobalEnvironmentVariablesStatus.deleted;
       expect(value.isDeleted, isTrue);
 
-      value = GlobalVariablesStatus.deleteFailedNotFound;
+      value = GlobalEnvironmentVariablesStatus.deleteFailedNotFound;
       expect(value.isDeleteFailedNotFound, isTrue);
 
-      value = GlobalVariablesStatus.failure;
+      value = GlobalEnvironmentVariablesStatus.failure;
       expect(value.isFailure, isTrue);
 
-      value = GlobalVariablesStatus.updated;
+      value = GlobalEnvironmentVariablesStatus.updated;
       expect(value.isUpdated, isTrue);
 
-      value = GlobalVariablesStatus.updateFailedUUIDNotFound;
+      value = GlobalEnvironmentVariablesStatus.updateFailedUUIDNotFound;
       expect(value.isUpdateFailedUUIDNotFound, isTrue);
     });
   });

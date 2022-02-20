@@ -1,67 +1,20 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:overscript/branch_variable/branch_variable.dart';
-import 'package:overscript/branch_variable_value/branch_variable_value.dart';
-import 'package:overscript/git_branch/git_branch.dart';
 import 'package:overscript/repositories/json_storage.dart';
+
+import '../helpers/helpers.dart';
 
 void main() {
   group('JsonStorage', () {
-    late GitBranch mockGitBranch1;
-    late GitBranch mockGitBranch2;
-    late BranchVariable mockVariable1;
-    late BranchVariable mockVariable2;
-    late BranchVariableValue mockBranchVariableValue1;
-    late BranchVariableValue mockBranchVariableValue2;
-
-    setUp(() {
-      mockGitBranch1 = const GitBranch(
-        uuid: 'a-uuid-1',
-        name: 'master',
-        directory: '/home/user/src/project',
-        origin: 'git:someplace/bob',
-      );
-
-      mockGitBranch2 = const GitBranch(
-        uuid: 'a-uuid-2',
-        name: 'branch-one',
-        directory: '/home/user/src/banch1',
-        origin: 'git:someplace/bob',
-      );
-
-      mockVariable1 = const BranchVariable(
-        uuid: 'v-uuid-1',
-        name: 'variable1',
-        defaultValue: 'default1',
-      );
-
-      mockVariable2 = const BranchVariable(
-        uuid: 'v-uuid-2',
-        name: 'variable2',
-        defaultValue: 'default2',
-      );
-
-      mockBranchVariableValue1 = const BranchVariableValue(
-        uuid: 'bvv-uuid-1',
-        branchUuid: 'a-uuid-1',
-        variableUuid: 'v-uuid-1',
-        value: 'start value 1',
-      );
-
-      mockBranchVariableValue2 = const BranchVariableValue(
-        uuid: 'bvv-uuid-2',
-        branchUuid: 'a-uuid-2',
-        variableUuid: 'v-uuid-1',
-        value: 'start value 2',
-      );
-    });
+    setUp(() {});
 
     test('empty', () {
       const value = JsonStorage.empty();
       expect(value.scripts, equals([]));
       expect(value.branchVariables, equals([]));
-      expect(value.branches, equals([]));
+      expect(value.gitBranches, equals([]));
       expect(value.branchVariableValues, equals([]));
       expect(value.globalVariables, equals([]));
+      expect(value.globalEnvironmentVariables, equals([]));
     });
 
     test('constructor', () {
@@ -70,7 +23,7 @@ void main() {
           mockBranchVariableValue1,
           mockBranchVariableValue2,
         ],
-        branches: [
+        gitBranches: [
           mockGitBranch1,
           mockGitBranch2,
         ],
@@ -79,7 +32,14 @@ void main() {
           mockVariable2,
         ],
         scripts: const [],
-        globalVariables: const [],
+        globalVariables: [
+          mockGlobalVariable1,
+          mockGlobalVariable2,
+        ],
+        globalEnvironmentVariables: [
+          mockGlobalEnvironmentVariable1,
+          mockGlobalEnvironmentVariable2,
+        ],
       );
       expect(
         value.scripts,
@@ -91,7 +51,20 @@ void main() {
       expect(
         value.globalVariables,
         equals(
-          [],
+          [
+            mockGlobalVariable1,
+            mockGlobalVariable2,
+          ],
+        ),
+      );
+
+      expect(
+        value.globalEnvironmentVariables,
+        equals(
+          [
+            mockGlobalEnvironmentVariable1,
+            mockGlobalEnvironmentVariable2,
+          ],
         ),
       );
 
@@ -106,7 +79,7 @@ void main() {
       );
 
       expect(
-        value.branches,
+        value.gitBranches,
         equals(
           [
             mockGitBranch1,
@@ -142,7 +115,14 @@ void main() {
               mockBranchVariableValue1,
               mockBranchVariableValue2,
             ],
-            [],
+            [
+              mockGlobalVariable1,
+              mockGlobalVariable2,
+            ],
+            [
+              mockGlobalEnvironmentVariable1,
+              mockGlobalEnvironmentVariable2,
+            ],
           ],
         ),
       );
@@ -154,7 +134,7 @@ void main() {
           mockBranchVariableValue1,
           mockBranchVariableValue2,
         ],
-        branches: [
+        gitBranches: [
           mockGitBranch1,
           mockGitBranch2,
         ],
@@ -163,7 +143,14 @@ void main() {
           mockVariable2,
         ],
         scripts: const [],
-        globalVariables: const [],
+        globalVariables: [
+          mockGlobalVariable1,
+          mockGlobalVariable2,
+        ],
+        globalEnvironmentVariables: [
+          mockGlobalEnvironmentVariable1,
+          mockGlobalEnvironmentVariable2,
+        ],
       );
       final jsonValues = value.toJson();
       expect(
@@ -182,7 +169,7 @@ void main() {
         ),
       );
       expect(
-        jsonValues['branches'],
+        jsonValues['gitBranches'],
         equals(
           [
             mockGitBranch1,
@@ -202,7 +189,19 @@ void main() {
       expect(
         jsonValues['globalVariables'],
         equals(
-          [],
+          [
+            mockGlobalVariable1,
+            mockGlobalVariable2,
+          ],
+        ),
+      );
+      expect(
+        jsonValues['globalEnvironmentVariables'],
+        equals(
+          [
+            mockGlobalEnvironmentVariable1,
+            mockGlobalEnvironmentVariable2,
+          ],
         ),
       );
     });
@@ -214,7 +213,7 @@ void main() {
         mockVariable1.toJson(),
         mockVariable2.toJson(),
       ];
-      jsonValues['branches'] = [
+      jsonValues['gitBranches'] = [
         mockGitBranch1.toJson(),
         mockGitBranch2.toJson(),
       ];
@@ -222,7 +221,14 @@ void main() {
         mockBranchVariableValue1.toJson(),
         mockBranchVariableValue2.toJson(),
       ];
-      jsonValues['globalVariables'] = [];
+      jsonValues['globalVariables'] = [
+        mockGlobalVariable1.toJson(),
+        mockGlobalVariable2.toJson(),
+      ];
+      jsonValues['globalEnvironmentVariables'] = [
+        mockGlobalEnvironmentVariable1.toJson(),
+        mockGlobalEnvironmentVariable2.toJson(),
+      ];
 
       final value = JsonStorage.fromJson(jsonValues);
       expect(
@@ -242,7 +248,14 @@ void main() {
               mockBranchVariableValue1,
               mockBranchVariableValue2,
             ],
-            []
+            [
+              mockGlobalVariable1,
+              mockGlobalVariable2,
+            ],
+            [
+              mockGlobalEnvironmentVariable1,
+              mockGlobalEnvironmentVariable2,
+            ],
           ],
         ),
       );
@@ -254,7 +267,7 @@ void main() {
           mockBranchVariableValue1,
           mockBranchVariableValue2,
         ],
-        branches: [
+        gitBranches: [
           mockGitBranch1,
           mockGitBranch2,
         ],
@@ -263,14 +276,19 @@ void main() {
           mockVariable2,
         ],
         scripts: const [],
-        globalVariables: const [],
+        globalVariables: [
+          mockGlobalVariable1,
+          mockGlobalVariable2,
+        ],
+        globalEnvironmentVariables: [
+          mockGlobalEnvironmentVariable1,
+          mockGlobalEnvironmentVariable2,
+        ],
       );
       final jsonString = value.toString();
       expect(
         jsonString,
-        equals(
-          '{scripts: [], branchVariables: [{uuid: v-uuid-1, name: variable1, defaultValue: default1}, {uuid: v-uuid-2, name: variable2, defaultValue: default2}], branches: [{uuid: a-uuid-1, name: master, directory: /home/user/src/project, origin: git:someplace/bob}, {uuid: a-uuid-2, name: branch-one, directory: /home/user/src/banch1, origin: git:someplace/bob}], branchVariableValues: [{uuid: bvv-uuid-1, branchUuid: a-uuid-1, variableUuid: v-uuid-1, value: start value 1}, {uuid: bvv-uuid-2, branchUuid: a-uuid-2, variableUuid: v-uuid-1, value: start value 2}], globalVariables: []}',
-        ),
+        equals(fileContents),
       );
     });
   });

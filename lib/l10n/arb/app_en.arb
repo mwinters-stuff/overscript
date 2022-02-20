@@ -30,7 +30,8 @@
     "branchVariables":"Branch Variables",
     "gitBranches":"GIT Branches",
     "globalVariables":"Global Variables",
-    "scripts": "Scripts"
+    "scripts": "Scripts",
+    "globalEnvironmentVariables":"Global Environment Variables"
 
 
     

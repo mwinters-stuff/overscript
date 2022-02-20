@@ -5,26 +5,26 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'global_variable.g.dart';
+part 'global_environment_variable.g.dart';
 
 @JsonSerializable(
   anyMap: true,
   checked: true,
   disallowUnrecognizedKeys: true,
 )
-class GlobalVariable extends Equatable {
-  const GlobalVariable({
+class GlobalEnvironmentVariable extends Equatable {
+  const GlobalEnvironmentVariable({
     required this.uuid,
     required this.name,
     required this.value,
   });
 
-  const GlobalVariable.empty()
+  const GlobalEnvironmentVariable.empty()
       : uuid = '',
         name = '',
         value = '';
 
-  factory GlobalVariable.fromJson(Map json) => _$GlobalVariableFromJson(json);
+  factory GlobalEnvironmentVariable.fromJson(Map json) => _$GlobalEnvironmentVariableFromJson(json);
 
   @JsonKey(required: true)
   final String uuid;
@@ -33,14 +33,14 @@ class GlobalVariable extends Equatable {
   @JsonKey(required: true)
   final String value;
 
-  Map<String, dynamic> toJson() => _$GlobalVariableToJson(this);
+  Map<String, dynamic> toJson() => _$GlobalEnvironmentVariableToJson(this);
   @override
   String toString() => const JsonEncoder.withIndent('  ').convert(this);
 
   @override
   List<Object?> get props => [uuid, name, value];
 
-  GlobalVariable copyWithNewValue({required String newValue}) {
-    return GlobalVariable(uuid: uuid, name: name, value: newValue);
+  GlobalEnvironmentVariable copyWithNewValue({required String newValue}) {
+    return GlobalEnvironmentVariable(uuid: uuid, name: name, value: newValue);
   }
 }

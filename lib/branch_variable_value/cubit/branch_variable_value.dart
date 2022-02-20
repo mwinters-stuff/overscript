@@ -1,5 +1,7 @@
 // ignore_for_file: lines_longer_than_80_chars
 
+import 'dart:convert';
+
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -36,7 +38,7 @@ class BranchVariableValue extends Equatable {
 
   Map<String, dynamic> toJson() => _$BranchVariableValueToJson(this);
   @override
-  String toString() => '${toJson()}';
+  String toString() => const JsonEncoder.withIndent('  ').convert(this);
 
   @override
   List<Object?> get props => [uuid, branchUuid, variableUuid, value];

@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:overscript/branch_variable/branch_variable.dart';
 import 'package:overscript/git_branch/git_branch.dart';
+import 'package:overscript/global_environment_variable/global_environment_variable.dart';
 import 'package:overscript/global_variable/global_variable.dart';
 import 'package:overscript/l10n/l10n.dart';
 import 'package:overscript/views/views.dart';
@@ -15,12 +16,13 @@ Map<String, WidgetBuilder> routes() {
     GlobalVariablesScreen.routeName: (BuildContext context) => const Text('GlobalVariablesScreen'),
     BranchesScreen.routeName: (BuildContext context) => const Text('BranchesScreen'),
     BranchVariablesScreen.routeName: (BuildContext context) => const Text('BranchVariablesScreen'),
+    GlobalEnvironmentVariablesScreen.routeName: (BuildContext context) => const Text('GlobalEnvironmentVariablesScreen'),
     '/scripts': (BuildContext context) => const Text('ScriptsScreen'),
   };
 }
 
 void main() {
-  group('ConfigView ', () {
+  group('ConfigurationView ', () {
     final binding = TestWidgetsFlutterBinding.ensureInitialized() as TestWidgetsFlutterBinding;
 
     setUp(() {
@@ -41,6 +43,9 @@ void main() {
 
       expect(find.text('Branch Variables'), findsOneWidget);
       expect(find.byIcon(LineIcons.list), findsOneWidget);
+
+      expect(find.text('Global Environment Variables'), findsOneWidget);
+      expect(find.byIcon(Icons.view_list), findsOneWidget);
 
       expect(find.text('Scripts'), findsOneWidget);
       expect(find.byIcon(LineIcons.code), findsOneWidget);
@@ -63,6 +68,25 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text('GlobalVariablesScreen'), findsOneWidget);
+    });
+
+    testWidgets('Show Global Environment Variables', (tester) async {
+      await tester.pumpApp(
+        MaterialApp(
+          routes: routes(),
+          localizationsDelegates: List.from(
+            AppLocalizations.localizationsDelegates,
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+      expect(find.text('Global Environment Variables'), findsOneWidget);
+      expect(find.byIcon(Icons.view_list), findsOneWidget);
+
+      await tester.tap(find.byIcon(Icons.view_list));
+      await tester.pumpAndSettle();
+
+      expect(find.text('GlobalEnvironmentVariablesScreen'), findsOneWidget);
     });
 
     testWidgets('Show Branches', (tester) async {

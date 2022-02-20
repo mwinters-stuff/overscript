@@ -16,6 +16,7 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:overscript/branch_variable/branch_variable.dart';
 import 'package:overscript/branch_variable_value/cubit/branch_variable_values_cubit.dart';
 import 'package:overscript/git_branch/git_branch.dart';
+import 'package:overscript/global_environment_variable/global_environment_variable.dart';
 import 'package:overscript/global_variable/global_variable.dart';
 import 'package:overscript/repositories/repositories.dart';
 import 'package:overscript/theme/theme.dart';
@@ -68,6 +69,9 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
                 ),
                 BlocProvider<GlobalVariablesCubit>(
                   create: (context) => GlobalVariablesCubit(dataStoreRepository: context.read<DataStoreRepository>()),
+                ),
+                BlocProvider<GlobalEnvironmentVariablesCubit>(
+                  create: (context) => GlobalEnvironmentVariablesCubit(dataStoreRepository: context.read<DataStoreRepository>()),
                 ),
                 BlocProvider<ThemeCubit>(create: (context) => ThemeCubit()),
               ],

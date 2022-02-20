@@ -15,16 +15,18 @@ JsonStorage _$JsonStorageFromJson(Map json) => $checkedCreate(
           allowedKeys: const [
             'scripts',
             'branchVariables',
-            'branches',
+            'gitBranches',
             'branchVariableValues',
-            'globalVariables'
+            'globalVariables',
+            'globalEnvironmentVariables'
           ],
           requiredKeys: const [
             'scripts',
             'branchVariables',
-            'branches',
+            'gitBranches',
             'branchVariableValues',
-            'globalVariables'
+            'globalVariables',
+            'globalEnvironmentVariables'
           ],
         );
         final val = JsonStorage(
@@ -34,8 +36,8 @@ JsonStorage _$JsonStorageFromJson(Map json) => $checkedCreate(
               (v) => (v as List<dynamic>)
                   .map((e) => BranchVariable.fromJson(e as Map))
                   .toList()),
-          branches: $checkedConvert(
-              'branches',
+          gitBranches: $checkedConvert(
+              'gitBranches',
               (v) => (v as List<dynamic>)
                   .map((e) => GitBranch.fromJson(e as Map))
                   .toList()),
@@ -49,6 +51,11 @@ JsonStorage _$JsonStorageFromJson(Map json) => $checkedCreate(
               (v) => (v as List<dynamic>)
                   .map((e) => GlobalVariable.fromJson(e as Map))
                   .toList()),
+          globalEnvironmentVariables: $checkedConvert(
+              'globalEnvironmentVariables',
+              (v) => (v as List<dynamic>)
+                  .map((e) => GlobalEnvironmentVariable.fromJson(e as Map))
+                  .toList()),
         );
         return val;
       },
@@ -58,7 +65,8 @@ Map<String, dynamic> _$JsonStorageToJson(JsonStorage instance) =>
     <String, dynamic>{
       'scripts': instance.scripts,
       'branchVariables': instance.branchVariables,
-      'branches': instance.branches,
+      'gitBranches': instance.gitBranches,
       'branchVariableValues': instance.branchVariableValues,
       'globalVariables': instance.globalVariables,
+      'globalEnvironmentVariables': instance.globalEnvironmentVariables,
     };
