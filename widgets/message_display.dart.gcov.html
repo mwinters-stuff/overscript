@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2022-02-19 03:23:20</td>
+            <td class="headerValue">2022-02-20 01:33:02</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">0</td>
@@ -157,27 +157,27 @@
 <a name="86"><span class="lineNum">      86 </span>                :            :   );</a>
 <a name="87"><span class="lineNum">      87 </span>                :            : }</a>
 <a name="88"><span class="lineNum">      88 </span>                :            : </a>
-<a name="89"><span class="lineNum">      89 </span>                :<span class="lineCov">          3 : void showContentDialog({</span></a>
+<a name="89"><span class="lineNum">      89 </span>                :<span class="lineCov">          4 : void showContentDialog({</span></a>
 <a name="90"><span class="lineNum">      90 </span>                :            :   required BuildContext context,</a>
 <a name="91"><span class="lineNum">      91 </span>                :            :   required String title,</a>
 <a name="92"><span class="lineNum">      92 </span>                :            :   required Widget content,</a>
 <a name="93"><span class="lineNum">      93 </span>                :            :   VoidCallback? onConfirmButton,</a>
 <a name="94"><span class="lineNum">      94 </span>                :            :   VoidCallback? onCancelButton,</a>
 <a name="95"><span class="lineNum">      95 </span>                :            : }) {</a>
-<a name="96"><span class="lineNum">      96 </span>                :<span class="lineCov">          3 :   customAlertDialog(</span></a>
+<a name="96"><span class="lineNum">      96 </span>                :<span class="lineCov">          4 :   customAlertDialog(</span></a>
 <a name="97"><span class="lineNum">      97 </span>                :            :     context,</a>
-<a name="98"><span class="lineNum">      98 </span>                :<span class="lineCov">          3 :     Text(title),</span></a>
+<a name="98"><span class="lineNum">      98 </span>                :<span class="lineCov">          4 :     Text(title),</span></a>
 <a name="99"><span class="lineNum">      99 </span>                :            :     content,</a>
 <a name="100"><span class="lineNum">     100 </span>                :            :     positiveButtonText: 'Ok',</a>
 <a name="101"><span class="lineNum">     101 </span>                :            :     negativeButtonText: 'Cancel',</a>
-<a name="102"><span class="lineNum">     102 </span>                :<span class="lineCov">          3 :     positiveButtonAction: () {</span></a>
+<a name="102"><span class="lineNum">     102 </span>                :<span class="lineCov">          4 :     positiveButtonAction: () {</span></a>
 <a name="103"><span class="lineNum">     103 </span>                :            :       if (onConfirmButton != null) {</a>
-<a name="104"><span class="lineNum">     104 </span>                :<span class="lineCov">          3 :         onConfirmButton();</span></a>
+<a name="104"><span class="lineNum">     104 </span>                :<span class="lineCov">          4 :         onConfirmButton();</span></a>
 <a name="105"><span class="lineNum">     105 </span>                :            :       }</a>
 <a name="106"><span class="lineNum">     106 </span>                :            :     },</a>
-<a name="107"><span class="lineNum">     107 </span>                :<span class="lineCov">          3 :     negativeButtonAction: () {</span></a>
+<a name="107"><span class="lineNum">     107 </span>                :<span class="lineCov">          4 :     negativeButtonAction: () {</span></a>
 <a name="108"><span class="lineNum">     108 </span>                :            :       if (onCancelButton != null) {</a>
-<a name="109"><span class="lineNum">     109 </span>                :<span class="lineCov">          1 :         onCancelButton();</span></a>
+<a name="109"><span class="lineNum">     109 </span>                :<span class="lineCov">          4 :         onCancelButton();</span></a>
 <a name="110"><span class="lineNum">     110 </span>                :            :       }</a>
 <a name="111"><span class="lineNum">     111 </span>                :            :     },</a>
 <a name="112"><span class="lineNum">     112 </span>                :            :     hideNeutralButton: true,</a>
@@ -212,12 +212,12 @@
 <a name="141"><span class="lineNum">     141 </span>                :            :   );</a>
 <a name="142"><span class="lineNum">     142 </span>                :            : }</a>
 <a name="143"><span class="lineNum">     143 </span>                :            : </a>
-<a name="144"><span class="lineNum">     144 </span>                :<span class="lineCov">          5 : Future&lt;String?&gt; getDirectory({required BuildContext context, required String initialDirectory}) async {</span></a>
-<a name="145"><span class="lineNum">     145 </span>                :<span class="lineCov">         15 :   return getDirectoryPath(initialDirectory: initialDirectory, confirmButtonText: context.l10n.select);</span></a>
+<a name="144"><span class="lineNum">     144 </span>                :<span class="lineCov">          6 : Future&lt;String?&gt; getDirectory({required BuildContext context, required String initialDirectory}) async {</span></a>
+<a name="145"><span class="lineNum">     145 </span>                :<span class="lineCov">         18 :   return getDirectoryPath(initialDirectory: initialDirectory, confirmButtonText: context.l10n.select);</span></a>
 <a name="146"><span class="lineNum">     146 </span>                :            : }</a>
 <a name="147"><span class="lineNum">     147 </span>                :            : </a>
-<a name="148"><span class="lineNum">     148 </span>                :<span class="lineCov">          4 : Future&lt;String?&gt; getFile({required BuildContext context, required String currentFile}) async {</span></a>
-<a name="149"><span class="lineNum">     149 </span>                :<span class="lineCov">         20 :   return getSavePath(initialDirectory: dirname(currentFile), suggestedName: basename(currentFile), confirmButtonText: context.l10n.select);</span></a>
+<a name="148"><span class="lineNum">     148 </span>                :<span class="lineCov">          5 : Future&lt;String?&gt; getFile({required BuildContext context, required String currentFile}) async {</span></a>
+<a name="149"><span class="lineNum">     149 </span>                :<span class="lineCov">         25 :   return getSavePath(initialDirectory: dirname(currentFile), suggestedName: basename(currentFile), confirmButtonText: context.l10n.select);</span></a>
 <a name="150"><span class="lineNum">     150 </span>                :            : }</a>
 <a name="151"><span class="lineNum">     151 </span>                :            : // }</a>
 </pre>
