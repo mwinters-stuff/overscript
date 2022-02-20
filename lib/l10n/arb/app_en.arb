@@ -31,7 +31,9 @@
     "gitBranches":"GIT Branches",
     "globalVariables":"Global Variables",
     "scripts": "Scripts",
-    "globalEnvironmentVariables":"Global Environment Variables"
+    "globalEnvironmentVariables":"Global Environment Variables",
+    "deleteGlobalVariableQuestion":"Delete Global Variable?",
+    "deleteGlobalEnvironmentVariableQuestion":"Delete Global Environment Variable?"
 
 
     

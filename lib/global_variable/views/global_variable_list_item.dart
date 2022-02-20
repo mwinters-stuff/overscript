@@ -101,7 +101,7 @@ class GlobalVariableListItemState extends State<GlobalVariableListItem> {
                 tooltip: l10n.deleteVariable,
                 onPressed: () => showConfirmMessage(
                   context: context,
-                  title: l10n.deleteVariableQuestion,
+                  title: l10n.deleteGlobalVariableQuestion,
                   message: widget.variable.name,
                   onConfirmButton: () => context.read<GlobalVariablesCubit>().delete(widget.variable),
                 ),

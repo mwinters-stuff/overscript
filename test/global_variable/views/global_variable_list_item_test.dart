@@ -64,7 +64,7 @@ void main() {
       await tester.tap(find.byKey(const Key('delete')));
       await tester.pumpAndSettle();
 
-      expect(find.text('Delete Variable?'), findsOneWidget);
+      expect(find.text('Delete Global Variable?'), findsOneWidget);
       expect(find.text('var1'), findsNWidgets(2));
       expect(find.text('Cancel'), findsOneWidget);
       expect(find.text('Ok'), findsOneWidget);
@@ -95,7 +95,7 @@ void main() {
       await tester.tap(find.byKey(const Key('delete')));
       await tester.pumpAndSettle();
 
-      expect(find.text('Delete Variable?'), findsOneWidget);
+      expect(find.text('Delete Global Variable?'), findsOneWidget);
       expect(find.text('var1'), findsNWidgets(2));
       expect(find.text('Cancel'), findsOneWidget);
       expect(find.text('Ok'), findsOneWidget);

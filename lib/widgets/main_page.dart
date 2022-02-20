@@ -66,29 +66,6 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
             icon: const Icon(Icons.edit),
           ),
           IconButton(
-            tooltip: 'Scripts',
-            onPressed: () => {
-              showInputDialog(
-                context: context,
-                title: 'Input Dialog',
-                label: 'Input Something',
-                value: 'Initial Value',
-                onCancelButton: () => print("Cancelled"),
-                // onCancelButton: () => showErrorMessage(
-                //   context: context,
-                //   title: 'Input Result',
-                //   message: 'Cancel Pressed',
-                // ),
-                onConfirmButton: (String newValue) => showErrorMessage(
-                  context: context,
-                  title: 'Input Result',
-                  message: 'Ok Pressed $newValue',
-                ),
-              )
-            }, //Navigator.of(context).pushNamed('ScriptsScreen.routeName'),
-            icon: const Icon(Icons.subscript_sharp),
-          ),
-          IconButton(
             tooltip: l10n.configuration,
             onPressed: () => Navigator.of(context).pushNamed(ConfigurationView.routeName),
             icon: const Icon(ConfigurationView.actionIcon),
