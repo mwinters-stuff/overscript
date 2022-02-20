@@ -82,6 +82,7 @@ void main() {
           ),
         ),
       );
+      await tester.pumpAndSettle();
 
       expect(find.byType(BranchVariableListItem), findsOneWidget);
       expect(find.text('var1'), findsOneWidget);
@@ -107,7 +108,7 @@ void main() {
           ),
         ),
       );
-
+      await tester.pumpAndSettle();
       expect(find.byType(ExpansionTile), findsOneWidget);
       expect(find.byType(BranchVariableValueListItem), findsNothing);
 
@@ -143,6 +144,7 @@ void main() {
           ),
         ),
       );
+      await tester.pumpAndSettle();
       expect(find.byType(BranchVariableListItem), findsOneWidget);
 
       await tester.tap(find.byKey(const Key('delete')));
@@ -176,6 +178,7 @@ void main() {
           ),
         ),
       );
+      await tester.pumpAndSettle();
       expect(find.byType(BranchVariableListItem), findsOneWidget);
 
       await tester.tap(find.byKey(const Key('delete')));

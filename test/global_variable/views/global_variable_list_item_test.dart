@@ -39,7 +39,7 @@ void main() {
           ),
         ),
       );
-
+      await tester.pumpAndSettle();
       expect(find.byType(GlobalVariableListItem), findsOneWidget);
       expect(find.text('var1'), findsOneWidget);
       expect(find.text('/home/user/src/project'), findsOneWidget);
@@ -58,6 +58,7 @@ void main() {
           ),
         ),
       );
+      await tester.pumpAndSettle();
       expect(find.byType(GlobalVariableListItem), findsOneWidget);
 
       await tester.tap(find.byKey(const Key('delete')));
@@ -88,6 +89,7 @@ void main() {
           ),
         ),
       );
+      await tester.pumpAndSettle();
       expect(find.byType(GlobalVariableListItem), findsOneWidget);
 
       await tester.tap(find.byKey(const Key('delete')));
@@ -118,7 +120,7 @@ void main() {
           ),
         ),
       );
-
+      await tester.pumpAndSettle();
       expect(find.byType(GlobalVariableListItem), findsOneWidget);
       expect(find.byKey(const Key('selectDirectoryButton')), findsOneWidget);
 
@@ -148,7 +150,7 @@ void main() {
           ),
         ),
       );
-
+      await tester.pumpAndSettle();
       expect(find.byType(GlobalVariableListItem), findsOneWidget);
       expect(find.byKey(const Key('selectDirectoryButton')), findsOneWidget);
 
@@ -178,6 +180,7 @@ void main() {
           ),
         ),
       );
+      await tester.pumpAndSettle();
 
       expect(find.byType(GlobalVariableListItem), findsOneWidget);
       expect(find.byKey(const Key('selectFileButton')), findsOneWidget);
@@ -209,7 +212,7 @@ void main() {
           ),
         ),
       );
-
+      await tester.pumpAndSettle();
       expect(find.byType(GlobalVariableListItem), findsOneWidget);
       expect(find.byKey(const Key('selectFileButton')), findsOneWidget);
 
@@ -236,7 +239,7 @@ void main() {
           ),
         ),
       );
-
+      await tester.pumpAndSettle();
       expect(find.byType(GlobalVariableListItem), findsOneWidget);
       expect(find.byKey(const Key('editValueButton')), findsOneWidget);
       await tester.tap(find.byKey(const Key('editValueButton')));
@@ -275,7 +278,7 @@ void main() {
           ),
         ),
       );
-
+      await tester.pumpAndSettle();
       expect(find.byType(GlobalVariableListItem), findsOneWidget);
       expect(find.byKey(const Key('editValueButton')), findsOneWidget);
       await tester.tap(find.byKey(const Key('editValueButton')));

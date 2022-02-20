@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:overscript/global_variable/global_variable.dart';
 import 'package:overscript/l10n/l10n.dart';
@@ -23,8 +21,6 @@ class GlobalVariablesScreen extends StatefulWidget {
 }
 
 class GlobalVariablesScreenState extends State<GlobalVariablesScreen> {
-  final _formKey = GlobalKey<FormBuilderState>();
-
   @override
   void initState() {
     super.initState();
@@ -32,7 +28,6 @@ class GlobalVariablesScreenState extends State<GlobalVariablesScreen> {
 
   @override
   void deactivate() {
-    // context.read<VariablesCubit>().save();
     context.read<DataStoreRepository>().save('test.json');
     super.deactivate();
   }
@@ -68,60 +63,20 @@ class GlobalVariablesScreenState extends State<GlobalVariablesScreen> {
   void addVariable(BuildContext context) {
     final l10n = context.l10n;
 
-    showContentDialog(
+    ValueEditDialog().showDialog(
       context: context,
-      title: l10n.addVariable,
-      content: FormBuilder(
-        key: _formKey,
-        // enabled: false,
-        autovalidateMode: AutovalidateMode.disabled,
-        initialValue: const {
-          'name': '',
-          'value': '',
-        },
-        skipDisabled: true,
-        child: Column(
-          children: <Widget>[
-            FormBuilderTextField(
-              key: const Key('nameInput'),
-              autovalidateMode: AutovalidateMode.always,
-              name: 'name',
-              decoration: InputDecoration(
-                labelText: l10n.name,
+      nameValue: '',
+      initialValue: '',
+      dialogTitle: l10n.addVariable,
+      valueCaption: l10n.value,
+      confirmCallback: (String name, String value) {
+        context.read<GlobalVariablesCubit>().add(
+              GlobalVariable(
+                uuid: const Uuid().v1(),
+                name: name,
+                value: value,
               ),
-              validator: FormBuilderValidators.compose([
-                FormBuilderValidators.required(context),
-              ]),
-              keyboardType: TextInputType.text,
-              textInputAction: TextInputAction.next,
-            ),
-            FormBuilderTextField(
-              key: const Key('valueInput'),
-              autovalidateMode: AutovalidateMode.always,
-              name: 'value',
-              decoration: InputDecoration(
-                labelText: l10n.value,
-              ),
-              validator: FormBuilderValidators.compose([
-                FormBuilderValidators.required(context),
-              ]),
-              keyboardType: TextInputType.text,
-              textInputAction: TextInputAction.next,
-            ),
-          ],
-        ),
-      ),
-      onConfirmButton: () => {
-        if (_formKey.currentState?.saveAndValidate() ?? false)
-          {
-            context.read<GlobalVariablesCubit>().add(
-                  GlobalVariable(
-                    uuid: const Uuid().v1(),
-                    name: _formKey.currentState?.value['name'] as String,
-                    value: _formKey.currentState?.value['value'] as String,
-                  ),
-                ),
-          }
+            );
       },
     );
   }

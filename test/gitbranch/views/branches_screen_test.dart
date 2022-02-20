@@ -85,7 +85,7 @@ void main() {
           ),
         ),
       );
-
+      await tester.pumpAndSettle();
       expect(find.byType(BranchesScreen), findsOneWidget);
       expect(find.byType(BranchListItem), findsNWidgets(2));
 
@@ -120,7 +120,7 @@ void main() {
           ),
         ),
       );
-
+      await tester.pumpAndSettle();
       expect(find.byKey(const Key('AddIcon')), findsOneWidget);
 
       fakeFileSelectorImplementation
@@ -157,7 +157,7 @@ void main() {
           ),
         ),
       );
-
+      await tester.pumpAndSettle();
       expect(find.byKey(const Key('AddIcon')), findsOneWidget);
 
       fakeFileSelectorImplementation
@@ -208,7 +208,7 @@ void main() {
           ),
         ),
       );
-
+      await tester.pumpAndSettle();
       expect(find.byKey(const Key('AddIcon')), findsOneWidget);
 
       fakeFileSelectorImplementation
@@ -255,7 +255,7 @@ void main() {
           ),
         ),
       );
-
+      await tester.pumpAndSettle();
       expect(find.byKey(const Key('AddIcon')), findsOneWidget);
 
       fakeFileSelectorImplementation

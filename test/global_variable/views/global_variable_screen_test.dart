@@ -61,7 +61,7 @@ void main() {
           ),
         ),
       );
-
+      await tester.pumpAndSettle();
       expect(find.byType(GlobalVariablesScreen), findsOneWidget);
       expect(find.byType(GlobalVariableListItem), findsNWidgets(2));
 

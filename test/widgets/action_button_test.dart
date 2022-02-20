@@ -19,7 +19,7 @@ void main() {
           ),
         ),
       );
-
+      await tester.pumpAndSettle();
       expect(find.text('Test Button'), findsOneWidget);
       expect(find.byIcon(LineIcons.accessibleIcon), findsOneWidget);
 

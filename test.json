@@ -79,6 +79,11 @@
       "uuid": "d7d9c8a0-912e-11ec-81a1-974e1d316906",
       "name": "var2",
       "value": "abc"
+    },
+    {
+      "uuid": "8a3bf880-9150-11ec-b05c-6582715a29ba",
+      "name": "bob",
+      "value": "/home/mathew/VirtualBox VMs/vmware/win11vb"
     }
   ]
 }

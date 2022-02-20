@@ -17,7 +17,7 @@ void main() {
   group('MessageDisplay', () {
     testWidgets('show error message', (tester) async {
       await tester.pumpApp(const ShowMessageWidget());
-
+      await tester.pumpAndSettle();
       await tester.tap(find.text('ShowErrorMessage'));
       await tester.pumpAndSettle();
 
@@ -33,6 +33,7 @@ void main() {
 
     testWidgets('show warning message', (tester) async {
       await tester.pumpApp(const ShowMessageWidget());
+      await tester.pumpAndSettle();
 
       await tester.tap(find.text('ShowWarningMessage'));
       await tester.pumpAndSettle();
@@ -49,7 +50,7 @@ void main() {
 
     testWidgets('show info message', (tester) async {
       await tester.pumpApp(const ShowMessageWidget());
-
+      await tester.pumpAndSettle();
       await tester.tap(find.text('ShowInfoMessage'));
       await tester.pumpAndSettle();
 
@@ -65,7 +66,7 @@ void main() {
 
     testWidgets('show success message', (tester) async {
       await tester.pumpApp(const ShowMessageWidget());
-
+      await tester.pumpAndSettle();
       await tester.tap(find.text('ShowSuccessMessage'));
       await tester.pumpAndSettle();
 
@@ -86,7 +87,7 @@ void main() {
           resultTest: mockResult,
         ),
       );
-
+      await tester.pumpAndSettle();
       await tester.tap(find.text('ShowConfirmMessage'));
       await tester.pumpAndSettle();
 
@@ -108,7 +109,7 @@ void main() {
           resultTest: mockResult,
         ),
       );
-
+      await tester.pumpAndSettle();
       await tester.tap(find.text('ShowConfirmMessage'));
       await tester.pumpAndSettle();
 
@@ -130,7 +131,7 @@ void main() {
           resultTest: mockResult,
         ),
       );
-
+      await tester.pumpAndSettle();
       await tester.tap(find.text('ShowContentDialog'));
       await tester.pumpAndSettle();
 
@@ -152,7 +153,7 @@ void main() {
           resultTest: mockResult,
         ),
       );
-
+      await tester.pumpAndSettle();
       await tester.tap(find.text('ShowContentDialog'));
       await tester.pumpAndSettle();
 
@@ -174,7 +175,7 @@ void main() {
           resultTest: mockResult,
         ),
       );
-
+      await tester.pumpAndSettle();
       await tester.tap(find.text('ShowInputDialog'));
       await tester.pumpAndSettle();
 
@@ -201,7 +202,7 @@ void main() {
           resultTest: mockResult,
         ),
       );
-
+      await tester.pumpAndSettle();
       await tester.tap(find.text('ShowInputDialog'));
       await tester.pumpAndSettle();
 
@@ -231,7 +232,7 @@ void main() {
           resultTest: mockResult,
         ),
       );
-
+      await tester.pumpAndSettle();
       await tester.tap(find.text('ShowDirectoryDialog'));
       await tester.pumpAndSettle();
 
@@ -251,7 +252,7 @@ void main() {
           resultTest: mockResult,
         ),
       );
-
+      await tester.pumpAndSettle();
       await tester.tap(find.text('ShowFileDialog'));
       await tester.pumpAndSettle();
 

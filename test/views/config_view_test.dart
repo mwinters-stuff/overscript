@@ -32,7 +32,7 @@ void main() {
       await tester.pumpApp(
         const ConfigurationView(),
       );
-
+      await tester.pumpAndSettle();
       expect(find.text('Global Variables'), findsOneWidget);
       expect(find.byIcon(LineIcons.alternateList), findsOneWidget);
 
@@ -55,7 +55,7 @@ void main() {
           ),
         ),
       );
-
+      await tester.pumpAndSettle();
       expect(find.text('Global Variables'), findsOneWidget);
       expect(find.byIcon(LineIcons.alternateList), findsOneWidget);
 
@@ -74,7 +74,7 @@ void main() {
           ),
         ),
       );
-
+      await tester.pumpAndSettle();
       expect(find.text('GIT Branches'), findsOneWidget);
       expect(find.byIcon(LineIcons.git), findsOneWidget);
 
@@ -93,7 +93,7 @@ void main() {
           ),
         ),
       );
-
+      await tester.pumpAndSettle();
       expect(find.text('Branch Variables'), findsOneWidget);
       expect(find.byIcon(LineIcons.list), findsOneWidget);
 
@@ -112,7 +112,7 @@ void main() {
           ),
         ),
       );
-
+      await tester.pumpAndSettle();
       expect(find.text('Scripts'), findsOneWidget);
       expect(find.byIcon(LineIcons.code), findsOneWidget);
 
@@ -126,7 +126,7 @@ void main() {
       await tester.pumpWidget(
         const TestApp(),
       );
-
+      await tester.pumpAndSettle();
       expect(find.byType(ConfigurationView), findsNothing);
 
       await tester.tap(find.text('ClickMe'));

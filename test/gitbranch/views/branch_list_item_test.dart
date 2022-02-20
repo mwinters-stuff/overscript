@@ -69,6 +69,7 @@ void main() {
           child: BranchListItem(gitBranch: mockGitBranch),
         ),
       );
+      await tester.pumpAndSettle();
       expect(find.byType(BranchListItem), findsOneWidget);
       expect(find.text('master'), findsOneWidget);
       expect(find.text('/home/user/src/project'), findsOneWidget);
@@ -93,6 +94,7 @@ void main() {
           ),
         ),
       );
+      await tester.pumpAndSettle();
 
       expect(find.byType(BranchListItem), findsOneWidget);
 
@@ -130,6 +132,7 @@ void main() {
           ),
         ),
       );
+      await tester.pumpAndSettle();
 
       expect(find.byType(BranchListItem), findsOneWidget);
 
@@ -167,7 +170,7 @@ void main() {
           ),
         ),
       );
-
+      await tester.pumpAndSettle();
       expect(find.byType(ExpansionTile), findsOneWidget);
       expect(find.byType(VariableBranchValueListItem), findsNothing);
 

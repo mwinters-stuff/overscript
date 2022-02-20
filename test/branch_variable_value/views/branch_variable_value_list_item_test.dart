@@ -105,6 +105,7 @@ void main() {
           ),
         ),
       );
+      await tester.pumpAndSettle();
     }
 
     testWidgets('renders BranchVariableValueListItem', (tester) async {

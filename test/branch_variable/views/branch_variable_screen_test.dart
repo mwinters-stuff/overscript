@@ -79,6 +79,7 @@ void main() {
           ),
         ),
       );
+      await tester.pumpAndSettle();
 
       expect(find.byType(BranchVariablesScreen), findsOneWidget);
       expect(find.byType(BranchVariableListItem), findsNWidgets(2));
@@ -122,7 +123,6 @@ void main() {
           ),
         ),
       );
-
       await tester.pumpAndSettle();
 
       expect(find.byKey(const Key('AddIcon')), findsOneWidget);
@@ -131,7 +131,7 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.byKey(const Key('nameInput')), findsOneWidget);
-      expect(find.byKey(const Key('defaultValueInput')), findsOneWidget);
+      expect(find.byKey(const Key('valueInput')), findsOneWidget);
 
       expect(find.text('Cancel'), findsOneWidget);
       expect(find.text('Ok'), findsOneWidget);
@@ -172,8 +172,7 @@ void main() {
           ),
         ),
       );
-
-      await tester.pumpAndSettle();
+      await tester.pumpAndSettle(const Duration(seconds: 1));
 
       expect(find.byKey(const Key('AddIcon')), findsOneWidget);
 
@@ -181,14 +180,14 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.byKey(const Key('nameInput')), findsOneWidget);
-      expect(find.byKey(const Key('defaultValueInput')), findsOneWidget);
+      expect(find.byKey(const Key('valueInput')), findsOneWidget);
 
       expect(find.text('Cancel'), findsOneWidget);
       expect(find.text('Ok'), findsOneWidget);
 
       await tester.enterText(find.byKey(const Key('nameInput')), 'peaches');
       await tester.pumpAndSettle();
-      await tester.enterText(find.byKey(const Key('defaultValueInput')), 'pears');
+      await tester.enterText(find.byKey(const Key('valueInput')), 'pears');
       await tester.pumpAndSettle();
 
       await tester.tap(find.text('Ok'));
