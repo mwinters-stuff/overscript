@@ -119,4 +119,32 @@ class DataStoreRepository {
     // delete branch values
     return List.from(globalEnvironmentVariables)..removeWhere((element) => element.uuid == variable.uuid);
   }
+
+  BranchVariable getBranchVariable(String variableUuid) {
+    return branchVariables.firstWhere((element) => element.uuid == variableUuid);
+  }
+
+  Map<String, String> getVariableValues(String branchUuid) {
+    final variableValues = <String, String>{};
+
+    for (final element in globalVariables) {
+      variableValues.putIfAbsent(element.name, () => element.value);
+    }
+
+    for (final branchVariable in branchVariables) {
+      final branchVariableValue = branchVariableValues.firstWhere(
+        (element) => element.branchUuid == branchUuid && element.variableUuid == branchVariable.uuid,
+        orElse: () => BranchVariableValue(
+          uuid: 'uuid',
+          branchUuid: branchUuid,
+          variableUuid: branchVariable.uuid,
+          value: branchVariable.defaultValue,
+        ),
+      );
+
+      variableValues.putIfAbsent(branchVariable.name, () => branchVariableValue.value);
+    }
+
+    return variableValues;
+  }
 }

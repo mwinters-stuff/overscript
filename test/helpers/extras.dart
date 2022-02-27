@@ -22,13 +22,13 @@ GitBranch mockGitBranch2 = const GitBranch(
   origin: 'git:someplace/bob',
 );
 
-BranchVariable mockVariable1 = const BranchVariable(
+BranchVariable mockBranchVariable1 = const BranchVariable(
   uuid: 'v-uuid-1',
   name: 'variable1',
   defaultValue: 'default1',
 );
 
-BranchVariable mockVariable2 = const BranchVariable(
+BranchVariable mockBranchVariable2 = const BranchVariable(
   uuid: 'v-uuid-2',
   name: 'variable2',
   defaultValue: 'default2',

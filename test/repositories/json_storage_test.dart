@@ -28,8 +28,8 @@ void main() {
           mockGitBranch2,
         ],
         branchVariables: [
-          mockVariable1,
-          mockVariable2,
+          mockBranchVariable1,
+          mockBranchVariable2,
         ],
         scripts: const [],
         globalVariables: [
@@ -72,8 +72,8 @@ void main() {
         value.branchVariables,
         equals(
           [
-            mockVariable1,
-            mockVariable2,
+            mockBranchVariable1,
+            mockBranchVariable2,
           ],
         ),
       );
@@ -104,8 +104,8 @@ void main() {
           [
             [],
             [
-              mockVariable1,
-              mockVariable2,
+              mockBranchVariable1,
+              mockBranchVariable2,
             ],
             [
               mockGitBranch1,
@@ -139,8 +139,8 @@ void main() {
           mockGitBranch2,
         ],
         branchVariables: [
-          mockVariable1,
-          mockVariable2,
+          mockBranchVariable1,
+          mockBranchVariable2,
         ],
         scripts: const [],
         globalVariables: [
@@ -163,8 +163,8 @@ void main() {
         jsonValues['branchVariables'],
         equals(
           [
-            mockVariable1,
-            mockVariable2,
+            mockBranchVariable1,
+            mockBranchVariable2,
           ],
         ),
       );
@@ -210,8 +210,8 @@ void main() {
       final jsonValues = <String, dynamic>{};
       jsonValues['scripts'] = [];
       jsonValues['branchVariables'] = [
-        mockVariable1.toJson(),
-        mockVariable2.toJson(),
+        mockBranchVariable1.toJson(),
+        mockBranchVariable2.toJson(),
       ];
       jsonValues['gitBranches'] = [
         mockGitBranch1.toJson(),
@@ -237,8 +237,8 @@ void main() {
           [
             [],
             [
-              mockVariable1,
-              mockVariable2,
+              mockBranchVariable1,
+              mockBranchVariable2,
             ],
             [
               mockGitBranch1,
@@ -272,8 +272,8 @@ void main() {
           mockGitBranch2,
         ],
         branchVariables: [
-          mockVariable1,
-          mockVariable2,
+          mockBranchVariable1,
+          mockBranchVariable2,
         ],
         scripts: const [],
         globalVariables: [

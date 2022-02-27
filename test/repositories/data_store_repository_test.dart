@@ -51,8 +51,8 @@ void main() {
       final dataStoreRepository = DataStoreRepository(mockFileSystem);
       dataStoreRepository.gitBranches.add(mockGitBranch1);
       dataStoreRepository.gitBranches.add(mockGitBranch2);
-      dataStoreRepository.branchVariables.add(mockVariable1);
-      dataStoreRepository.branchVariables.add(mockVariable2);
+      dataStoreRepository.branchVariables.add(mockBranchVariable1);
+      dataStoreRepository.branchVariables.add(mockBranchVariable2);
       dataStoreRepository.branchVariableValues.add(mockBranchVariableValue1);
       dataStoreRepository.branchVariableValues.add(mockBranchVariableValue2);
       dataStoreRepository.globalVariables.add(mockGlobalVariable1);
@@ -348,6 +348,70 @@ void main() {
             name: 'variable2',
             value: 'value2',
           ),
+        ),
+      );
+    });
+
+    test('getBranchVariable', () {
+      final dataStoreRepository = DataStoreRepository(mockFileSystem);
+
+      dataStoreRepository.branchVariables.add(const BranchVariable(uuid: 'v-uuid-1', name: 'variable 1', defaultValue: 'defaultValue1'));
+      dataStoreRepository.branchVariables.add(const BranchVariable(uuid: 'v-uuid-2', name: 'variable 2', defaultValue: 'defaultValue2'));
+
+      expect(
+        dataStoreRepository.getBranchVariable('v-uuid-1'),
+        equals(
+          const BranchVariable(
+            uuid: 'v-uuid-1',
+            name: 'variable 1',
+            defaultValue: 'defaultValue1',
+          ),
+        ),
+      );
+      expect(
+        dataStoreRepository.getBranchVariable('v-uuid-2'),
+        equals(
+          const BranchVariable(
+            uuid: 'v-uuid-2',
+            name: 'variable 2',
+            defaultValue: 'defaultValue2',
+          ),
+        ),
+      );
+    });
+
+    test('getVariableValues', () async {
+      final dataStoreRepository = DataStoreRepository(mockDataStoreRepositoryJsonFile());
+
+      expect(await dataStoreRepository.load('a-file.json'), isTrue);
+
+      var values = dataStoreRepository.getVariableValues('a-uuid-1');
+
+      expect(values.length, equals(4));
+      expect(
+        values,
+        equals(
+          {
+            'g-variable-1': 'value1',
+            'g-variable-2': 'value2',
+            'variable1': 'start value 1',
+            'variable2': 'default2',
+          },
+        ),
+      );
+
+      values = dataStoreRepository.getVariableValues('a-uuid-2');
+
+      expect(values.length, equals(4));
+      expect(
+        values,
+        equals(
+          {
+            'g-variable-1': 'value1',
+            'g-variable-2': 'value2',
+            'variable1': 'start value 2',
+            'variable2': 'default2',
+          },
         ),
       );
     });
