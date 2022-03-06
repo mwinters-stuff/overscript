@@ -4,6 +4,8 @@ on: [push]
 
 jobs:
   build:
+    env:
+      USERNAME: bob
     runs-on: ubuntu-latest
     steps:
       - name: Git Checkout
