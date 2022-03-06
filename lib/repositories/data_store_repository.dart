@@ -26,6 +26,44 @@ class DataStoreRepository {
   List<GlobalVariable> globalVariables;
   List<GlobalEnvironmentVariable> globalEnvironmentVariables;
 
+  final Map<String, String> suggestiveVariables = {};
+  final Map<String, Map<String, String>> variableValues = {};
+
+  void _buildVariablesMaps() {
+    suggestiveVariables.clear();
+    final globalVariableValues = <String, String>{};
+
+    for (final variable in globalVariables) {
+      suggestiveVariables.putIfAbsent(variable.name, () => variable.value);
+      globalVariableValues.putIfAbsent(variable.name, () => variable.value);
+    }
+
+    for (final branchVariableValue in branchVariableValues) {
+      final branchVariable = getBranchVariable(branchVariableValue.variableUuid);
+      suggestiveVariables.putIfAbsent(branchVariable.name, () => branchVariableValue.value);
+    }
+
+    variableValues.clear();
+
+    for (final branch in gitBranches) {
+      variableValues[branch.uuid] = Map.from(globalVariableValues).cast();
+
+      for (final branchVariable in branchVariables) {
+        final branchVariableValue = branchVariableValues.firstWhere(
+          (element) => element.branchUuid == branch.uuid && element.variableUuid == branchVariable.uuid,
+          orElse: () => BranchVariableValue(
+            uuid: 'uuid',
+            branchUuid: branch.uuid,
+            variableUuid: branchVariable.uuid,
+            value: branchVariable.defaultValue,
+          ),
+        );
+
+        variableValues[branch.uuid]!.putIfAbsent(branchVariable.name, () => branchVariableValue.value);
+      }
+    }
+  }
+
   Future<bool> load(String filename) async {
     if (fileSystem.isFileSync(filename)) {
       final file = fileSystem.file(filename);
@@ -39,6 +77,7 @@ class DataStoreRepository {
       branchVariableValues = List.from(jsonStorage.branchVariableValues, growable: true);
       globalVariables = List.from(jsonStorage.globalVariables, growable: true);
       globalEnvironmentVariables = List.from(jsonStorage.globalEnvironmentVariables, growable: true);
+      _buildVariablesMaps();
       return Future.value(true);
     }
     return Future.value(false);
@@ -55,6 +94,7 @@ class DataStoreRepository {
     );
     final output = const JsonEncoder.withIndent('  ').convert(jsonStorage);
     await fileSystem.file(filename).writeAsString(output);
+    _buildVariablesMaps();
     return Future.value(true);
   }
 
@@ -124,27 +164,12 @@ class DataStoreRepository {
     return branchVariables.firstWhere((element) => element.uuid == variableUuid);
   }
 
-  Map<String, String> getVariableValues(String branchUuid) {
-    final variableValues = <String, String>{};
+  List<String> getGitBranchRoots() {
+    final result = <String>[];
 
-    for (final element in globalVariables) {
-      variableValues.putIfAbsent(element.name, () => element.value);
+    for (final branch in gitBranches) {
+      result.add(branch.directory);
     }
-
-    for (final branchVariable in branchVariables) {
-      final branchVariableValue = branchVariableValues.firstWhere(
-        (element) => element.branchUuid == branchUuid && element.variableUuid == branchVariable.uuid,
-        orElse: () => BranchVariableValue(
-          uuid: 'uuid',
-          branchUuid: branchUuid,
-          variableUuid: branchVariable.uuid,
-          value: branchVariable.defaultValue,
-        ),
-      );
-
-      variableValues.putIfAbsent(branchVariable.name, () => branchVariableValue.value);
-    }
-
-    return variableValues;
+    return result;
   }
 }

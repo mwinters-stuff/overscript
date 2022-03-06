@@ -48,37 +48,41 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
   await runZonedGuarded(
     () async {
       await HydratedBlocOverrides.runZoned(
-        () async => runApp(
-          MultiRepositoryProvider(
-            providers: [
-              RepositoryProvider<DataStoreRepository>(
-                create: (context) => DataStoreRepository(const LocalFileSystem()),
-              ),
-              RepositoryProvider<GitCalls>(create: (context) => GitCalls(const LocalProcessManager())),
-            ],
-            child: MultiBlocProvider(
+        () async {
+          final dataStoreRepository = DataStoreRepository(const LocalFileSystem());
+          return runApp(
+            MultiRepositoryProvider(
               providers: [
-                BlocProvider<GitBranchesCubit>(
-                  create: (context) => GitBranchesCubit(dataStoreRepository: context.read<DataStoreRepository>()),
+                RepositoryProvider<DataStoreRepository>(
+                  create: (context) => dataStoreRepository,
                 ),
-                BlocProvider<BranchVariablesCubit>(
-                  create: (context) => BranchVariablesCubit(dataStoreRepository: context.read<DataStoreRepository>()),
-                ),
-                BlocProvider<BranchVariableValuesCubit>(
-                  create: (context) => BranchVariableValuesCubit(dataStoreRepository: context.read<DataStoreRepository>()),
-                ),
-                BlocProvider<GlobalVariablesCubit>(
-                  create: (context) => GlobalVariablesCubit(dataStoreRepository: context.read<DataStoreRepository>()),
-                ),
-                BlocProvider<GlobalEnvironmentVariablesCubit>(
-                  create: (context) => GlobalEnvironmentVariablesCubit(dataStoreRepository: context.read<DataStoreRepository>()),
-                ),
-                BlocProvider<ThemeCubit>(create: (context) => ThemeCubit()),
+                RepositoryProvider<GitCalls>(create: (context) => GitCalls(const LocalProcessManager())),
+                RepositoryProvider<VariablesHandler>(create: (context) => VariablesHandler(dataStoreRepository)),
               ],
-              child: await builder(),
+              child: MultiBlocProvider(
+                providers: [
+                  BlocProvider<GitBranchesCubit>(
+                    create: (context) => GitBranchesCubit(dataStoreRepository: context.read<DataStoreRepository>()),
+                  ),
+                  BlocProvider<BranchVariablesCubit>(
+                    create: (context) => BranchVariablesCubit(dataStoreRepository: context.read<DataStoreRepository>()),
+                  ),
+                  BlocProvider<BranchVariableValuesCubit>(
+                    create: (context) => BranchVariableValuesCubit(dataStoreRepository: context.read<DataStoreRepository>()),
+                  ),
+                  BlocProvider<GlobalVariablesCubit>(
+                    create: (context) => GlobalVariablesCubit(dataStoreRepository: context.read<DataStoreRepository>()),
+                  ),
+                  BlocProvider<GlobalEnvironmentVariablesCubit>(
+                    create: (context) => GlobalEnvironmentVariablesCubit(dataStoreRepository: context.read<DataStoreRepository>()),
+                  ),
+                  BlocProvider<ThemeCubit>(create: (context) => ThemeCubit()),
+                ],
+                child: await builder(),
+              ),
             ),
-          ),
-        ),
+          );
+        },
         storage: storage,
         blocObserver: AppBlocObserver(),
       );

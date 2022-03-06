@@ -1,3 +1,4 @@
+import 'package:fialogs/fialogs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:line_icons/line_icons.dart';
@@ -7,6 +8,7 @@ import 'package:overscript/l10n/l10n.dart';
 import 'package:overscript/repositories/repositories.dart';
 import 'package:overscript/widgets/widgets.dart';
 import 'package:uuid/uuid.dart';
+import 'package:format/format.dart';
 
 class BranchVariablesScreen extends StatefulWidget {
   const BranchVariablesScreen({Key? key}) : super(key: key);
@@ -62,6 +64,16 @@ class BranchVariablesScreenState extends State<BranchVariablesScreen> {
     );
   }
 
+  void _addVariable(String name, String value) {
+    context.read<BranchVariablesCubit>().add(
+          BranchVariable(
+            uuid: const Uuid().v1(),
+            name: name,
+            defaultValue: value,
+          ),
+        );
+  }
+
   void addVariable(BuildContext context) {
     final l10n = context.l10n;
 
@@ -72,13 +84,25 @@ class BranchVariablesScreenState extends State<BranchVariablesScreen> {
       dialogTitle: l10n.addVariable,
       valueCaption: l10n.defaultValue,
       confirmCallback: (String name, String value) {
-        context.read<BranchVariablesCubit>().add(
-              BranchVariable(
-                uuid: const Uuid().v1(),
-                name: name,
-                defaultValue: value,
-              ),
-            );
+        final suggestedValue = context.read<VariablesHandler>().suggestGitOrHomePath(value);
+        if (suggestedValue != value) {
+          alertDialog(
+            context,
+            l10n.addVariable,
+            format(l10n.confirmVariableChange, value, suggestedValue),
+            positiveButtonText: l10n.yes,
+            negativeButtonText: l10n.no,
+            hideNeutralButton: true,
+            positiveButtonAction: () {
+              _addVariable(name, suggestedValue);
+            },
+            negativeButtonAction: () {
+              _addVariable(name, value);
+            },
+          );
+        } else {
+          _addVariable(name, value);
+        }
       },
     );
   }

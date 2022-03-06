@@ -385,7 +385,7 @@ void main() {
 
       expect(await dataStoreRepository.load('a-file.json'), isTrue);
 
-      var values = dataStoreRepository.getVariableValues('a-uuid-1');
+      var values = dataStoreRepository.variableValues['a-uuid-1']!;
 
       expect(values.length, equals(4));
       expect(
@@ -400,7 +400,7 @@ void main() {
         ),
       );
 
-      values = dataStoreRepository.getVariableValues('a-uuid-2');
+      values = dataStoreRepository.variableValues['a-uuid-2']!;
 
       expect(values.length, equals(4));
       expect(
@@ -413,6 +413,20 @@ void main() {
             'variable2': 'default2',
           },
         ),
+      );
+    });
+
+    test('getGitBranchRoots', () async {
+      final dataStoreRepository = DataStoreRepository(mockFileSystem);
+      dataStoreRepository.gitBranches.add(mockGitBranch1);
+      dataStoreRepository.gitBranches.add(mockGitBranch2);
+
+      expect(
+        dataStoreRepository.getGitBranchRoots(),
+        equals([
+          '/home/user/src/project',
+          '/home/user/src/banch1',
+        ]),
       );
     });
   });

@@ -33,8 +33,12 @@
     "scripts": "Scripts",
     "globalEnvironmentVariables":"Global Environment Variables",
     "deleteGlobalVariableQuestion":"Delete Global Variable?",
-    "deleteGlobalEnvironmentVariableQuestion":"Delete Global Environment Variable?"
-
+    "deleteGlobalEnvironmentVariableQuestion":"Delete Global Environment Variable?",
+    "confirmVariableChange":"The value could be shorted to use variables\n\"{}\"\nbecomes\n\"{}\"?",
+    "yes":"Yes",
+    "no":"No",
+    "ok":"Ok",
+    "cancel":"Cancel"
 
     
-}
+} 

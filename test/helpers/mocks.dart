@@ -54,3 +54,5 @@ class MockGlobalEnvironmentVariable extends Mock implements GlobalEnvironmentVar
 class MockGlobalEnvironmentVariablesCubit extends MockCubit<GlobalEnvironmentVariablesState> implements GlobalEnvironmentVariablesCubit {}
 
 class MockGlobalEnvironmentVariablesState extends Mock implements GlobalEnvironmentVariablesState {}
+
+class MockVariablesHandler extends Mock implements VariablesHandler {}

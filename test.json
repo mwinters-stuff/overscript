@@ -15,6 +15,11 @@
       "uuid": "cd466be0-8c66-11ec-81b5-276a65e797f8",
       "name": "var3",
       "defaultValue": "def3"
+    },
+    {
+      "uuid": "cbe54b20-9d02-11ec-a8b9-7570415f5c50",
+      "name": "asdsdadsasd",
+      "defaultValue": "{HOME}/src-work/earthworks_simulator/CTCT_EarthWorksSimulator/Assets/_ProjectAssets/Scripts/Services"
     }
   ],
   "gitBranches": [
@@ -67,6 +72,18 @@
       "branchUuid": "dcf613b0-8c66-11ec-81b5-276a65e797f8",
       "variableUuid": "cd466be0-8c66-11ec-81b5-276a65e797f8",
       "value": "/home/mathew/src/overscript/analysis_options.yaml"
+    },
+    {
+      "uuid": "cbe57230-9d02-11ec-a8b9-7570415f5c50",
+      "branchUuid": "d8d47d80-8c66-11ec-81b5-276a65e797f8",
+      "variableUuid": "cbe54b20-9d02-11ec-a8b9-7570415f5c50",
+      "value": "{HOME}/src-work/earthworks_simulator/CTCT_EarthWorksSimulator/Assets/_ProjectAssets/Scripts/Services"
+    },
+    {
+      "uuid": "cbe57231-9d02-11ec-a8b9-7570415f5c50",
+      "branchUuid": "dcf613b0-8c66-11ec-81b5-276a65e797f8",
+      "variableUuid": "cbe54b20-9d02-11ec-a8b9-7570415f5c50",
+      "value": "{HOME}/src-work/earthworks_simulator/CTCT_EarthWorksSimulator/Assets/_ProjectAssets/Scripts/Services"
     }
   ],
   "globalVariables": [

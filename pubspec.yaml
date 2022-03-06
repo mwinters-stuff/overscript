@@ -21,6 +21,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   form_builder_validators: ^7.3.0
+  format: ^1.1.1
   hydrated_bloc: ^8.0.0
   interpolation: ^2.1.2
   intl: ^0.17.0
@@ -39,7 +40,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   json_serializable: ^6.0.1
-  mocktail: ^0.2.0
+  mocktail: ^0.3.0
   very_good_analysis: ^2.4.0
   
 

@@ -20,12 +20,14 @@ void main() {
     late MockGitCalls mockGitCalls;
     late MockBranchVariableValuesCubit mockBranchVariableValuesCubit;
     late MockBranchVariableValuesState mockBranchVariableValuesState;
+    late MockVariablesHandler mockVariablesHandler;
 
     setUp(() {
       mockDataStoreRepository = MockDataStoreRepository();
       mockVariablesState = MockBranchVariablesState();
       mockVariablesCubit = MockBranchVariablesCubit();
       mockGitCalls = MockGitCalls();
+      mockVariablesHandler = MockVariablesHandler();
 
       when(() => mockDataStoreRepository.save(any())).thenAnswer((_) => Future.value(true));
       when(() => mockDataStoreRepository.load(any())).thenAnswer((_) => Future.value(true));
@@ -65,6 +67,9 @@ void main() {
             RepositoryProvider<GitCalls>(
               create: (context) => mockGitCalls,
             ),
+            RepositoryProvider<VariablesHandler>(
+              create: (context) => mockVariablesHandler,
+            ),
           ],
           child: MultiBlocProvider(
             providers: [
@@ -102,6 +107,9 @@ void main() {
             ),
             RepositoryProvider<GitCalls>(
               create: (context) => mockGitCalls,
+            ),
+            RepositoryProvider<VariablesHandler>(
+              create: (context) => mockVariablesHandler,
             ),
           ],
           child: MultiBlocProvider(
@@ -152,6 +160,9 @@ void main() {
             RepositoryProvider<GitCalls>(
               create: (context) => mockGitCalls,
             ),
+            RepositoryProvider<VariablesHandler>(
+              create: (context) => mockVariablesHandler,
+            ),
           ],
           child: MultiBlocProvider(
             providers: [
@@ -172,6 +183,9 @@ void main() {
           ),
         ),
       );
+
+      when(() => mockVariablesHandler.suggestGitOrHomePath('pears')).thenReturn('pears');
+
       await tester.pumpAndSettle(const Duration(seconds: 1));
 
       expect(find.byKey(const Key('AddIcon')), findsOneWidget);
@@ -201,6 +215,156 @@ void main() {
       expect(variable.defaultValue, equals('pears'));
     });
 
+    testWidgets('add home directory used, variable substituted', (tester) async {
+      await tester.pumpApp(
+        MultiRepositoryProvider(
+          providers: [
+            RepositoryProvider<DataStoreRepository>(
+              create: (context) => mockDataStoreRepository,
+            ),
+            RepositoryProvider<GitCalls>(
+              create: (context) => mockGitCalls,
+            ),
+            RepositoryProvider<VariablesHandler>(
+              create: (context) => mockVariablesHandler,
+            ),
+          ],
+          child: MultiBlocProvider(
+            providers: [
+              BlocProvider<BranchVariablesCubit>(
+                create: (context) => mockVariablesCubit,
+              ),
+              BlocProvider<BranchVariableValuesCubit>(
+                create: (context) => mockBranchVariableValuesCubit,
+              ),
+            ],
+            child: MaterialApp(
+              localizationsDelegates: List.from(
+                AppLocalizations.localizationsDelegates,
+              )..add(FormBuilderLocalizations.delegate),
+              supportedLocales: AppLocalizations.supportedLocales,
+              builder: (context, child) => const BranchVariablesScreen(),
+            ),
+          ),
+        ),
+      );
+
+      when(() => mockVariablesHandler.suggestGitOrHomePath('/home/user/someplace/subdirectory')).thenReturn('{HOME}/subdirectory');
+
+      await tester.pumpAndSettle(const Duration(seconds: 1));
+
+      expect(find.byKey(const Key('AddIcon')), findsOneWidget);
+
+      await tester.tap(find.byKey(const Key('AddIcon')));
+      await tester.pumpAndSettle();
+
+      expect(find.byKey(const Key('nameInput')), findsOneWidget);
+      expect(find.byKey(const Key('valueInput')), findsOneWidget);
+
+      expect(find.text('Cancel'), findsOneWidget);
+      expect(find.text('Ok'), findsOneWidget);
+
+      await tester.enterText(find.byKey(const Key('nameInput')), 'peaches');
+      await tester.pumpAndSettle();
+      await tester.enterText(find.byKey(const Key('valueInput')), '/home/user/someplace/subdirectory');
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('Ok'));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Add Variable'), findsOneWidget);
+
+      expect(find.text('Yes'), findsOneWidget);
+      expect(find.text('No'), findsOneWidget);
+
+      expect(find.text('The value could be shorted to use variables\n"/home/user/someplace/subdirectory"\nbecomes\n"{HOME}/subdirectory"?'), findsOneWidget);
+
+      await tester.tap(find.text('Yes'));
+      await tester.pumpAndSettle(const Duration(milliseconds: 500));
+
+      final captured = verify(() => mockVariablesCubit.add(captureAny<BranchVariable>())).captured;
+      final variable = captured.last as BranchVariable;
+
+      expect(variable.uuid, isNotEmpty);
+      expect(variable.name, equals('peaches'));
+      expect(variable.defaultValue, equals('{HOME}/subdirectory'));
+    });
+
+    testWidgets('add home directory used, variable not substituted', (tester) async {
+      await tester.pumpApp(
+        MultiRepositoryProvider(
+          providers: [
+            RepositoryProvider<DataStoreRepository>(
+              create: (context) => mockDataStoreRepository,
+            ),
+            RepositoryProvider<GitCalls>(
+              create: (context) => mockGitCalls,
+            ),
+            RepositoryProvider<VariablesHandler>(
+              create: (context) => mockVariablesHandler,
+            ),
+          ],
+          child: MultiBlocProvider(
+            providers: [
+              BlocProvider<BranchVariablesCubit>(
+                create: (context) => mockVariablesCubit,
+              ),
+              BlocProvider<BranchVariableValuesCubit>(
+                create: (context) => mockBranchVariableValuesCubit,
+              ),
+            ],
+            child: MaterialApp(
+              localizationsDelegates: List.from(
+                AppLocalizations.localizationsDelegates,
+              )..add(FormBuilderLocalizations.delegate),
+              supportedLocales: AppLocalizations.supportedLocales,
+              builder: (context, child) => const BranchVariablesScreen(),
+            ),
+          ),
+        ),
+      );
+
+      when(() => mockVariablesHandler.suggestGitOrHomePath('/home/user/someplace/subdirectory')).thenReturn('{HOME}/subdirectory');
+
+      await tester.pumpAndSettle(const Duration(seconds: 1));
+
+      expect(find.byKey(const Key('AddIcon')), findsOneWidget);
+
+      await tester.tap(find.byKey(const Key('AddIcon')));
+      await tester.pumpAndSettle();
+
+      expect(find.byKey(const Key('nameInput')), findsOneWidget);
+      expect(find.byKey(const Key('valueInput')), findsOneWidget);
+
+      expect(find.text('Cancel'), findsOneWidget);
+      expect(find.text('Ok'), findsOneWidget);
+
+      await tester.enterText(find.byKey(const Key('nameInput')), 'peaches');
+      await tester.pumpAndSettle();
+      await tester.enterText(find.byKey(const Key('valueInput')), '/home/user/someplace/subdirectory');
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('Ok'));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Add Variable'), findsOneWidget);
+
+      expect(find.text('Yes'), findsOneWidget);
+      expect(find.text('No'), findsOneWidget);
+
+      expect(find.text('The value could be shorted to use variables\n"/home/user/someplace/subdirectory"\nbecomes\n"{HOME}/subdirectory"?'), findsOneWidget);
+
+      await tester.tap(find.text('No'));
+      await tester.pumpAndSettle(const Duration(milliseconds: 500));
+
+      final captured = verify(() => mockVariablesCubit.add(captureAny<BranchVariable>())).captured;
+      final variable = captured.last as BranchVariable;
+
+      expect(variable.uuid, isNotEmpty);
+      expect(variable.name, equals('peaches'));
+      expect(variable.defaultValue, equals('/home/user/someplace/subdirectory'));
+    });
+
     testWidgets('test page route', (tester) async {
       await tester.pumpWidget(
         MultiRepositoryProvider(
@@ -210,6 +374,9 @@ void main() {
             ),
             RepositoryProvider<GitCalls>(
               create: (context) => mockGitCalls,
+            ),
+            RepositoryProvider<VariablesHandler>(
+              create: (context) => mockVariablesHandler,
             ),
           ],
           child: MultiBlocProvider(
