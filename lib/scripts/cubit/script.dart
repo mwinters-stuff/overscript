@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:uuid/uuid.dart';
 
 part 'script.g.dart';
 
@@ -21,15 +20,15 @@ class Script extends Equatable {
     required this.envVars,
   });
 
-  Script.empty()
-      : uuid = const Uuid().v1(),
+  const Script.empty()
+      : uuid = '',
         shellUuid = '',
         name = '',
         command = '',
-        args = [],
+        args = const [],
         workingDirectory = '',
         runInDocker = false,
-        envVars = {};
+        envVars = const {};
 
   factory Script.fromJson(Map json) => _$ScriptFromJson(json);
 

@@ -32,7 +32,7 @@ class ScriptsCubit extends Cubit<ScriptsState> {
     return state.get(uuid);
   }
 
-  void updateValue(Script currentValue) {
+  void update(Script currentValue) {
     emit(state.changing());
     emit(state.update(currentValue));
   }

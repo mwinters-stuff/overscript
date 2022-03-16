@@ -105,6 +105,17 @@ Script mockScript1 = const Script(
   },
 );
 
+Script mockScript1a = const Script(
+  uuid: 's-uuid-1',
+  shellUuid: 'sh-uuid-3',
+  name: 'script-2',
+  command: 'command-3',
+  workingDirectory: '/working/dir/4',
+  runInDocker: false,
+  args: [],
+  envVars: {},
+);
+
 Script mockScript2 = const Script(
   uuid: 's-uuid-2',
   shellUuid: 'sh-uuid-2',
