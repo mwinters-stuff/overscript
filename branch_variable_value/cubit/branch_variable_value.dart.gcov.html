@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2022-03-06 08:45:03</td>
+            <td class="headerValue">2022-03-16 06:56:18</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">0</td>
@@ -84,7 +84,7 @@
 <a name="13"><span class="lineNum">      13 </span>                :            :   disallowUnrecognizedKeys: true,</a>
 <a name="14"><span class="lineNum">      14 </span>                :            : )</a>
 <a name="15"><span class="lineNum">      15 </span>                :            : class BranchVariableValue extends Equatable {</a>
-<a name="16"><span class="lineNum">      16 </span>                :<span class="lineCov">         35 :   const BranchVariableValue({required this.uuid, required this.branchUuid, required this.variableUuid, required this.value});</span></a>
+<a name="16"><span class="lineNum">      16 </span>                :<span class="lineCov">         41 :   const BranchVariableValue({required this.uuid, required this.branchUuid, required this.variableUuid, required this.value});</span></a>
 <a name="17"><span class="lineNum">      17 </span>                :            : </a>
 <a name="18"><span class="lineNum">      18 </span>                :<span class="lineCov">          3 :   const BranchVariableValue.empty()</span></a>
 <a name="19"><span class="lineNum">      19 </span>                :            :       : uuid = '',</a>
@@ -92,7 +92,7 @@
 <a name="21"><span class="lineNum">      21 </span>                :            :         variableUuid = '',</a>
 <a name="22"><span class="lineNum">      22 </span>                :            :         value = '';</a>
 <a name="23"><span class="lineNum">      23 </span>                :            : </a>
-<a name="24"><span class="lineNum">      24 </span>                :<span class="lineCov">         16 :   factory BranchVariableValue.fromJson(Map json) =&gt; _$BranchVariableValueFromJson(json);</span></a>
+<a name="24"><span class="lineNum">      24 </span>                :<span class="lineCov">         20 :   factory BranchVariableValue.fromJson(Map json) =&gt; _$BranchVariableValueFromJson(json);</span></a>
 <a name="25"><span class="lineNum">      25 </span>                :            : </a>
 <a name="26"><span class="lineNum">      26 </span>                :<span class="lineCov">          1 :   BranchVariableValue copyWithNewValue({required String newValue}) {</span></a>
 <a name="27"><span class="lineNum">      27 </span>                :<span class="lineCov">          4 :     return BranchVariableValue(uuid: uuid, branchUuid: branchUuid, variableUuid: variableUuid, value: newValue);</span></a>
