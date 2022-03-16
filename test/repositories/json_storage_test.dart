@@ -31,7 +31,14 @@ void main() {
           mockBranchVariable1,
           mockBranchVariable2,
         ],
-        scripts: const [],
+        shells: [
+          mockShell1,
+          mockShell2,
+        ],
+        scripts: [
+          mockScript1,
+          mockScript2,
+        ],
         globalVariables: [
           mockGlobalVariable1,
           mockGlobalVariable2,
@@ -44,7 +51,20 @@ void main() {
       expect(
         value.scripts,
         equals(
-          [],
+          [
+            mockScript1,
+            mockScript2,
+          ],
+        ),
+      );
+
+      expect(
+        value.shells,
+        equals(
+          [
+            mockShell1,
+            mockShell2,
+          ],
         ),
       );
 
@@ -102,7 +122,14 @@ void main() {
         value.props,
         equals(
           [
-            [],
+            [
+              mockShell1,
+              mockShell2,
+            ],
+            [
+              mockScript1,
+              mockScript2,
+            ],
             [
               mockBranchVariable1,
               mockBranchVariable2,
@@ -130,6 +157,14 @@ void main() {
 
     test('toJson', () {
       final value = JsonStorage(
+        shells: [
+          mockShell1,
+          mockShell2,
+        ],
+        scripts: [
+          mockScript1,
+          mockScript2,
+        ],
         branchVariableValues: [
           mockBranchVariableValue1,
           mockBranchVariableValue2,
@@ -142,7 +177,6 @@ void main() {
           mockBranchVariable1,
           mockBranchVariable2,
         ],
-        scripts: const [],
         globalVariables: [
           mockGlobalVariable1,
           mockGlobalVariable2,
@@ -154,9 +188,21 @@ void main() {
       );
       final jsonValues = value.toJson();
       expect(
+        jsonValues['shells'],
+        equals(
+          [
+            mockShell1,
+            mockShell2,
+          ],
+        ),
+      );
+      expect(
         jsonValues['scripts'],
         equals(
-          [],
+          [
+            mockScript1,
+            mockScript2,
+          ],
         ),
       );
       expect(
@@ -208,7 +254,15 @@ void main() {
 
     test('fromJson', () {
       final jsonValues = <String, dynamic>{};
-      jsonValues['scripts'] = [];
+      jsonValues['shells'] = [
+        mockShell1.toJson(),
+        mockShell2.toJson(),
+      ];
+
+      jsonValues['scripts'] = [
+        mockScript1.toJson(),
+        mockScript2.toJson(),
+      ];
       jsonValues['branchVariables'] = [
         mockBranchVariable1.toJson(),
         mockBranchVariable2.toJson(),
@@ -235,7 +289,14 @@ void main() {
         value.props,
         equals(
           [
-            [],
+            [
+              mockShell1,
+              mockShell2,
+            ],
+            [
+              mockScript1,
+              mockScript2,
+            ],
             [
               mockBranchVariable1,
               mockBranchVariable2,
@@ -263,6 +324,14 @@ void main() {
 
     test('toString', () {
       final value = JsonStorage(
+        shells: [
+          mockShell1,
+          mockShell2,
+        ],
+        scripts: [
+          mockScript1,
+          mockScript2,
+        ],
         branchVariableValues: [
           mockBranchVariableValue1,
           mockBranchVariableValue2,
@@ -275,7 +344,6 @@ void main() {
           mockBranchVariable1,
           mockBranchVariable2,
         ],
-        scripts: const [],
         globalVariables: [
           mockGlobalVariable1,
           mockGlobalVariable2,

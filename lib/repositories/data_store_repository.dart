@@ -7,11 +7,14 @@ import 'package:overscript/git_branch/git_branch.dart';
 import 'package:overscript/global_environment_variable/global_environment_variable.dart';
 import 'package:overscript/global_variable/global_variable.dart';
 import 'package:overscript/repositories/json_storage.dart';
+import 'package:overscript/scripts/scripts.dart';
+import 'package:overscript/shells/shells.dart';
 import 'package:uuid/uuid.dart';
 
 class DataStoreRepository {
   DataStoreRepository(this.fileSystem)
       : gitBranches = [],
+        shells = [],
         scripts = [],
         branchVariables = [],
         branchVariableValues = [],
@@ -19,7 +22,8 @@ class DataStoreRepository {
         globalEnvironmentVariables = [];
 
   final FileSystem fileSystem;
-  List<dynamic> scripts;
+  List<Shell> shells;
+  List<Script> scripts;
   List<BranchVariable> branchVariables;
   List<GitBranch> gitBranches;
   List<BranchVariableValue> branchVariableValues;
@@ -71,6 +75,7 @@ class DataStoreRepository {
       final jsonStorage = JsonStorage.fromJson(
         const JsonDecoder().convert(content) as Map<String, dynamic>,
       );
+      shells = List.from(jsonStorage.shells, growable: true);
       scripts = List.from(jsonStorage.scripts, growable: true);
       branchVariables = List.from(jsonStorage.branchVariables, growable: true);
       gitBranches = List.from(jsonStorage.gitBranches, growable: true);
@@ -85,6 +90,7 @@ class DataStoreRepository {
 
   Future<bool> save(String filename) async {
     final jsonStorage = JsonStorage(
+      shells: shells,
       scripts: scripts,
       branchVariables: branchVariables,
       gitBranches: gitBranches,
@@ -171,5 +177,23 @@ class DataStoreRepository {
       result.add(branch.directory);
     }
     return result;
+  }
+
+  List<Script> addScript(Script script) {
+    return List.from(scripts)..add(script);
+  }
+
+  List<Script> deleteScript(Script script) {
+    // delete branch values
+    return List.from(scripts)..removeWhere((element) => element.uuid == script.uuid);
+  }
+
+  List<Shell> addShell(Shell shell) {
+    return List.from(shells)..add(shell);
+  }
+
+  List<Shell> deleteShell(Shell shell) {
+    // delete branch values
+    return List.from(shells)..removeWhere((element) => element.uuid == shell.uuid);
   }
 }

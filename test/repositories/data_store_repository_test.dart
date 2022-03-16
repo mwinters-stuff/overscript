@@ -5,6 +5,8 @@ import 'package:overscript/git_branch/git_branch.dart';
 import 'package:overscript/global_environment_variable/global_environment_variable.dart';
 import 'package:overscript/global_variable/cubit/global_variable.dart';
 import 'package:overscript/repositories/repositories.dart';
+import 'package:overscript/scripts/scripts.dart';
+import 'package:overscript/shells/shells.dart';
 
 import '../helpers/helpers.dart';
 
@@ -19,7 +21,7 @@ void main() {
       // ignore: cascade_invocations
       expect(await dataStoreRepository.load('a-file.json'), isTrue);
 
-      expect(dataStoreRepository.scripts.length, equals(0));
+      expect(dataStoreRepository.scripts.length, equals(2));
       expect(dataStoreRepository.gitBranches.length, equals(2));
       expect(dataStoreRepository.branchVariables.length, equals(2));
       expect(dataStoreRepository.branchVariableValues.length, equals(2));
@@ -49,6 +51,10 @@ void main() {
       when(() => mockFile.writeAsString(any())).thenAnswer((_) => Future.value(mockFile));
 
       final dataStoreRepository = DataStoreRepository(mockFileSystem);
+      dataStoreRepository.shells.add(mockShell1);
+      dataStoreRepository.shells.add(mockShell2);
+      dataStoreRepository.scripts.add(mockScript1);
+      dataStoreRepository.scripts.add(mockScript2);
       dataStoreRepository.gitBranches.add(mockGitBranch1);
       dataStoreRepository.gitBranches.add(mockGitBranch2);
       dataStoreRepository.branchVariables.add(mockBranchVariable1);
@@ -352,6 +358,190 @@ void main() {
       );
     });
 
+    test('add script', () {
+      final dataStoreRepository = DataStoreRepository(mockFileSystem);
+
+      dataStoreRepository.scripts = dataStoreRepository.addScript(
+        const Script(
+          uuid: 's-uuid-1',
+          shellUuid: 'sh-uuid-1',
+          name: 'script-1',
+          command: 'command-1',
+          workingDirectory: '/working/dir/1',
+          runInDocker: false,
+          args: [
+            'arg-1',
+            'arg-2',
+            'arg-3',
+          ],
+          envVars: {
+            'env-1': 'env-value-1',
+            'env-2': 'env-value-2',
+          },
+        ),
+      );
+
+      expect(dataStoreRepository.scripts.length, equals(1));
+
+      dataStoreRepository.scripts = dataStoreRepository.addScript(
+        const Script(
+          uuid: 's-uuid-2',
+          shellUuid: 'sh-uuid-2',
+          name: 'script-2',
+          command: 'command-2',
+          workingDirectory: '/working/dir/2',
+          runInDocker: true,
+          args: [
+            'arg-1',
+            'arg-2',
+          ],
+          envVars: {
+            'env-1': 'env-value-1',
+            'env-2': 'env-value-2',
+            'env-3': 'env-value-3',
+          },
+        ),
+      );
+
+      expect(dataStoreRepository.scripts.length, equals(2));
+
+      expect(
+        dataStoreRepository.scripts[0],
+        equals(
+          const Script(
+            uuid: 's-uuid-1',
+            shellUuid: 'sh-uuid-1',
+            name: 'script-1',
+            command: 'command-1',
+            workingDirectory: '/working/dir/1',
+            runInDocker: false,
+            args: [
+              'arg-1',
+              'arg-2',
+              'arg-3',
+            ],
+            envVars: {
+              'env-1': 'env-value-1',
+              'env-2': 'env-value-2',
+            },
+          ),
+        ),
+      );
+
+      expect(
+        dataStoreRepository.scripts[1],
+        equals(
+          const Script(
+            uuid: 's-uuid-2',
+            shellUuid: 'sh-uuid-2',
+            name: 'script-2',
+            command: 'command-2',
+            workingDirectory: '/working/dir/2',
+            runInDocker: true,
+            args: [
+              'arg-1',
+              'arg-2',
+            ],
+            envVars: {
+              'env-1': 'env-value-1',
+              'env-2': 'env-value-2',
+              'env-3': 'env-value-3',
+            },
+          ),
+        ),
+      );
+    });
+
+    test('delete script', () {
+      final dataStoreRepository = DataStoreRepository(mockFileSystem);
+
+      dataStoreRepository.scripts.add(
+        const Script(
+          uuid: 's-uuid-1',
+          shellUuid: 'sh-uuid-1',
+          name: 'script-1',
+          command: 'command-1',
+          workingDirectory: '/working/dir/1',
+          runInDocker: false,
+          args: [
+            'arg-1',
+            'arg-2',
+            'arg-3',
+          ],
+          envVars: {
+            'env-1': 'env-value-1',
+            'env-2': 'env-value-2',
+          },
+        ),
+      );
+
+      dataStoreRepository.scripts.add(
+        const Script(
+          uuid: 's-uuid-2',
+          shellUuid: 'sh-uuid-2',
+          name: 'script-2',
+          command: 'command-2',
+          workingDirectory: '/working/dir/2',
+          runInDocker: true,
+          args: [
+            'arg-1',
+            'arg-2',
+          ],
+          envVars: {
+            'env-1': 'env-value-1',
+            'env-2': 'env-value-2',
+            'env-3': 'env-value-3',
+          },
+        ),
+      );
+      expect(dataStoreRepository.scripts.length, equals(2));
+
+      dataStoreRepository.scripts = dataStoreRepository.deleteScript(
+        const Script(
+          uuid: 's-uuid-1',
+          shellUuid: 'sh-uuid-1',
+          name: 'script-1',
+          command: 'command-1',
+          workingDirectory: '/working/dir/1',
+          runInDocker: false,
+          args: [
+            'arg-1',
+            'arg-2',
+            'arg-3',
+          ],
+          envVars: {
+            'env-1': 'env-value-1',
+            'env-2': 'env-value-2',
+          },
+        ),
+      );
+
+      expect(dataStoreRepository.scripts.length, equals(1));
+
+      expect(
+        dataStoreRepository.scripts[0],
+        equals(
+          const Script(
+            uuid: 's-uuid-2',
+            shellUuid: 'sh-uuid-2',
+            name: 'script-2',
+            command: 'command-2',
+            workingDirectory: '/working/dir/2',
+            runInDocker: true,
+            args: [
+              'arg-1',
+              'arg-2',
+            ],
+            envVars: {
+              'env-1': 'env-value-1',
+              'env-2': 'env-value-2',
+              'env-3': 'env-value-3',
+            },
+          ),
+        ),
+      );
+    });
+
     test('getBranchVariable', () {
       final dataStoreRepository = DataStoreRepository(mockFileSystem);
 
@@ -427,6 +617,102 @@ void main() {
           '/home/user/src/project',
           '/home/user/src/banch1',
         ]),
+      );
+    });
+
+    test('add shell', () {
+      final dataStoreRepository = DataStoreRepository(mockFileSystem);
+
+      dataStoreRepository.shells = dataStoreRepository.addShell(
+        const Shell(
+          uuid: 'sh-uuid-1',
+          command: '/usr/bin/bash',
+          args: [
+            '-c',
+          ],
+        ),
+      );
+
+      expect(dataStoreRepository.shells.length, equals(1));
+
+      dataStoreRepository.shells = dataStoreRepository.addShell(
+        const Shell(
+          uuid: 'sh-uuid-2',
+          command: '/usr/bin/zsh',
+          args: [],
+        ),
+      );
+
+      expect(dataStoreRepository.shells.length, equals(2));
+
+      expect(
+        dataStoreRepository.shells[0],
+        equals(
+          const Shell(
+            uuid: 'sh-uuid-1',
+            command: '/usr/bin/bash',
+            args: [
+              '-c',
+            ],
+          ),
+        ),
+      );
+
+      expect(
+        dataStoreRepository.shells[1],
+        equals(
+          const Shell(
+            uuid: 'sh-uuid-2',
+            command: '/usr/bin/zsh',
+            args: [],
+          ),
+        ),
+      );
+    });
+
+    test('delete shell', () {
+      final dataStoreRepository = DataStoreRepository(mockFileSystem);
+
+      dataStoreRepository.shells.add(
+        const Shell(
+          uuid: 'sh-uuid-1',
+          command: '/usr/bin/bash',
+          args: [
+            '-c',
+          ],
+        ),
+      );
+
+      dataStoreRepository.shells.add(
+        const Shell(
+          uuid: 'sh-uuid-2',
+          command: '/usr/bin/zsh',
+          args: [],
+        ),
+      );
+      expect(dataStoreRepository.shells.length, equals(2));
+
+      dataStoreRepository.shells = dataStoreRepository.deleteShell(
+        const Shell(
+          uuid: 'sh-uuid-1',
+          command: '/usr/bin/bash',
+          args: [
+            '-c',
+          ],
+        ),
+      );
+
+      expect(dataStoreRepository.shells.length, equals(1));
+
+      expect(
+        dataStoreRepository.shells[0],
+        equals(
+          const Shell(
+            uuid: 'sh-uuid-2',
+            command: '/usr/bin/zsh',
+            args: [],
+          ),
+        ),
       );
     });
   });

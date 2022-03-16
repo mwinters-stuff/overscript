@@ -9,6 +9,8 @@ import 'package:overscript/git_branch/git_branch.dart';
 import 'package:overscript/global_environment_variable/global_environment_variable.dart';
 import 'package:overscript/global_variable/global_variable.dart';
 import 'package:overscript/repositories/repositories.dart';
+import 'package:overscript/scripts/scripts.dart';
+import 'package:overscript/shells/shells.dart';
 import 'package:process/process.dart';
 
 class MockDataStoreRepository extends Mock implements DataStoreRepository {}
@@ -56,3 +58,15 @@ class MockGlobalEnvironmentVariablesCubit extends MockCubit<GlobalEnvironmentVar
 class MockGlobalEnvironmentVariablesState extends Mock implements GlobalEnvironmentVariablesState {}
 
 class MockVariablesHandler extends Mock implements VariablesHandler {}
+
+class MockScript extends Mock implements Script {}
+
+class MockScriptsCubit extends MockCubit<ScriptsState> implements ScriptsCubit {}
+
+class MockScriptsState extends Mock implements ScriptsState {}
+
+class MockShell extends Mock implements Shell {}
+
+class MockShellsCubit extends MockCubit<ShellsState> implements ShellsCubit {}
+
+class MockShellsState extends Mock implements ShellsState {}

@@ -15,6 +15,8 @@ import 'package:overscript/global_environment_variable/global_environment_variab
 import 'package:overscript/global_variable/global_variable.dart';
 import 'package:overscript/l10n/l10n.dart';
 import 'package:overscript/repositories/repositories.dart';
+import 'package:overscript/shells/cubit/shells_cubit.dart';
+import 'package:overscript/shells/views/shells_screen.dart';
 import 'package:overscript/theme/theme.dart';
 import 'package:overscript/views/views.dart';
 import 'package:overscript/widgets/main_page.dart';
@@ -42,6 +44,8 @@ class App extends StatelessWidget {
               return GlobalVariablesScreen.pageRoute(context);
             case GlobalEnvironmentVariablesScreen.routeName:
               return GlobalEnvironmentVariablesScreen.pageRoute(context);
+            case ShellsScreen.routeName:
+              return ShellsScreen.pageRoute(context);
           }
           return null;
         },
@@ -61,6 +65,7 @@ class App extends StatelessWidget {
           context.read<BranchVariableValuesCubit>().load();
           context.read<GlobalVariablesCubit>().load();
           context.read<GlobalEnvironmentVariablesCubit>().load();
+          context.read<ShellsCubit>().load();
         }
       },
     );

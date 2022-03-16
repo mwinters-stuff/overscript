@@ -14,21 +14,28 @@ class ActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        IconButton(
-          iconSize: 100,
-          onPressed: onPressed,
-          icon: Icon(
-            icon,
-          ),
+    return SizedBox.fromSize(
+      size: const Size(300, 150),
+      child: TextButton(
+        onPressed: onPressed,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              icon,
+              size: 100,
+            ),
+            // child:
+            Text(
+              caption,
+              maxLines: 1,
+              overflow: TextOverflow.fade,
+              style: Theme.of(context).textTheme.titleLarge,
+            )
+          ],
         ),
-        Text(
-          caption,
-          style: Theme.of(context).textTheme.titleLarge,
-        )
-      ],
+      ),
     );
   }
 }

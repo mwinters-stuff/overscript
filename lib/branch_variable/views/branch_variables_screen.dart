@@ -1,6 +1,7 @@
 import 'package:fialogs/fialogs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:format/format.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:overscript/branch_variable/branch_variable.dart';
 import 'package:overscript/branch_variable_value/branch_variable_value.dart';
@@ -8,7 +9,6 @@ import 'package:overscript/l10n/l10n.dart';
 import 'package:overscript/repositories/repositories.dart';
 import 'package:overscript/widgets/widgets.dart';
 import 'package:uuid/uuid.dart';
-import 'package:format/format.dart';
 
 class BranchVariablesScreen extends StatefulWidget {
   const BranchVariablesScreen({Key? key}) : super(key: key);

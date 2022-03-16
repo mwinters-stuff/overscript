@@ -6,6 +6,7 @@ import 'package:overscript/git_branch/git_branch.dart';
 import 'package:overscript/global_environment_variable/global_environment_variable.dart';
 import 'package:overscript/global_variable/global_variable.dart';
 import 'package:overscript/l10n/l10n.dart';
+import 'package:overscript/shells/shells.dart';
 import 'package:overscript/views/views.dart';
 
 import '../helpers/helpers.dart';
@@ -13,6 +14,7 @@ import '../helpers/helpers.dart';
 Map<String, WidgetBuilder> routes() {
   return <String, WidgetBuilder>{
     '/': (BuildContext context) => const ConfigurationView(),
+    ShellsScreen.routeName: (BuildContext context) => const Text('ShellsScreen'),
     GlobalVariablesScreen.routeName: (BuildContext context) => const Text('GlobalVariablesScreen'),
     BranchesScreen.routeName: (BuildContext context) => const Text('BranchesScreen'),
     BranchVariablesScreen.routeName: (BuildContext context) => const Text('BranchVariablesScreen'),
@@ -23,18 +25,14 @@ Map<String, WidgetBuilder> routes() {
 
 void main() {
   group('ConfigurationView ', () {
-    final binding = TestWidgetsFlutterBinding.ensureInitialized() as TestWidgetsFlutterBinding;
-
-    setUp(() {
-      binding.window.physicalSizeTestValue = const Size(1920, 1080);
-      binding.window.devicePixelRatioTestValue = 1.0;
-    });
-
     testWidgets('Create', (tester) async {
       await tester.pumpApp(
         const ConfigurationView(),
       );
       await tester.pumpAndSettle();
+      expect(find.text('Shells'), findsOneWidget);
+      expect(find.byIcon(LineIcons.terminal), findsOneWidget);
+
       expect(find.text('Global Variables'), findsOneWidget);
       expect(find.byIcon(LineIcons.alternateList), findsOneWidget);
 
@@ -51,14 +49,24 @@ void main() {
       expect(find.byIcon(LineIcons.code), findsOneWidget);
     });
 
+    testWidgets('Show Shells', (tester) async {
+      await tester.pumpApp(
+        null,
+        routes: routes(),
+      );
+      await tester.pumpAndSettle();
+      expect(find.text('Shells'), findsOneWidget);
+      expect(find.byIcon(LineIcons.terminal), findsOneWidget);
+
+      await tester.tap(find.byIcon(LineIcons.terminal));
+      await tester.pumpAndSettle();
+
+      expect(find.text('ShellsScreen'), findsOneWidget);
+    });
     testWidgets('Show Global Variables', (tester) async {
       await tester.pumpApp(
-        MaterialApp(
-          routes: routes(),
-          localizationsDelegates: List.from(
-            AppLocalizations.localizationsDelegates,
-          ),
-        ),
+        null,
+        routes: routes(),
       );
       await tester.pumpAndSettle();
       expect(find.text('Global Variables'), findsOneWidget);
@@ -72,12 +80,8 @@ void main() {
 
     testWidgets('Show Global Environment Variables', (tester) async {
       await tester.pumpApp(
-        MaterialApp(
-          routes: routes(),
-          localizationsDelegates: List.from(
-            AppLocalizations.localizationsDelegates,
-          ),
-        ),
+        null,
+        routes: routes(),
       );
       await tester.pumpAndSettle();
       expect(find.text('Global Environment Variables'), findsOneWidget);
@@ -91,12 +95,8 @@ void main() {
 
     testWidgets('Show Branches', (tester) async {
       await tester.pumpApp(
-        MaterialApp(
-          routes: routes(),
-          localizationsDelegates: List.from(
-            AppLocalizations.localizationsDelegates,
-          ),
-        ),
+        null,
+        routes: routes(),
       );
       await tester.pumpAndSettle();
       expect(find.text('GIT Branches'), findsOneWidget);
@@ -110,12 +110,8 @@ void main() {
 
     testWidgets('Show Variables', (tester) async {
       await tester.pumpApp(
-        MaterialApp(
-          routes: routes(),
-          localizationsDelegates: List.from(
-            AppLocalizations.localizationsDelegates,
-          ),
-        ),
+        null,
+        routes: routes(),
       );
       await tester.pumpAndSettle();
       expect(find.text('Branch Variables'), findsOneWidget);
@@ -129,12 +125,8 @@ void main() {
 
     testWidgets('Show Scripts', (tester) async {
       await tester.pumpApp(
-        MaterialApp(
-          routes: routes(),
-          localizationsDelegates: List.from(
-            AppLocalizations.localizationsDelegates,
-          ),
-        ),
+        null,
+        routes: routes(),
       );
       await tester.pumpAndSettle();
       expect(find.text('Scripts'), findsOneWidget);

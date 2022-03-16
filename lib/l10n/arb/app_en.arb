@@ -38,7 +38,17 @@
     "yes":"Yes",
     "no":"No",
     "ok":"Ok",
-    "cancel":"Cancel"
+    "cancel":"Cancel",
+    "arguments":"Arguments",
+    "shell":"Shell",
+    "shells":"Shells",
+    "command":"Command",
+    "deleteShell":"Delete Shell",
+    "deleteShellQuestion":"Delete Shell?",
+    "deleteShellsQuestion":"Delete Shells?",
+    "addShell":"Add Shell",
+    "editShell": "Edit Shell",
+    "editArguments":"Edit Arguments"
 
     
 } 

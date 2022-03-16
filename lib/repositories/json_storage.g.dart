@@ -13,6 +13,7 @@ JsonStorage _$JsonStorageFromJson(Map json) => $checkedCreate(
         $checkKeys(
           json,
           allowedKeys: const [
+            'shells',
             'scripts',
             'branchVariables',
             'gitBranches',
@@ -21,6 +22,7 @@ JsonStorage _$JsonStorageFromJson(Map json) => $checkedCreate(
             'globalEnvironmentVariables'
           ],
           requiredKeys: const [
+            'shells',
             'scripts',
             'branchVariables',
             'gitBranches',
@@ -30,7 +32,16 @@ JsonStorage _$JsonStorageFromJson(Map json) => $checkedCreate(
           ],
         );
         final val = JsonStorage(
-          scripts: $checkedConvert('scripts', (v) => v as List<dynamic>),
+          shells: $checkedConvert(
+              'shells',
+              (v) => (v as List<dynamic>)
+                  .map((e) => Shell.fromJson(e as Map))
+                  .toList()),
+          scripts: $checkedConvert(
+              'scripts',
+              (v) => (v as List<dynamic>)
+                  .map((e) => Script.fromJson(e as Map))
+                  .toList()),
           branchVariables: $checkedConvert(
               'branchVariables',
               (v) => (v as List<dynamic>)
@@ -63,6 +74,7 @@ JsonStorage _$JsonStorageFromJson(Map json) => $checkedCreate(
 
 Map<String, dynamic> _$JsonStorageToJson(JsonStorage instance) =>
     <String, dynamic>{
+      'shells': instance.shells,
       'scripts': instance.scripts,
       'branchVariables': instance.branchVariables,
       'gitBranches': instance.gitBranches,

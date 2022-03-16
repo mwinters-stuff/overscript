@@ -5,6 +5,8 @@ import 'package:overscript/branch_variable_value/branch_variable_value.dart';
 import 'package:overscript/git_branch/git_branch.dart';
 import 'package:overscript/global_environment_variable/global_environment_variable.dart';
 import 'package:overscript/global_variable/global_variable.dart';
+import 'package:overscript/scripts/scripts.dart';
+import 'package:overscript/shells/shells.dart';
 
 import 'mocks.dart';
 
@@ -71,9 +73,108 @@ GlobalEnvironmentVariable mockGlobalEnvironmentVariable2 = const GlobalEnvironme
   value: 'value2',
 );
 
+Shell mockShell1 = const Shell(
+  uuid: 'sh-uuid-1',
+  command: '/usr/bin/bash',
+  args: [
+    '-c',
+  ],
+);
+
+Shell mockShell2 = const Shell(
+  uuid: 'sh-uuid-2',
+  command: '/usr/bin/zsh',
+  args: [],
+);
+
+Script mockScript1 = const Script(
+  uuid: 's-uuid-1',
+  shellUuid: 'sh-uuid-1',
+  name: 'script-1',
+  command: 'command-1',
+  workingDirectory: '/working/dir/1',
+  runInDocker: false,
+  args: [
+    'arg-1',
+    'arg-2',
+    'arg-3',
+  ],
+  envVars: {
+    'env-1': 'env-value-1',
+    'env-2': 'env-value-2',
+  },
+);
+
+Script mockScript2 = const Script(
+  uuid: 's-uuid-2',
+  shellUuid: 'sh-uuid-2',
+  name: 'script-2',
+  command: 'command-2',
+  workingDirectory: '/working/dir/2',
+  runInDocker: true,
+  args: [
+    'arg-1',
+    'arg-2',
+  ],
+  envVars: {
+    'env-1': 'env-value-1',
+    'env-2': 'env-value-2',
+    'env-3': 'env-value-3',
+  },
+);
+
 const fileContents = '''
 {
-  "scripts": [],
+  "shells": [
+    {
+      "uuid": "sh-uuid-1",
+      "command": "/usr/bin/bash",
+      "args": [
+        "-c"
+      ]
+    },
+    {
+      "uuid": "sh-uuid-2",
+      "command": "/usr/bin/zsh",
+      "args": []
+    }
+  ],
+  "scripts": [
+    {
+      "uuid": "s-uuid-1",
+      "shellUuid": "sh-uuid-1",
+      "name": "script-1",
+      "command": "command-1",
+      "args": [
+        "arg-1",
+        "arg-2",
+        "arg-3"
+      ],
+      "workingDirectory": "/working/dir/1",
+      "runInDocker": false,
+      "envVars": {
+        "env-1": "env-value-1",
+        "env-2": "env-value-2"
+      }
+    },
+    {
+      "uuid": "s-uuid-2",
+      "shellUuid": "sh-uuid-2",
+      "name": "script-2",
+      "command": "command-2",
+      "args": [
+        "arg-1",
+        "arg-2"
+      ],
+      "workingDirectory": "/working/dir/2",
+      "runInDocker": true,
+      "envVars": {
+        "env-1": "env-value-1",
+        "env-2": "env-value-2",
+        "env-3": "env-value-3"
+      }
+    }
+  ],
   "branchVariables": [
     {
       "uuid": "v-uuid-1",
