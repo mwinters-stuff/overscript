@@ -13,8 +13,8 @@ import 'package:overscript/l10n/l10n.dart';
 
 extension PumpApp on WidgetTester {
   Future<void> pumpApp(Widget? widget, {Map<String, WidgetBuilder> routes = const {}}) {
-    // binding.window.physicalSizeTestValue = const Size(2000, 800);
-    // binding.window.devicePixelRatioTestValue = 1.0;
+    binding.window.physicalSizeTestValue = const Size(2000, 800);
+    binding.window.devicePixelRatioTestValue = 1.0;
     // resets the screen to its original size after the test end
     addTearDown(binding.window.clearPhysicalSizeTestValue);
 

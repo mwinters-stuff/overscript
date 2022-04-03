@@ -51,20 +51,20 @@ void main() {
       when(() => mockFile.writeAsString(any())).thenAnswer((_) => Future.value(mockFile));
 
       final dataStoreRepository = DataStoreRepository(mockFileSystem);
-      dataStoreRepository.shells.add(mockShell1);
-      dataStoreRepository.shells.add(mockShell2);
-      dataStoreRepository.scripts.add(mockScript1);
-      dataStoreRepository.scripts.add(mockScript2);
-      dataStoreRepository.gitBranches.add(mockGitBranch1);
-      dataStoreRepository.gitBranches.add(mockGitBranch2);
-      dataStoreRepository.branchVariables.add(mockBranchVariable1);
-      dataStoreRepository.branchVariables.add(mockBranchVariable2);
-      dataStoreRepository.branchVariableValues.add(mockBranchVariableValue1);
-      dataStoreRepository.branchVariableValues.add(mockBranchVariableValue2);
-      dataStoreRepository.globalVariables.add(mockGlobalVariable1);
-      dataStoreRepository.globalVariables.add(mockGlobalVariable2);
-      dataStoreRepository.globalEnvironmentVariables.add(mockGlobalEnvironmentVariable1);
-      dataStoreRepository.globalEnvironmentVariables.add(mockGlobalEnvironmentVariable2);
+      dataStoreRepository.shells.add(realShell1);
+      dataStoreRepository.shells.add(realShell2);
+      dataStoreRepository.scripts.add(realScript1);
+      dataStoreRepository.scripts.add(realScript2);
+      dataStoreRepository.gitBranches.add(realGitBranch1);
+      dataStoreRepository.gitBranches.add(realGitBranch2);
+      dataStoreRepository.branchVariables.add(realBranchVariable1);
+      dataStoreRepository.branchVariables.add(realBranchVariable2);
+      dataStoreRepository.branchVariableValues.add(realBranchVariableValue1);
+      dataStoreRepository.branchVariableValues.add(realBranchVariableValue2);
+      dataStoreRepository.globalVariables.add(realGlobalVariable1);
+      dataStoreRepository.globalVariables.add(realGlobalVariable2);
+      dataStoreRepository.globalEnvironmentVariables.add(realGlobalEnvironmentVariable1);
+      dataStoreRepository.globalEnvironmentVariables.add(realGlobalEnvironmentVariable2);
 
       // ignore: cascade_invocations
       expect(await dataStoreRepository.save('a-file.json'), isTrue);
@@ -608,8 +608,8 @@ void main() {
 
     test('getGitBranchRoots', () async {
       final dataStoreRepository = DataStoreRepository(mockFileSystem);
-      dataStoreRepository.gitBranches.add(mockGitBranch1);
-      dataStoreRepository.gitBranches.add(mockGitBranch2);
+      dataStoreRepository.gitBranches.add(realGitBranch1);
+      dataStoreRepository.gitBranches.add(realGitBranch2);
 
       expect(
         dataStoreRepository.getGitBranchRoots(),

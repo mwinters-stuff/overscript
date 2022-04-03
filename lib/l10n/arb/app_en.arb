@@ -48,7 +48,14 @@
     "deleteShellsQuestion":"Delete Shells?",
     "addShell":"Add Shell",
     "editShell": "Edit Shell",
-    "editArguments":"Edit Arguments"
+    "editArguments":"Edit Arguments",
+    "addScript":"Add Script",
+    "editScript": "Edit Script",
+    "deleteScript": "Delete Script",
+    "deleteScriptQuestion":"Delete Script?",
+    "workingDirectory":"Working Directory",
+    "environmentVariables": "Environment Variables",
+    "runInDocker":"Run In Docker"
 
     
 } 

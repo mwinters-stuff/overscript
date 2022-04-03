@@ -1,24 +1,116 @@
 {
   "shells": [
     {
-      "uuid": "b086f9f0-a35b-11ec-943b-39e187f3dad1",
+      "uuid": "sh-uuid-1",
       "command": "/usr/bin/bash",
       "args": [
         "-c"
       ]
+    },
+    {
+      "uuid": "sh-uuid-2",
+      "command": "/usr/bin/zsh",
+      "args": []
     }
   ],
-  "scripts": [],
-  "branchVariables": [],
+  "scripts": [
+    {
+      "uuid": "s-uuid-1",
+      "shellUuid": "sh-uuid-1",
+      "name": "script-1",
+      "command": "command-1",
+      "args": [
+        "arg-1",
+        "arg-2",
+        "arg-3"
+      ],
+      "workingDirectory": "/working/dir/1",
+      "runInDocker": false,
+      "envVars": {
+        "env-1": "env-value-1",
+        "env-2": "env-value-2"
+      }
+    },
+    {
+      "uuid": "s-uuid-2",
+      "shellUuid": "sh-uuid-2",
+      "name": "script-2",
+      "command": "command-2",
+      "args": [
+        "arg-1",
+        "arg-2"
+      ],
+      "workingDirectory": "/working/dir/2",
+      "runInDocker": true,
+      "envVars": {
+        "env-1": "env-value-1",
+        "env-2": "env-value-2",
+        "env-3": "env-value-3"
+      }
+    }
+  ],
+  "branchVariables": [
+    {
+      "uuid": "v-uuid-1",
+      "name": "variable1",
+      "defaultValue": "default1"
+    },
+    {
+      "uuid": "v-uuid-2",
+      "name": "variable2",
+      "defaultValue": "default2"
+    }
+  ],
   "gitBranches": [
     {
-      "uuid": "316d16c0-a27c-11ec-b943-2b5253dac34a",
+      "uuid": "a-uuid-1",
       "name": "master",
-      "directory": "/home/mathew/src/overscript",
-      "origin": "https://github.com/mwinters-stuff/overscript.git"
+      "directory": "/home/user/src/project",
+      "origin": "git:someplace/bob"
+    },
+    {
+      "uuid": "a-uuid-2",
+      "name": "branch-one",
+      "directory": "/home/user/src/banch1",
+      "origin": "git:someplace/bob"
     }
   ],
-  "branchVariableValues": [],
-  "globalVariables": [],
-  "globalEnvironmentVariables": []
+  "branchVariableValues": [
+    {
+      "uuid": "bvv-uuid-1",
+      "branchUuid": "a-uuid-1",
+      "variableUuid": "v-uuid-1",
+      "value": "start value 1"
+    },
+    {
+      "uuid": "bvv-uuid-2",
+      "branchUuid": "a-uuid-2",
+      "variableUuid": "v-uuid-1",
+      "value": "start value 2"
+    }
+  ],
+  "globalVariables": [
+    {
+      "uuid": "gv-uuid-1",
+      "name": "g-variable-1",
+      "value": "value1"
+    },
+    {
+      "uuid": "gv-uuid-2",
+      "name": "g-variable-2",
+      "value": "value2"
+    }
+  ],
+  "globalEnvironmentVariables": [
+    {
+      "uuid": "ge-uuid-1",
+      "name": "g-env-1",
+      "value": "value1"
+    },
+    {
+      "uuid": "ge-uuid-2",
+      "name": "g-env-2",
+      "value": "value2"
+    }
+  ]
 }

@@ -11,6 +11,7 @@ void main() {
 
     setUp(() {
       dataStoreRepository = DataStoreRepository(mockDataStoreRepositoryJsonFile());
+      initMocks();
     });
 
     test(

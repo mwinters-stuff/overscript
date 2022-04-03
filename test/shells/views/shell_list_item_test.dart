@@ -8,16 +8,11 @@ import '../../helpers/helpers.dart';
 
 void main() {
   group('ShellListItem', () {
-    late MockShell mockShell;
     late MockShellsCubit mockShellsCubit;
 
     setUp(() {
-      mockShell = MockShell();
-      when(() => mockShell.uuid).thenReturn('a-uuid');
-      when(() => mockShell.command).thenReturn('/usr/bin/bash');
-      when(() => mockShell.args).thenReturn(['arg1', 'arg2']);
-
       mockShellsCubit = MockShellsCubit();
+      initMocks();
 
       registerFallbackValue(const Shell.empty());
     });
@@ -32,7 +27,7 @@ void main() {
           ],
           child: Card(
             child: ShellListItem(
-              shell: mockShell,
+              shell: mockShell1,
             ),
           ),
         ),
@@ -65,7 +60,7 @@ void main() {
 
       await tester.pump();
 
-      verifyNever(() => mockShellsCubit.delete(mockShell));
+      verifyNever(() => mockShellsCubit.delete(mockShell1));
     });
 
     testWidgets('delete button, ok', (tester) async {
@@ -85,7 +80,7 @@ void main() {
 
       await tester.pumpAndSettle();
 
-      verify(() => mockShellsCubit.delete(mockShell)).called(1);
+      verify(() => mockShellsCubit.delete(mockShell1)).called(1);
     });
 
     testWidgets('edit value ok', (tester) async {
@@ -102,7 +97,7 @@ void main() {
       expect(find.text('Cancel'), findsOneWidget);
       expect(find.text('Ok'), findsOneWidget);
 
-      when(() => mockShell.copyWithNewArgs(newArgs: 'new-arg1 new-arg2')).thenReturn(mockShell);
+      when(() => mockShell1.copyWithNewArgs(newArgs: 'new-arg1 new-arg2')).thenReturn(mockShell1);
 
       await tester.tap(find.byType(TextField));
       await tester.pump();
@@ -112,8 +107,8 @@ void main() {
       await tester.tap(find.text('Ok'));
       await tester.pumpAndSettle();
 
-      verify(() => mockShell.copyWithNewArgs(newArgs: 'new-arg1 new-arg2')).called(1);
-      verify(() => mockShellsCubit.updateArgs(mockShell)).called(1);
+      verify(() => mockShell1.copyWithNewArgs(newArgs: 'new-arg1 new-arg2')).called(1);
+      verify(() => mockShellsCubit.updateArgs(mockShell1)).called(1);
     });
 
     // testWidgets('edit value cancel', (tester) async {

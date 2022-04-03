@@ -19,6 +19,7 @@ import 'package:overscript/git_branch/git_branch.dart';
 import 'package:overscript/global_environment_variable/global_environment_variable.dart';
 import 'package:overscript/global_variable/global_variable.dart';
 import 'package:overscript/repositories/repositories.dart';
+import 'package:overscript/scripts/cubit/scripts_cubit.dart';
 import 'package:overscript/shells/cubit/shells_cubit.dart';
 import 'package:overscript/theme/theme.dart';
 import 'package:process/process.dart';
@@ -82,6 +83,9 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
                   ),
                   BlocProvider<ShellsCubit>(
                     create: (context) => ShellsCubit(dataStoreRepository: context.read<DataStoreRepository>()),
+                  ),
+                  BlocProvider<ScriptsCubit>(
+                    create: (context) => ScriptsCubit(dataStoreRepository: context.read<DataStoreRepository>()),
                   ),
                   BlocProvider<ThemeCubit>(create: (context) => ThemeCubit()),
                 ],

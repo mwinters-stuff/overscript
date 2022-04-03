@@ -12,8 +12,6 @@ import '../../helpers/helpers.dart';
 
 void main() {
   group('ShellsScreen', () {
-    late MockShell mockShell1;
-    late MockShell mockShell2;
     late MockShellsCubit mockShellsCubit;
     late MockShellsState mockShellsState;
     late MockDataStoreRepository mockDataStoreRepository;
@@ -25,19 +23,10 @@ void main() {
       mockShellsState = MockShellsState();
       mockShellsCubit = MockShellsCubit();
       mockFileSystem = MockFileSystem();
+      initMocks();
 
       when(() => mockDataStoreRepository.save(any())).thenAnswer((_) => Future.value(true));
       when(() => mockDataStoreRepository.load(any())).thenAnswer((_) => Future.value(true));
-
-      mockShell1 = MockShell();
-      when(() => mockShell1.uuid).thenReturn('a-uuid-1');
-      when(() => mockShell1.command).thenReturn('/usr/bin/bash');
-      when(() => mockShell1.args).thenReturn(['arg1', 'arg2']);
-
-      mockShell2 = MockShell();
-      when(() => mockShell2.uuid).thenReturn('a-uuid-2');
-      when(() => mockShell2.command).thenReturn('/usr/bin/ash');
-      when(() => mockShell2.args).thenReturn(['arg1']);
 
       when(() => mockShellsState.status).thenReturn(ShellsStatus.loaded);
       when(() => mockShellsState.shells).thenReturn([mockShell1, mockShell2]);
@@ -86,8 +75,8 @@ void main() {
       expect(find.text('/usr/bin/bash'), findsOneWidget);
       expect(find.text('Arguments: arg1 arg2'), findsOneWidget);
 
-      expect(find.text('/usr/bin/ash'), findsOneWidget);
-      expect(find.text('Arguments: arg1'), findsOneWidget);
+      expect(find.text('/usr/bin/zsh'), findsOneWidget);
+      expect(find.text('Arguments: '), findsOneWidget);
     });
 
     testWidgets('add "cancel clicked"!', (tester) async {

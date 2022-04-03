@@ -5,6 +5,7 @@ import 'package:overscript/git_branch/git_branch.dart';
 import 'package:overscript/global_environment_variable/global_environment_variable.dart';
 import 'package:overscript/global_variable/global_variable.dart';
 import 'package:overscript/l10n/l10n.dart';
+import 'package:overscript/scripts/scripts.dart';
 import 'package:overscript/shells/views/shells_screen.dart';
 import 'package:overscript/widgets/action_button.dart';
 
@@ -46,8 +47,8 @@ class ConfigurationView extends StatelessWidget {
               ),
               ActionButton(
                 caption: l10n.scripts,
-                icon: LineIcons.code,
-                onPressed: () => Navigator.of(context).pushNamed('/scripts'),
+                icon: ScriptsScreen.actionIcon,
+                onPressed: () => Navigator.of(context).pushNamed(ScriptsScreen.routeName),
               ),
               ActionButton(
                 caption: l10n.branchVariables,

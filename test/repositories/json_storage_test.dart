@@ -20,40 +20,40 @@ void main() {
     test('constructor', () {
       final value = JsonStorage(
         branchVariableValues: [
-          mockBranchVariableValue1,
-          mockBranchVariableValue2,
+          realBranchVariableValue1,
+          realBranchVariableValue2,
         ],
         gitBranches: [
-          mockGitBranch1,
-          mockGitBranch2,
+          realGitBranch1,
+          realGitBranch2,
         ],
         branchVariables: [
-          mockBranchVariable1,
-          mockBranchVariable2,
+          realBranchVariable1,
+          realBranchVariable2,
         ],
         shells: [
-          mockShell1,
-          mockShell2,
+          realShell1,
+          realShell2,
         ],
         scripts: [
-          mockScript1,
-          mockScript2,
+          realScript1,
+          realScript2,
         ],
         globalVariables: [
-          mockGlobalVariable1,
-          mockGlobalVariable2,
+          realGlobalVariable1,
+          realGlobalVariable2,
         ],
         globalEnvironmentVariables: [
-          mockGlobalEnvironmentVariable1,
-          mockGlobalEnvironmentVariable2,
+          realGlobalEnvironmentVariable1,
+          realGlobalEnvironmentVariable2,
         ],
       );
       expect(
         value.scripts,
         equals(
           [
-            mockScript1,
-            mockScript2,
+            realScript1,
+            realScript2,
           ],
         ),
       );
@@ -62,8 +62,8 @@ void main() {
         value.shells,
         equals(
           [
-            mockShell1,
-            mockShell2,
+            realShell1,
+            realShell2,
           ],
         ),
       );
@@ -72,8 +72,8 @@ void main() {
         value.globalVariables,
         equals(
           [
-            mockGlobalVariable1,
-            mockGlobalVariable2,
+            realGlobalVariable1,
+            realGlobalVariable2,
           ],
         ),
       );
@@ -82,8 +82,8 @@ void main() {
         value.globalEnvironmentVariables,
         equals(
           [
-            mockGlobalEnvironmentVariable1,
-            mockGlobalEnvironmentVariable2,
+            realGlobalEnvironmentVariable1,
+            realGlobalEnvironmentVariable2,
           ],
         ),
       );
@@ -92,8 +92,8 @@ void main() {
         value.branchVariables,
         equals(
           [
-            mockBranchVariable1,
-            mockBranchVariable2,
+            realBranchVariable1,
+            realBranchVariable2,
           ],
         ),
       );
@@ -102,8 +102,8 @@ void main() {
         value.gitBranches,
         equals(
           [
-            mockGitBranch1,
-            mockGitBranch2,
+            realGitBranch1,
+            realGitBranch2,
           ],
         ),
       );
@@ -112,8 +112,8 @@ void main() {
         value.branchVariableValues,
         equals(
           [
-            mockBranchVariableValue1,
-            mockBranchVariableValue2,
+            realBranchVariableValue1,
+            realBranchVariableValue2,
           ],
         ),
       );
@@ -123,32 +123,32 @@ void main() {
         equals(
           [
             [
-              mockShell1,
-              mockShell2,
+              realShell1,
+              realShell2,
             ],
             [
-              mockScript1,
-              mockScript2,
+              realScript1,
+              realScript2,
             ],
             [
-              mockBranchVariable1,
-              mockBranchVariable2,
+              realBranchVariable1,
+              realBranchVariable2,
             ],
             [
-              mockGitBranch1,
-              mockGitBranch2,
+              realGitBranch1,
+              realGitBranch2,
             ],
             [
-              mockBranchVariableValue1,
-              mockBranchVariableValue2,
+              realBranchVariableValue1,
+              realBranchVariableValue2,
             ],
             [
-              mockGlobalVariable1,
-              mockGlobalVariable2,
+              realGlobalVariable1,
+              realGlobalVariable2,
             ],
             [
-              mockGlobalEnvironmentVariable1,
-              mockGlobalEnvironmentVariable2,
+              realGlobalEnvironmentVariable1,
+              realGlobalEnvironmentVariable2,
             ],
           ],
         ),
@@ -158,32 +158,32 @@ void main() {
     test('toJson', () {
       final value = JsonStorage(
         shells: [
-          mockShell1,
-          mockShell2,
+          realShell1,
+          realShell2,
         ],
         scripts: [
-          mockScript1,
-          mockScript2,
+          realScript1,
+          realScript2,
         ],
         branchVariableValues: [
-          mockBranchVariableValue1,
-          mockBranchVariableValue2,
+          realBranchVariableValue1,
+          realBranchVariableValue2,
         ],
         gitBranches: [
-          mockGitBranch1,
-          mockGitBranch2,
+          realGitBranch1,
+          realGitBranch2,
         ],
         branchVariables: [
-          mockBranchVariable1,
-          mockBranchVariable2,
+          realBranchVariable1,
+          realBranchVariable2,
         ],
         globalVariables: [
-          mockGlobalVariable1,
-          mockGlobalVariable2,
+          realGlobalVariable1,
+          realGlobalVariable2,
         ],
         globalEnvironmentVariables: [
-          mockGlobalEnvironmentVariable1,
-          mockGlobalEnvironmentVariable2,
+          realGlobalEnvironmentVariable1,
+          realGlobalEnvironmentVariable2,
         ],
       );
       final jsonValues = value.toJson();
@@ -191,8 +191,8 @@ void main() {
         jsonValues['shells'],
         equals(
           [
-            mockShell1,
-            mockShell2,
+            realShell1,
+            realShell2,
           ],
         ),
       );
@@ -200,8 +200,8 @@ void main() {
         jsonValues['scripts'],
         equals(
           [
-            mockScript1,
-            mockScript2,
+            realScript1,
+            realScript2,
           ],
         ),
       );
@@ -209,8 +209,8 @@ void main() {
         jsonValues['branchVariables'],
         equals(
           [
-            mockBranchVariable1,
-            mockBranchVariable2,
+            realBranchVariable1,
+            realBranchVariable2,
           ],
         ),
       );
@@ -218,8 +218,8 @@ void main() {
         jsonValues['gitBranches'],
         equals(
           [
-            mockGitBranch1,
-            mockGitBranch2,
+            realGitBranch1,
+            realGitBranch2,
           ],
         ),
       );
@@ -227,8 +227,8 @@ void main() {
         jsonValues['branchVariableValues'],
         equals(
           [
-            mockBranchVariableValue1,
-            mockBranchVariableValue2,
+            realBranchVariableValue1,
+            realBranchVariableValue2,
           ],
         ),
       );
@@ -236,8 +236,8 @@ void main() {
         jsonValues['globalVariables'],
         equals(
           [
-            mockGlobalVariable1,
-            mockGlobalVariable2,
+            realGlobalVariable1,
+            realGlobalVariable2,
           ],
         ),
       );
@@ -245,8 +245,8 @@ void main() {
         jsonValues['globalEnvironmentVariables'],
         equals(
           [
-            mockGlobalEnvironmentVariable1,
-            mockGlobalEnvironmentVariable2,
+            realGlobalEnvironmentVariable1,
+            realGlobalEnvironmentVariable2,
           ],
         ),
       );
@@ -255,33 +255,33 @@ void main() {
     test('fromJson', () {
       final jsonValues = <String, dynamic>{};
       jsonValues['shells'] = [
-        mockShell1.toJson(),
-        mockShell2.toJson(),
+        realShell1.toJson(),
+        realShell2.toJson(),
       ];
 
       jsonValues['scripts'] = [
-        mockScript1.toJson(),
-        mockScript2.toJson(),
+        realScript1.toJson(),
+        realScript2.toJson(),
       ];
       jsonValues['branchVariables'] = [
-        mockBranchVariable1.toJson(),
-        mockBranchVariable2.toJson(),
+        realBranchVariable1.toJson(),
+        realBranchVariable2.toJson(),
       ];
       jsonValues['gitBranches'] = [
-        mockGitBranch1.toJson(),
-        mockGitBranch2.toJson(),
+        realGitBranch1.toJson(),
+        realGitBranch2.toJson(),
       ];
       jsonValues['branchVariableValues'] = [
-        mockBranchVariableValue1.toJson(),
-        mockBranchVariableValue2.toJson(),
+        realBranchVariableValue1.toJson(),
+        realBranchVariableValue2.toJson(),
       ];
       jsonValues['globalVariables'] = [
-        mockGlobalVariable1.toJson(),
-        mockGlobalVariable2.toJson(),
+        realGlobalVariable1.toJson(),
+        realGlobalVariable2.toJson(),
       ];
       jsonValues['globalEnvironmentVariables'] = [
-        mockGlobalEnvironmentVariable1.toJson(),
-        mockGlobalEnvironmentVariable2.toJson(),
+        realGlobalEnvironmentVariable1.toJson(),
+        realGlobalEnvironmentVariable2.toJson(),
       ];
 
       final value = JsonStorage.fromJson(jsonValues);
@@ -290,32 +290,32 @@ void main() {
         equals(
           [
             [
-              mockShell1,
-              mockShell2,
+              realShell1,
+              realShell2,
             ],
             [
-              mockScript1,
-              mockScript2,
+              realScript1,
+              realScript2,
             ],
             [
-              mockBranchVariable1,
-              mockBranchVariable2,
+              realBranchVariable1,
+              realBranchVariable2,
             ],
             [
-              mockGitBranch1,
-              mockGitBranch2,
+              realGitBranch1,
+              realGitBranch2,
             ],
             [
-              mockBranchVariableValue1,
-              mockBranchVariableValue2,
+              realBranchVariableValue1,
+              realBranchVariableValue2,
             ],
             [
-              mockGlobalVariable1,
-              mockGlobalVariable2,
+              realGlobalVariable1,
+              realGlobalVariable2,
             ],
             [
-              mockGlobalEnvironmentVariable1,
-              mockGlobalEnvironmentVariable2,
+              realGlobalEnvironmentVariable1,
+              realGlobalEnvironmentVariable2,
             ],
           ],
         ),
@@ -325,32 +325,32 @@ void main() {
     test('toString', () {
       final value = JsonStorage(
         shells: [
-          mockShell1,
-          mockShell2,
+          realShell1,
+          realShell2,
         ],
         scripts: [
-          mockScript1,
-          mockScript2,
+          realScript1,
+          realScript2,
         ],
         branchVariableValues: [
-          mockBranchVariableValue1,
-          mockBranchVariableValue2,
+          realBranchVariableValue1,
+          realBranchVariableValue2,
         ],
         gitBranches: [
-          mockGitBranch1,
-          mockGitBranch2,
+          realGitBranch1,
+          realGitBranch2,
         ],
         branchVariables: [
-          mockBranchVariable1,
-          mockBranchVariable2,
+          realBranchVariable1,
+          realBranchVariable2,
         ],
         globalVariables: [
-          mockGlobalVariable1,
-          mockGlobalVariable2,
+          realGlobalVariable1,
+          realGlobalVariable2,
         ],
         globalEnvironmentVariables: [
-          mockGlobalEnvironmentVariable1,
-          mockGlobalEnvironmentVariable2,
+          realGlobalEnvironmentVariable1,
+          realGlobalEnvironmentVariable2,
         ],
       );
       final jsonString = value.toString();
