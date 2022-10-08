@@ -56,9 +56,9 @@
       "defaultValue": "default1"
     },
     {
-      "uuid": "v-uuid-2",
-      "name": "variable2",
-      "defaultValue": "default2"
+      "uuid": "50141a30-46d0-11ed-9f14-a7176a5a670d",
+      "name": "Avar",
+      "defaultValue": "12"
     }
   ],
   "gitBranches": [
@@ -87,6 +87,18 @@
       "branchUuid": "a-uuid-2",
       "variableUuid": "v-uuid-1",
       "value": "start value 2"
+    },
+    {
+      "uuid": "50144140-46d0-11ed-9f14-a7176a5a670d",
+      "branchUuid": "a-uuid-1",
+      "variableUuid": "50141a30-46d0-11ed-9f14-a7176a5a670d",
+      "value": "12"
+    },
+    {
+      "uuid": "50144141-46d0-11ed-9f14-a7176a5a670d",
+      "branchUuid": "a-uuid-2",
+      "variableUuid": "50141a30-46d0-11ed-9f14-a7176a5a670d",
+      "value": "12"
     }
   ],
   "globalVariables": [

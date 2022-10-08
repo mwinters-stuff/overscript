@@ -49,6 +49,8 @@ class App extends StatelessWidget {
               return ShellsScreen.pageRoute(context);
             case ScriptsScreen.routeName:
               return ScriptsScreen.pageRoute(context);
+            case ScriptEditScreen.routeName:
+              return ScriptEditScreen.pageRoute(context, settings: settings);
           }
           return null;
         },

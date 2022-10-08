@@ -60,13 +60,15 @@ class ScriptListItemState extends State<ScriptListItem> {
             children: [
               IconButton(
                 key: const Key('editValueButton'),
-                tooltip: l10n.editVariable,
-                onPressed: () {},
+                tooltip: l10n.editScript,
+                onPressed: () {
+                  Navigator.of(context).pushNamed(ScriptEditScreen.routeName, arguments: widget.script.uuid);
+                },
                 icon: const Icon(LineIcons.edit),
               ),
               IconButton(
                 key: const Key('delete'),
-                tooltip: l10n.deleteVariable,
+                tooltip: l10n.deleteScript,
                 onPressed: () => showConfirmMessage(
                   context: context,
                   title: l10n.deleteScriptQuestion,

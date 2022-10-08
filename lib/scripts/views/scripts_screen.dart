@@ -54,36 +54,7 @@ class ScriptsScreenState extends State<ScriptsScreen> {
   }
 
   void addScript(BuildContext context) {
-    // final l10n = context.l10n;
-    // final gitCalls = context.read<GitCalls>();
-    // getDirectory(context: context, initialDirectory: '~').then((directory) {
-    //   if (directory != null && directory.isNotEmpty) {
-    //     gitCalls.getScriptName(directory).then((scriptname) {
-    //       gitCalls.getOriginRemote(directory).then((origin) {
-    //         context.read<ScriptsCubit>().add(
-    //               GitScript(
-    //                 uuid: const Uuid().v1(),
-    //                 name: scriptname,
-    //                 directory: directory,
-    //                 origin: origin,
-    //               ),
-    //             );
-    //       }).catchError((error) {
-    //         showErrorMessage(
-    //           context: context,
-    //           title: l10n.addScript,
-    //           message: error! as String,
-    //         );
-    //       });
-    //     }).catchError((error) {
-    //       showErrorMessage(
-    //         context: context,
-    //         title: l10n.addScript,
-    //         message: '${l10n.gitDirectoryError}\n\n$error',
-    //       );
-    //     });
-    //   }
-    // });
+    Navigator.of(context).pushNamed(ScriptEditScreen.routeName);
   }
 
   Widget _listView(List<Script> scripts) {

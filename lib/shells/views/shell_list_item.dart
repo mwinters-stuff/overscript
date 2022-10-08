@@ -54,7 +54,7 @@ class ShellListItemState extends State<ShellListItem> {
             children: [
               IconButton(
                 key: const Key('editValueButton'),
-                tooltip: l10n.editVariable,
+                tooltip: l10n.editShell,
                 onPressed: () {
                   showInputDialog(
                     context: context,
