@@ -104,6 +104,7 @@ class ScriptEditScreen extends StatelessWidget {
                 decoration: InputDecoration(
                   labelText: l10n.arguments,
                 ),
+                initialValue: ["One", "Two", "Three"],
               )
             ],
           ),
